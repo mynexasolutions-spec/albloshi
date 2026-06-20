@@ -1,0 +1,8 @@
+/* Existing global styles — must come before Tailwind directives */
+@import '../styles.css';
+@import './styles/pages.css';
+
+/* Tailwind utilities — preflight disabled to preserve existing styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
