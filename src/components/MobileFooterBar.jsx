@@ -15,7 +15,7 @@ export default function MobileFooterBar() {
         <span className="material-icons mfb-icon">restaurant</span>
         <span className="mfb-label">Food</span>
       </Link>
-      <a href="/#contact" className="mfb-item">
+      <a href="/contact" className="mfb-item">
         <span className="material-icons mfb-icon">groups</span>
         <span className="mfb-label">Manpower</span>
       </a>

@@ -7,9 +7,9 @@ import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 
 const STATS = [
-  { value: '15+', label: 'Years of Experience' },
-  { value: '500+', label: 'Products Supplied' },
-  { value: '200+', label: 'Clients Served' },
+  { value: '8+', label: 'Years of Experience' },
+  { value: '100+', label: 'Containers Imported' },
+  { value: '5+', label: 'Cities Served' },
   { value: '4', label: 'Business Divisions' },
 ];
 
@@ -76,14 +76,11 @@ export default function About() {
         <div className="about-page-hero-overlay"></div>
         <div className="container">
           <div className="about-page-hero-content">
-            <span className="focus-label" style={{ background: 'rgba(255,255,255,0.12)', borderColor: 'rgba(255,255,255,0.25)', color: 'white' }}>
-              SINCE 2008 — DAMMAM, SAUDI ARABIA
-            </span>
             <h1>Mohammad Abdulla<br />Albloshi Trading Co.</h1>
             <p>A premier multi-industry enterprise supplying industrial materials, specialty chemicals, food commodities, and skilled manpower to businesses across the Kingdom of Saudi Arabia.</p>
             <div className="about-hero-actions">
               <a href="#our-story" className="btn btn-primary">Our Story</a>
-              <a href="/#contact" className="btn" style={{ background: 'rgba(255,255,255,0.12)', color: 'white', border: '2px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)' }}>Get in Touch</a>
+              <a href="/contact" className="btn" style={{ background: 'rgba(255,255,255,0.12)', color: 'white', border: '2px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)' }}>Get in Touch</a>
             </div>
           </div>
         </div>
@@ -121,14 +118,14 @@ export default function About() {
             </div>
             <div className="about-story-text-col about-reveal">
               <span className="focus-label">OUR STORY</span>
-              <p className="large-para">Founded in 2008 in Dammam, Albloshi has grown from a focused industrial supplier into a four-division enterprise serving oil & gas, construction, hospitality, and manufacturing sectors across the Kingdom.</p>
-              <p className="large-para">Today we are the authorized regional distributor for <strong>TELLABS Intelligent Chemicals</strong>, delivering industrial materials, food commodities, specialty chemicals, and skilled manpower under one trusted name.</p>
+              <p className="large-para">Founded in 2017 in Dammam, Albloshi began as a premium food distribution enterprise and has grown into a four-division company serving hospitality, industrial, chemical, and manpower sectors across the Kingdom.</p>
+              <p className="large-para">Today we are the exclusive regional distributor for <strong>TELLABS Intelligent Chemicals</strong> across Saudi Arabia and the UAE — delivering food commodities, industrial materials, specialty chemicals, and skilled manpower under one trusted name.</p>
               <div className="about-story-highlights">
                 {[
-                  'Headquartered in Dammam — Kingdom\'s industrial capital',
-                  'Authorized TELLABS distributor across Saudi Arabia & GCC',
-                  'ASTM, ASME, SFDA & SASO compliant supply chain',
-                  'Serving clients from Jubail to Jeddah across all sectors',
+                  'Headquartered in Dammam — Eastern Province commercial hub',
+                  'Exclusive TELLABS distributor across Saudi Arabia, UAE & GCC',
+                  'SFDA, SASO, ASTM & ISO compliant supply chain',
+                  'Serving Dammam, Al Khobar, Qatif, Jubail & Al Hassa',
                 ].map(h => (
                   <div key={h} className="about-story-highlight-item">
                     <span className="material-icons" style={{ color: 'var(--color-primary)', fontSize: '1.1rem' }}>check_circle</span>
@@ -153,7 +150,7 @@ export default function About() {
             <div className="about-mv-card about-mv-card--vision about-reveal">
               <div className="about-mv-icon"><span className="material-icons">visibility</span></div>
               <h3>Our Vision</h3>
-              <p>To be the Kingdom's most trusted multi-industry supply partner — recognized for operational excellence, world-class product standards, and the ability to solve complex supply challenges for businesses of every scale across Saudi Arabia and the GCC.</p>
+              <p>To be recognized as one of the most trusted and efficient supply companies in the Kingdom of Saudi Arabia — offering quality products from around the world, delivered with excellence across food, industrial, chemical, and manpower divisions.</p>
             </div>
             <div className="about-mv-card about-reveal">
               <div className="about-mv-icon"><span className="material-icons">star</span></div>
@@ -237,9 +234,9 @@ export default function About() {
             <div className="map-overlay-dark"></div>
             {[
               { cls: 'card-dammam', title: 'Dammam (HQ)', sub: 'Corporate Hub & Central Distribution' },
-              { cls: 'card-khobar', title: 'Al Khobar', sub: 'Sales Office & Client Services' },
-              { cls: 'card-jubail', title: 'Jubail', sub: 'Industrial Storage & Logistics' },
-              { cls: 'card-other', title: 'Other Hubs', sub: 'Riyadh · Jeddah · Madinah · Makkah · Abha' },
+              { cls: 'card-khobar', title: 'Al Khobar · Qatif', sub: 'Sales Office & Client Services' },
+              { cls: 'card-jubail', title: 'Jubail · Al Hassa', sub: 'Industrial & Regional Supply' },
+              { cls: 'card-other', title: 'Expanding Across KSA', sub: 'Riyadh · Jeddah · Madinah · Makkah · Abha' },
             ].map(c => (
               <div key={c.cls} className={`map-floating-card ${c.cls}`}>
                 <div className="pulse-dot"></div>
@@ -254,17 +251,19 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="page-cta">
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <h2 className="section-title center" style={{ color: 'white' }}>Ready to Partner with Albloshi?</h2>
-          <p>Whether you need industrial materials for a shutdown, chemicals for a water plant, food products for a hotel chain, or a certified manpower team — we have the resources and the expertise to deliver.</p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="/#contact" className="btn btn-primary" style={{ background: 'white', color: 'var(--color-primary)', boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }}>
-              Send Us an Inquiry
-            </a>
-            <a href="tel:+966549581547" className="btn" style={{ background: 'transparent', color: 'white', border: '2px solid rgba(255,255,255,0.5)' }}>
-              Call +966 54 958 1547
-            </a>
+      <section className="blog-cta-section">
+        <div className="container">
+          <div className="blog-cta-card">
+            <div className="blog-cta-inner">
+              <div className="blog-cta-text">
+                <h2>Ready to Partner with Albloshi?</h2>
+                <p>Whether you need industrial materials for a shutdown, chemicals for a water plant, food products for a hotel chain, or a certified manpower team — we have the resources and the expertise to deliver.</p>
+              </div>
+              <div className="blog-cta-actions">
+                <Link to="/contact" className="btn btn-primary">Send Us an Inquiry</Link>
+                <Link to="/#segments" className="btn btn-outline">Explore Our Verticals</Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

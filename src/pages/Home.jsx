@@ -1,13 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
-import Chatbot from '../components/Chatbot';
-import { supabase } from '../lib/supabase';
 
 const SLIDES = [
   {
@@ -60,8 +57,6 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
-  const [form, setForm] = useState({ name: '', email: '', phone: '', service: 'Industrial Materials', message: '' });
-  const [submitting, setSubmitting] = useState(false);
   const reviewsViewportRef = useRef(null);
   const intervalRef = useRef(null);
 
@@ -126,31 +121,6 @@ export default function Home() {
     vp.scrollBy({ left: dir * amount, behavior: 'smooth' });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!form.name || !form.email || !form.phone) {
-      toast.error('Please fill out all required fields.');
-      return;
-    }
-    setSubmitting(true);
-    try {
-      if (supabase) {
-        const { error } = await supabase.from('inquiries').insert([{
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          service: form.service,
-          message: form.message,
-        }]);
-        if (error) throw error;
-      }
-      toast.success(`Thank you, ${form.name}! Your inquiry has been sent. Our team will contact you shortly.`);
-      setForm({ name: '', email: '', phone: '', service: 'Industrial Materials', message: '' });
-    } catch {
-      toast.error('Something went wrong. Please try again or contact us directly.');
-    }
-    setSubmitting(false);
-  };
 
   return (
     <>
@@ -280,7 +250,7 @@ export default function Home() {
       </section>
 
       {/* Business Verticals */}
-      <section className="verticals-section section-padding">
+      <section id="segments" className="verticals-section section-padding">
         <div className="container">
           <div className="verticals-header text-center">
             <span className="focus-label">OUR BUSINESS VERTICALS</span>
@@ -405,88 +375,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Tellabs */}
-      <section id="partner" className="about-partner-section section-padding">
-        <div className="container">
-          <div className="about-partner-wrapper">
-            <div className="about-partner-split">
-              <div className="about-partner-image">
-                <img src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=800&q=80" alt="Modern Chemical Laboratory" />
-                <div className="about-partner-img-overlay">
-                  <span className="material-icons">science</span>
-                  <span>Advanced R&amp;D Facility</span>
-                </div>
-              </div>
-              <div className="about-partner-content-side">
-                <div className="about-partner-header">
-                  <span className="focus-label">OUR PARTNER</span>
-                  <h2 className="section-title text-left" style={{ marginBottom: '1rem' }}>About Tellabs Chemicals</h2>
-                  <p className="large-para" style={{ marginBottom: '2.5rem' }}>We are committed to providing high-quality and innovative solutions to our customers, continuously improving our specialty chemical products and services.</p>
-                </div>
-                <div className="about-partner-features">
-                  {[
-                    { icon: 'factory', title: 'Manufacturer & Exporter', desc: 'With our commitment to quality and customer satisfaction, we have built a strong reputation as a leading manufacturer of specialty chemicals.' },
-                    { icon: 'biotech', title: 'Sophisticated R&D Center', desc: 'Our state-of-the-art laboratory enables us to continuously develop high-quality chemical products using cutting-edge technologies.' },
-                    { icon: 'science', title: 'Extensive Product Range', desc: 'Our portfolio includes Water Treatment chemicals, Polyelectrolytes, Defoamers, Activated Carbon, Hygiene solutions, and Fuel Additives.' },
-                  ].map(f => (
-                    <div key={f.title} className="about-p-feature">
-                      <div className="about-p-icon"><span className="material-icons">{f.icon}</span></div>
-                      <div className="about-p-text">
-                        <h4>{f.title}</h4>
-                        <p>{f.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section id="team" className="team-section section-padding">
-        <div className="container">
-          <div className="text-center">
-            <span className="focus-label">OUR LEADERSHIP</span>
-            <h2 className="section-title center">Executive Management Team</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 3.5rem' }}>Our leadership team steers Albloshi toward sustainable industrial innovation and robust supply chain solutions across Saudi Arabia.</p>
-          </div>
-          <div className="team-grid">
-            {[
-              { id: 1, name: 'Mohammad Abdulla Albloshi', role: 'Chairman & Founder', bio: 'Steering the strategic vision and long-term growth of the company across KSA\'s key industrial sectors.' },
-              { id: 2, name: 'Mohammad Riaz', role: 'Business Development Manager', bio: 'Leading enterprise growth and strategic partnerships, including our exclusive alliance with TELLABS chemicals.' },
-              { id: 3, name: 'Eng. Fahad Al-Mutairi', role: 'Director of Operations & Logistics', bio: 'Directing logistics operations, warehousing networks, and quality compliance logs across all supply divisions.' },
-            ].map(m => (
-              <div key={m.id} className="team-card">
-                <div className="team-img-wrapper">
-                  <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                      <linearGradient id={`avatarGrad${m.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#f8fafc" />
-                        <stop offset="100%" stopColor="#cbd5e1" />
-                      </linearGradient>
-                      <linearGradient id={`primaryGrad${m.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#1B5FAF" />
-                        <stop offset="100%" stopColor="#0b2246" />
-                      </linearGradient>
-                    </defs>
-                    <rect width="100" height="100" fill={`url(#avatarGrad${m.id})`} />
-                    <circle cx="50" cy="40" r="18" fill={`url(#primaryGrad${m.id})`} opacity="0.85" />
-                    <path d="M20 80C20 63.43 33.43 50 50 50C66.57 50 80 63.43 80 80V85H20V80Z" fill={`url(#primaryGrad${m.id})`} opacity="0.85" />
-                  </svg>
-                </div>
-                <div className="team-info">
-                  <h3>{m.name}</h3>
-                  <div className="team-role">{m.role}</div>
-                  <p className="team-bio">{m.bio}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* FAQ */}
       <section id="faq" className="section-padding">
         <div className="container">
@@ -510,85 +398,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="section-padding">
+      {/* Contact CTA */}
+      <section className="blog-cta-section">
         <div className="container">
-          <div className="contact-grid">
-            <div className="contact-form-container">
-              <h3>Enterprise Sales Inquiry</h3>
-              <p className="large-para" style={{ fontSize: '0.95rem', marginBottom: '2rem' }}>Please submit your details and project specifications below. Our business development team will analyze your request and reply within one business day.</p>
-              <form id="companyInquiryForm" onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <label htmlFor="formName" className="form-label">Full Name *</label>
-                  <input type="text" id="formName" className="form-input" required placeholder="e.g. Mohammad Al-Harbi" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
-                </div>
-                <div className="form-group-row">
-                  <div className="form-group">
-                    <label htmlFor="formEmail" className="form-label">Business Email *</label>
-                    <input type="email" id="formEmail" className="form-input" required placeholder="name@yourcompany.com" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="formPhone" className="form-label">Mobile / WhatsApp *</label>
-                    <input type="tel" id="formPhone" className="form-input" required placeholder="+966 5X XXX XXXX" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="formService" className="form-label">Required Division</label>
-                  <select id="formService" className="form-select" value={form.service} onChange={e => setForm(f => ({ ...f, service: e.target.value }))}>
-                    <option value="Industrial Materials">Industrial Materials and Building Solutions</option>
-                    <option value="Food Distribution">Wholesale Food Distribution</option>
-                    <option value="TELLABS Chemicals">TELLABS specialty Chemicals</option>
-                    <option value="Manpower Supply">Manpower Supply Services</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="formMessage" className="form-label">Additional Information</label>
-                  <textarea id="formMessage" className="form-textarea" placeholder="Any additional details, quantities, specifications, or questions..." value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))}></textarea>
-                </div>
-                <button type="submit" className="btn btn-primary" style={{ width: '100%', border: 'none' }} disabled={submitting}>
-                  {submitting ? 'Submitting Inquiry...' : 'Submit Inquiry'}
-                </button>
-              </form>
-            </div>
-
-            <div className="contact-info-panel">
-              <h2 className="section-title">Connect With Our Corporate Offices</h2>
-              <p className="large-para">Connect directly with our headquarters or division directors to arrange technical consultation or obtain direct credit accounts.</p>
-              <div className="contact-card-list">
-                <div className="contact-card-item">
-                  <span className="contact-card-icon material-icons">phone_in_talk</span>
-                  <div className="contact-card-details">
-                    <h4>Business Development Office</h4>
-                    <p>Mohammad Riaz — Business Development Manager</p>
-                    <p>Mobile / WhatsApp: <a href="https://wa.me/966549581547" target="_blank" rel="noopener noreferrer" style={{ fontWeight: '700' }}>+966 54 958 1547</a></p>
-                  </div>
-                </div>
-                <div className="contact-card-item">
-                  <span className="contact-card-icon material-icons">mail_outline</span>
-                  <div className="contact-card-details">
-                    <h4>General Sales Desk</h4>
-                    <p>Email: <a href="mailto:sales@albloshi.co">sales@albloshi.co</a></p>
-                    <p>Website: <a href="https://albloshi.co" target="_blank" rel="noopener noreferrer">https://albloshi.co</a></p>
-                  </div>
-                </div>
-                <div className="contact-card-item">
-                  <span className="contact-card-icon material-icons">location_on</span>
-                  <div className="contact-card-details">
-                    <h4>Dammam Headquarters Address</h4>
-                    <p>5250, Al Nidal 7372, Ash Shulah Dist.,</p>
-                    <p>Dammam 34261, Kingdom of Saudi Arabia</p>
-                  </div>
-                </div>
+          <div className="blog-cta-card">
+            <div className="blog-cta-inner">
+              <div className="blog-cta-text">
+                <h2>Have More Questions?</h2>
+                <p>Get in touch with our team today to discuss your specific requirements, request custom quotes, or verify product specifications.</p>
               </div>
-              <div className="contact-meta-grid">
-                <div className="meta-item">
-                  <span className="meta-label">Commercial Registry</span>
-                  <span className="meta-value">7049763092</span>
-                </div>
-                <div className="meta-item">
-                  <span className="meta-label">National Address Code</span>
-                  <span className="meta-value">EAPB5250</span>
-                </div>
+              <div className="blog-cta-actions">
+                <Link to="/contact" className="btn btn-primary">Contact Us Now</Link>
+                <Link to="/#segments" className="btn btn-outline">Explore Our Verticals</Link>
               </div>
             </div>
           </div>
@@ -598,7 +419,6 @@ export default function Home() {
       <Footer />
       <MobileFooterBar />
       <WhatsAppFloat />
-      <Chatbot />
     </>
   );
 }

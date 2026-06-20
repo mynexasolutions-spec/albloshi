@@ -18,14 +18,10 @@ export default function IndustrialServices() {
       {/* Hero */}
       <section className="page-hero" style={{ backgroundImage: 'linear-gradient(135deg, rgba(9, 20, 45, 0.88) 0%, rgba(14, 108, 196, 0.72) 100%), url(https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1920&q=80)' }}>
         <div className="container">
-          <span className="page-hero-badge" style={{ color: '#93C5FD' }}>
-            <span className="material-icons" style={{ fontSize: '1rem' }}>precision_manufacturing</span>
-            Division I — Industrial Materials
-          </span>
           <h1>Industrial Materials &amp;<br />Building Solutions</h1>
           <p>Complete piping systems, flow control hardware, electrical infrastructure, and certified safety consumables — sourced to ASTM/ASME standards and delivered across the Kingdom.</p>
           <div className="page-hero-actions">
-            <a href="/#contact" className="btn btn-primary">Request a Quote</a>
+            <a href="/contact" className="btn btn-primary">Request a Quote</a>
             <a href="#products" className="btn-outline-white">View Products</a>
           </div>
         </div>
@@ -60,6 +56,7 @@ export default function IndustrialServices() {
           <div className="products-grid">
             {[
               {
+                id: 'steel-pipes',
                 img: '/images/products/CS_and_SS_pipes.webp',
                 tag: 'Piping Systems',
                 title: 'CS and SS Seamless Pipes',
@@ -67,6 +64,7 @@ export default function IndustrialServices() {
                 specs: ['ASTM A106', 'ASTM A312', 'API 5L', 'Up to 36″'],
               },
               {
+                id: 'valves-flanges',
                 img: '/images/products/valves_and_flanges.webp',
                 tag: 'Flow Control',
                 title: 'Valves and Flanges',
@@ -74,6 +72,7 @@ export default function IndustrialServices() {
                 specs: ['ASME B16.5', 'API 600', 'Class 150–2500', 'CS / SS / Alloy'],
               },
               {
+                id: 'cable-trays',
                 img: '/images/products/cable_trays_and_fittings.webp',
                 tag: 'Electrical Infrastructure',
                 title: 'Cable Trays and Fittings',
@@ -81,6 +80,7 @@ export default function IndustrialServices() {
                 specs: ['IEC 61537', 'Hot-Dip Galvanized', 'SS 304 / 316', '100–900mm Width'],
               },
               {
+                id: 'welding-safety',
                 img: '/images/products/welding_and_safety_gears.webp',
                 tag: 'Safety & Consumables',
                 title: 'Welding and Safety Gear',
@@ -88,7 +88,7 @@ export default function IndustrialServices() {
                 specs: ['AWS Certified', 'EN 397 Helmets', 'SASO Compliant', 'ARAMCO Approved'],
               },
             ].map(p => (
-              <div key={p.title} className="product-block">
+              <div key={p.title} className="product-block" id={p.id}>
                 <img src={p.img} alt={p.title} className="product-block-img" />
                 <div className="product-block-body">
                   <span className="product-block-tag">{p.tag}</span>
@@ -97,7 +97,7 @@ export default function IndustrialServices() {
                   <div className="product-block-specs">
                     {p.specs.map(s => <span key={s} className="spec-chip">{s}</span>)}
                   </div>
-                  <a href="/#contact" className="product-block-btn">
+                  <a href="/contact" className="product-block-btn">
                     <span className="material-icons" style={{ fontSize: '1rem' }}>mail_outline</span>
                     Get Quote
                   </a>
@@ -147,11 +147,20 @@ export default function IndustrialServices() {
       </section>
 
       {/* CTA */}
-      <section className="page-cta">
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <h2 className="section-title center" style={{ color: 'white' }}>Ready to Source Industrial Materials?</h2>
-          <p>Submit your bill of materials or project specifications and our team will respond within one business day with pricing and availability.</p>
-          <a href="/#contact" className="btn btn-primary" style={{ background: 'white', color: 'var(--color-primary)', boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }}>Send Your Requirements</a>
+      <section className="blog-cta-section">
+        <div className="container">
+          <div className="blog-cta-card">
+            <div className="blog-cta-inner">
+              <div className="blog-cta-text">
+                <h2>Ready to Source Industrial Materials?</h2>
+                <p>Submit your bill of materials or project specifications and our team will respond within one business day with pricing and availability.</p>
+              </div>
+              <div className="blog-cta-actions">
+                <Link to="/contact" className="btn btn-primary">Send Your Requirements</Link>
+                <Link to="/#segments" className="btn btn-outline">Explore Our Verticals</Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

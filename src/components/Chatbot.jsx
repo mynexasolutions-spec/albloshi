@@ -83,7 +83,7 @@ export default function Chatbot() {
         addMessage({ type: 'bot', text: 'Scrolling you to our Sales Inquiry form...' });
         setTimeout(() => {
           setIsOpen(false);
-          navigate('/#contact');
+          navigate('/contact');
         }, 600);
       }, 800);
       return;

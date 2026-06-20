@@ -70,6 +70,34 @@
         display: block;
     }
 
+    /* Nested Submenu Mobile Overrides */
+    .dropdown-submenu .submenu {
+        position: static;
+        transform: none !important;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        padding: 0 0 0.5rem 1rem;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .dropdown-submenu.open-mobile-nested-submenu .submenu {
+        display: block;
+    }
+
+    .dropdown-submenu > .dropdown-item::after {
+        content: 'expand_more';
+    }
+
+    .dropdown-submenu.open-mobile-nested-submenu > .dropdown-item::after {
+        transform: rotate(180deg);
+    }
+
     .nav-cta {
         margin: 2rem 0 0 0;
         width: 100%;

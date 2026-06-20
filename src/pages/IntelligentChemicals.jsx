@@ -8,6 +8,7 @@ import WhatsAppFloat from '../components/WhatsAppFloat';
 
 const SOLUTIONS = [
   {
+    id: 'water-treatment',
     img: '/images/intelligent_chemicals/Industrial Water Treatment.webp',
     title: 'Industrial Water Treatment',
     desc: 'Advanced water treatment chemicals designed to improve operational efficiency, prevent corrosion, reduce scaling, and optimize industrial water systems.',
@@ -17,6 +18,7 @@ const SOLUTIONS = [
     ],
   },
   {
+    id: 'polymers',
     img: '/images/intelligent_chemicals/Polymers (Coagulants & Flocculants).webp',
     title: 'Polymers (Coagulants & Flocculants)',
     desc: 'High-performance coagulants and flocculants engineered for effective wastewater treatment and industrial clarification systems.',
@@ -26,6 +28,7 @@ const SOLUTIONS = [
     ],
   },
   {
+    id: 'defoamers',
     img: '/images/intelligent_chemicals/Silicone & Organic Defoamers.webp',
     title: 'Silicone & Organic Defoamers',
     desc: 'Specialized defoamer formulations developed to control foam generation in industrial processing systems.',
@@ -35,6 +38,7 @@ const SOLUTIONS = [
     ],
   },
   {
+    id: 'fuel-additives',
     img: '/images/intelligent_chemicals/Fuel Additives.webp',
     title: 'Fuel Additives',
     desc: 'Innovative fuel additive technologies developed to improve combustion efficiency and reduce emissions.',
@@ -44,6 +48,7 @@ const SOLUTIONS = [
     ],
   },
   {
+    id: 'activated-carbon',
     img: '/images/activated_carbon.webp',
     title: 'Activated Carbon Solutions',
     desc: 'Premium activated carbon products engineered for purification, filtration, and industrial adsorption applications.',
@@ -53,6 +58,7 @@ const SOLUTIONS = [
     ],
   },
   {
+    id: 'cleaning-disinfection',
     img: '/images/intelligent_chemicals/Cleaning & Disinfection Solutions.webp',
     title: 'Cleaning & Disinfection Solutions',
     desc: 'Industrial-grade cleaning and sanitation chemicals developed for food processing and hygiene-critical industries.',
@@ -62,6 +68,7 @@ const SOLUTIONS = [
     ],
   },
   {
+    id: 'pulp-paper',
     img: '/images/intelligent_chemicals/Pulp & Paper Chemical Solutions.webp',
     title: 'Pulp & Paper Chemical Solutions',
     desc: 'High-performance specialty chemicals designed for paper manufacturing and pulp processing industries.',
@@ -71,6 +78,7 @@ const SOLUTIONS = [
     ],
   },
   {
+    id: 'sugar-industry',
     img: '/images/intelligent_chemicals/Sugar Industry Solutions.webp',
     title: 'Sugar Industry Solutions',
     desc: 'Specialized chemical formulations developed for sugar processing and industrial sugar plants.',
@@ -125,7 +133,7 @@ export default function IntelligentChemicals() {
           </div>
 
           {SOLUTIONS.map((sol, i) => (
-            <div key={sol.title} className={`solution-block${i % 2 !== 0 ? ' reverse' : ''}`}>
+            <div key={sol.title} id={sol.id} className={`solution-block${i % 2 !== 0 ? ' reverse' : ''}`}>
               <div className="solution-img-col">
                 <img src={sol.img} alt={sol.title} />
               </div>
@@ -190,11 +198,20 @@ export default function IntelligentChemicals() {
       </section>
 
       {/* Final CTA */}
-      <section style={{ backgroundColor: 'var(--color-light)', padding: '5rem 0', textAlign: 'center' }}>
+      <section className="blog-cta-section">
         <div className="container">
-          <h2 className="section-title center" style={{ marginBottom: '1.5rem' }}>Ready to Elevate Your Operations?</h2>
-          <p style={{ fontSize: '1.1rem', color: 'var(--color-body)', marginBottom: '2.5rem', maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto', lineHeight: 1.6 }}>Partner with Tellabs Chemicals for industry-leading specialty solutions, sustainable technologies, and exceptional technical support.</p>
-          <a href="/#contact" className="btn btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.1rem', borderRadius: '50px' }}>Contact Our Experts</a>
+          <div className="blog-cta-card">
+            <div className="blog-cta-inner">
+              <div className="blog-cta-text">
+                <h2>Ready to Elevate Your Operations?</h2>
+                <p>Partner with Tellabs Chemicals for industry-leading specialty solutions, sustainable technologies, and exceptional technical support.</p>
+              </div>
+              <div className="blog-cta-actions">
+                <Link to="/contact" className="btn btn-primary">Contact Our Experts</Link>
+                <Link to="/#segments" className="btn btn-outline">Explore Our Verticals</Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

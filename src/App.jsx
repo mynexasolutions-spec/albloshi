@@ -9,6 +9,9 @@ import About from './pages/About';
 import IndustrialServices from './pages/IndustrialServices';
 import FoodServices from './pages/FoodServices';
 import IntelligentChemicals from './pages/IntelligentChemicals';
+import TellabsChemicals from './pages/TellabsChemicals';
+import Contact from './pages/Contact';
+import Chatbot from './components/Chatbot';
 
 function ScrollToHash() {
   const { pathname, hash } = useLocation();
@@ -45,8 +48,11 @@ export default function App() {
           <Route path="/industrial-services" element={<IndustrialServices />} />
           <Route path="/food-services" element={<FoodServices />} />
           <Route path="/intelligent-chemicals" element={<IntelligentChemicals />} />
+          <Route path="/tellabs-chemicals" element={<TellabsChemicals />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
+        <Chatbot />
       </BrowserRouter>
     </HelmetProvider>
   );

@@ -44,7 +44,7 @@ const ARTICLES = [
     read: '7 Min Read',
     title: 'Compliance First: Implementing Saudi Aramco Certification Standards in Skilled Manpower',
     excerpt: 'Industrial shutdowns and petrochemical installations demand heavy structural welders and piping fitters that hold high-integrity compliance clearances. We review Albloshi\'s safety onboarding and intensive verification process that delivers fully certified teams to Aramco sites.',
-    href: '/#contact',
+    href: '/contact',
   },
   {
     id: 'vision-2030',
@@ -125,8 +125,8 @@ export default function Blog() {
                 <p>From industrial piping to specialty chemicals and qualified manpower — our team is ready to deliver. Reach out today and get a tailored sourcing proposal for your next project.</p>
               </div>
               <div className="blog-cta-actions">
-                <a href="/#contact" className="btn btn-primary">Request a Quote</a>
-                <a href="/#segments" className="btn btn-outline">Explore Our Divisions</a>
+                <Link to="/contact" className="btn btn-primary">Request a Quote</Link>
+                <Link to="/#segments" className="btn btn-outline">Explore Our Verticals</Link>
               </div>
             </div>
           </div>
