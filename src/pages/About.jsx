@@ -78,10 +78,6 @@ export default function About() {
           <div className="about-page-hero-content">
             <h1>Mohammad Abdulla<br />Albloshi Trading Co.</h1>
             <p>A premier multi-industry enterprise supplying industrial materials, specialty chemicals, food commodities, and skilled manpower to businesses across the Kingdom of Saudi Arabia.</p>
-            <div className="about-hero-actions">
-              <a href="#our-story" className="btn btn-primary">Our Story</a>
-              <a href="/contact" className="btn" style={{ background: 'rgba(255,255,255,0.12)', color: 'white', border: '2px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)' }}>Get in Touch</a>
-            </div>
           </div>
         </div>
       </section>

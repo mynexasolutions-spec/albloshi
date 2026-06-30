@@ -6,7 +6,7 @@
 /* ── INTELLIGENT CHEMICALS PAGE ────────────────────────────── */
 .ic-page-hero {
     position: relative;
-    padding: 8rem 0 5rem;
+    padding: 9rem 0 6rem;
     background-image: linear-gradient(135deg, rgba(11, 34, 70, 0.9) 0%, rgba(27, 95, 175, 0.8) 100%), url('https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
     background-position: center;
@@ -31,7 +31,7 @@
 .solution-block { display: flex; align-items: center; gap: 4rem; margin-bottom: 6rem; }
 .solution-block:last-child { margin-bottom: 0; }
 .solution-block.reverse { flex-direction: row-reverse; }
-.solution-img-col { flex: 0 0 480px; position: relative; }
+.solution-img-col { flex: 0 0 340px; position: relative; }
 .solution-img-col img { width: 100%; height: auto; aspect-ratio: 1/1; object-fit: cover; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
 .solution-content-col { flex: 1; }
 .solution-content-col h2 { font-size: 2.2rem; color: var(--color-dark); margin-bottom: 1.2rem; font-weight: 500; position: relative; }
@@ -55,7 +55,7 @@
 
 @media (max-width: 992px) {
     .solution-block, .solution-block.reverse { flex-direction: column; gap: 2rem; }
-    .solution-img-col { flex: none; width: 100%; max-width: 450px; margin: 0 auto; }
+    .solution-img-col { flex: none; width: 100%; max-width: 340px; margin: 0 auto; }
     .slide-from-left { transform: translateX(-50px); }
     .slide-from-right { transform: translateX(50px); }
 }
@@ -88,7 +88,7 @@
     margin-bottom: 1.75rem;
 }
 .page-hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; color: white; line-height: 1.15; margin-bottom: 1.25rem; }
-.page-hero p { font-size: 1.15rem; line-height: 1.75; color: rgba(255,255,255,0.85); max-width: 680px; margin: 0 auto 2.5rem; }
+.page-hero p { font-size: 1.15rem; line-height: 1.75; color: rgba(255,255,255,0.85); max-width: 680px; margin: 0 auto; }
 .page-hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 .btn-outline-white { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; font-family: var(--font-sans); font-size: 0.95rem; font-weight: 600; border-radius: 4px; border: 2px solid rgba(255,255,255,0.6); color: white; background: transparent; transition: var(--transition-smooth); }
 .btn-outline-white:hover { background: rgba(255,255,255,0.15); border-color: white; }
@@ -168,7 +168,7 @@
     background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
     background-position: center;
-    padding: 8rem 0 5rem;
+    padding: 9rem 0 6rem;
     text-align: center;
 }
 .about-page-hero-overlay {
@@ -740,7 +740,7 @@
     .about-team-grid { grid-template-columns: 1fr; }
     .about-values-grid { grid-template-columns: 1fr; }
     .about-divisions-grid { grid-template-columns: 1fr; }
-    .about-page-hero { padding: 8rem 0 5rem; min-height: auto; }
+    .about-page-hero { padding: 7rem 0 4rem; min-height: auto; }
     .about-hero-actions { flex-direction: column; }
 }
 
@@ -771,3 +771,84 @@
 .blog-post-content a    { color: #1B5FAF; font-weight: 600; text-decoration: underline; }
 .blog-post-content hr   { border: none; border-top: 1px solid #f1f5f9; margin: 2rem 0; }
 .blog-post-content strong { color: #0f172a; }
+
+
+/* ── CLIENT LOGO MARQUEE ────────────────────────────────────── */
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.marquee-outer {
+    overflow: hidden;
+    width: 100%;
+    /* fade edges */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    width: max-content;
+    animation: marquee 22s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+.marquee-card {
+    flex-shrink: 0;
+    width: 320px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.marquee-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .marquee-outer {
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+    .marquee-card { width: 220px; height: 110px; }
+    .marquee-track { gap: 0; animation-duration: 18s; }
+}
+
+/* ── TELLABS PAGE RESPONSIVE ────────────────────────────────── */
+.tc-split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: stretch;
+}
+.tc-segments-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+.tc-collab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+.tc-clients-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .tc-split-grid    { grid-template-columns: 1fr; gap: 2rem; }
+    .tc-segments-grid { grid-template-columns: 1fr; }
+    .tc-collab-grid   { grid-template-columns: 1fr; }
+    .tc-clients-grid  { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .tc-segments-grid { grid-template-columns: repeat(2, 1fr); }
+    .tc-collab-grid   { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) { .blog-cta-text { flex: none; width: 100%; } }

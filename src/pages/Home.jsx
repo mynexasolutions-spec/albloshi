@@ -11,21 +11,21 @@ const SLIDES = [
     bg: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80',
     subtitle: 'Industrial Supplies',
     title: 'Industrial Materials and Building Solutions',
-    cta: 'Explore Industrial Division',
+    cta: 'Explore Industrial Vertical',
     href: '/industrial-services',
   },
   {
     bg: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80',
     subtitle: 'Food Trading',
     title: 'Premium Food Distribution Across Saudi Arabia',
-    cta: 'Explore Food Division',
+    cta: 'Explore Food Vertical',
     href: '/food-services',
   },
   {
     bg: 'https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=1920&q=80',
     subtitle: 'Intelligent Chemicals',
     title: 'Intelligent Chemical Solutions for Water Treatment',
-    cta: 'Explore Chemical Division',
+    cta: 'Explore Chemical Vertical',
     href: '/intelligent-chemicals',
   },
 ];
@@ -59,6 +59,51 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
   const reviewsViewportRef = useRef(null);
   const intervalRef = useRef(null);
+  const marqueeRef = useRef(null);
+
+  useEffect(() => {
+    const track = marqueeRef.current;
+    if (!track) return;
+
+    const isMobile = () => window.innerWidth <= 768;
+    let startX = 0;
+    let baseX = 0;
+
+    const getX = (el) => new DOMMatrix(getComputedStyle(el).transform).m41;
+
+    const onTouchStart = (e) => {
+      if (!isMobile()) return;
+      startX = e.touches[0].clientX;
+      baseX = getX(track);
+      track.style.animationPlayState = 'paused';
+      track.style.transform = `translateX(${baseX}px)`;
+    };
+
+    const onTouchMove = (e) => {
+      if (!isMobile()) return;
+      track.style.transform = `translateX(${baseX + e.touches[0].clientX - startX}px)`;
+    };
+
+    const onTouchEnd = () => {
+      if (!isMobile()) return;
+      const currentX = getX(track);
+      const halfWidth = track.scrollWidth / 2;
+      let norm = currentX % halfWidth;
+      if (norm > 0) norm -= halfWidth;
+      track.style.transform = '';
+      track.style.animationDelay = `${(norm / halfWidth) * 22}s`;
+      track.style.animationPlayState = 'running';
+    };
+
+    track.addEventListener('touchstart', onTouchStart, { passive: true });
+    track.addEventListener('touchmove',  onTouchMove,  { passive: true });
+    track.addEventListener('touchend',   onTouchEnd);
+    return () => {
+      track.removeEventListener('touchstart', onTouchStart);
+      track.removeEventListener('touchmove',  onTouchMove);
+      track.removeEventListener('touchend',   onTouchEnd);
+    };
+  }, []);
 
   const startSlideshow = () => {
     clearInterval(intervalRef.current);
@@ -170,7 +215,7 @@ export default function Home() {
           <div className="who-header text-center">
             <span className="focus-label">WHO WE ARE</span>
             <h2 className="section-title center">Driving Progress. Delivering Value.</h2>
-            <p className="large-para" style={{ maxWidth: '800px', margin: '0 auto 2rem', color: 'var(--color-body)', fontSize: '1.05rem' }}>We are a forward-thinking solutions provider delivering high-quality products and services across key industries. With deep domain expertise, a customer-first approach, and trusted partnerships, we help businesses operate smarter, safer, and more efficiently.</p>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>A trusted multi-division trading company delivering quality products, reliable supply, and expert solutions across Saudi Arabia's key industries.</p>
           </div>
           <div className="who-features-grid">
             {[
@@ -195,15 +240,17 @@ export default function Home() {
       <section className="trusted-section section-padding" style={{ background: 'radial-gradient(circle at center, #f4f8ff 0%, #eaf1fa 100%)' }}>
         <div className="container text-center">
           <h2 className="section-title center" style={{ marginBottom: '1rem', color: '#0b2246' }}>Trusted by leading companies<br />around the world</h2>
-          <p className="large-para" style={{ maxWidth: '700px', margin: '0 auto 3.5rem', color: '#64748b', fontSize: '1.05rem' }}>We collaborate with global leaders and trusted organizations to deliver high-quality solutions and long-term value.</p>
+          <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>We collaborate with global leaders and trusted organizations to deliver high-quality solutions and long-term value.</p>
         </div>
-        <div className="container">
-          <div className="partner-scroll-wrapper">
-            <div className="partner-logo-grid">
-              {Array(12).fill(null).map((_, i) => (
-                <div key={i} className="partner-card"><img src="/logo-png.png" alt="Albloshi Partner" /></div>
-              ))}
-            </div>
+        <div className="marquee-outer">
+          <div className="marquee-track" ref={marqueeRef}>
+            {[...Array(4)].flatMap((_, rep) =>
+              [1, 2, 3, 4, 5].map(n => (
+                <div key={`${rep}-${n}`} className="marquee-card">
+                  <img src={`/images/clients/client_${n}.png`} alt={`Client ${n}`} />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>

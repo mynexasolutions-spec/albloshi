@@ -20,10 +20,6 @@ export default function FoodServices() {
         <div className="container">
           <h1>Premium Food Distribution<br />Across Saudi Arabia</h1>
           <p>Enterprise-scale wholesale supply of Basmati rice, refined cooking oils, restaurant essentials, and bulk commodities — delivered reliably to hotels, restaurants, and central kitchens.</p>
-          <div className="page-hero-actions">
-            <a href="/contact" className="btn btn-primary">Request a Quote</a>
-            <a href="#products" className="btn-outline-white">View Products</a>
-          </div>
         </div>
       </section>
 

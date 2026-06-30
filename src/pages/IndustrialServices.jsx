@@ -20,10 +20,6 @@ export default function IndustrialServices() {
         <div className="container">
           <h1>Industrial Materials &amp;<br />Building Solutions</h1>
           <p>Complete piping systems, flow control hardware, electrical infrastructure, and certified safety consumables — sourced to ASTM/ASME standards and delivered across the Kingdom.</p>
-          <div className="page-hero-actions">
-            <a href="/contact" className="btn btn-primary">Request a Quote</a>
-            <a href="#products" className="btn-outline-white">View Products</a>
-          </div>
         </div>
       </section>
 

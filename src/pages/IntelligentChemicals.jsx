@@ -119,8 +119,8 @@ export default function IntelligentChemicals() {
       {/* Hero */}
       <section className="ic-page-hero">
         <div className="container">
-          <h1>About Tellabs Chemicals</h1>
-          <p>Tellabs Chemicals Pvt. Ltd. is a leading manufacturer and exporter of specialty chemicals focused on delivering innovative, sustainable, and high-performance solutions for industrial applications. With advanced manufacturing facilities, strong R&amp;D capabilities, and a commitment to quality, Tellabs serves industries across water treatment, food processing, sugar, pulp &amp; paper, fuel optimization, and industrial cleaning.</p>
+          <h1>Intelligent Chemical<br />Solutions</h1>
+          <p>Advanced specialty chemical formulations delivering high-performance solutions across water treatment, pulp &amp; paper, fuel optimization, and industrial cleaning.</p>
         </div>
       </section>
 

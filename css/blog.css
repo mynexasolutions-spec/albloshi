@@ -3,7 +3,7 @@
    ========================================================================== */
 .blog-banner {
     position: relative;
-    height: 400px;
+    padding: 9rem 0 6rem;
     background-image: url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
     background-position: center;

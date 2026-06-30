@@ -56,10 +56,6 @@ export default function Contact() {
         <div className="container">
           <h1>Get in Touch</h1>
           <p>Connect with our team for inquiries, quotes, and partnership opportunities. We're here to support your business across all our divisions.</p>
-          <div className="page-hero-actions">
-            <a href="#inquiry-form" className="btn btn-primary">Send an Inquiry</a>
-            <a href="https://wa.me/966549581547" target="_blank" rel="noopener noreferrer" className="btn-outline-white">WhatsApp Us</a>
-          </div>
         </div>
       </section>
 
