@@ -5,49 +5,42 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const STATS = [
-  { value: '8+', label: 'Years of Experience' },
-  { value: '100+', label: 'Containers Imported' },
-  { value: '5+', label: 'Cities Served' },
-  { value: '4', label: 'Business Divisions' },
+  { value: '8+', labelKey: 'about_stat_years_label' },
+  { value: '100+', labelKey: 'about_stat_containers_label' },
+  { value: '5+', labelKey: 'about_stat_cities_label' },
+  { value: '4', labelKey: 'about_stat_divisions_label' },
 ];
 
 const VALUES = [
-  {
-    icon: 'verified',
-    title: 'Quality First',
-    desc: 'Every product we supply — from carbon steel pipes to specialty chemicals — comes with full traceability documentation, mill certificates, and compliance to international standards including ASTM, ASME, SASO, and SFDA.',
-  },
-  {
-    icon: 'handshake',
-    title: 'Long-Term Partnerships',
-    desc: 'We build relationships, not transactions. Our clients in oil & gas, construction, hospitality, and manufacturing trust us as a single, reliable vendor because we consistently deliver on commitments.',
-  },
-  {
-    icon: 'local_shipping',
-    title: 'Operational Excellence',
-    desc: 'Backed by a dedicated logistics fleet and centralized warehousing in Dammam, we ensure goods reach project sites across the Eastern Province and beyond on schedule — every time.',
-  },
-  {
-    icon: 'groups',
-    title: 'People-Driven',
-    desc: 'From our leadership team to our field technicians and account managers, every person at Albloshi is committed to the mission of empowering industries with the resources they need to thrive.',
-  },
-  {
-    icon: 'eco',
-    title: 'Sustainability',
-    desc: 'Through our partnership with TELLABS, we promote environmentally responsible chemical solutions that reduce industrial waste, lower emissions, and support Saudi Arabia\'s Green Initiative.',
-  },
-  {
-    icon: 'emoji_events',
-    title: 'Proven Track Record',
-    desc: 'With projects delivered across Jubail, Dammam, Riyadh, and Jeddah, our portfolio speaks for itself. We have supported shutdowns, large-scale builds, and everyday operations for over a decade.',
-  },
+  { icon: 'verified', titleKey: 'about_value_quality_title', descKey: 'about_value_quality_desc' },
+  { icon: 'handshake', titleKey: 'about_value_partnerships_title', descKey: 'about_value_partnerships_desc' },
+  { icon: 'local_shipping', titleKey: 'about_value_excellence_title', descKey: 'about_value_excellence_desc' },
+  { icon: 'groups', titleKey: 'about_value_people_title', descKey: 'about_value_people_desc' },
+  { icon: 'eco', titleKey: 'about_value_sustainability_title', descKey: 'about_value_sustainability_desc' },
+  { icon: 'emoji_events', titleKey: 'about_value_trackrecord_title', descKey: 'about_value_trackrecord_desc' },
 ];
 
+const TEAM = [
+  { id: 1, name: 'Mohammad Abdulla Albloshi', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio' },
+  { id: 2, name: 'Mohammad Riaz', roleKey: 'about_team_2_role', bioKey: 'about_team_2_bio' },
+  { id: 3, name: 'Eng. Fahad Al-Mutairi', roleKey: 'about_team_3_role', bioKey: 'about_team_3_bio' },
+];
+
+const NETWORK_CARDS = [
+  { cls: 'card-dammam', titleKey: 'about_network_dammam_title', subKey: 'about_network_dammam_sub' },
+  { cls: 'card-khobar', titleKey: 'about_network_khobar_title', subKey: 'about_network_khobar_sub' },
+  { cls: 'card-jubail', titleKey: 'about_network_jubail_title', subKey: 'about_network_jubail_sub' },
+  { cls: 'card-other', titleKey: 'about_network_other_title', subKey: 'about_network_other_sub' },
+];
+
+const HIGHLIGHT_KEYS = ['about_story_highlight_1', 'about_story_highlight_2', 'about_story_highlight_3', 'about_story_highlight_4'];
 
 export default function About() {
+  const { t } = useLanguage();
+
   useEffect(() => {
     const els = document.querySelectorAll('.about-reveal');
     const observer = new IntersectionObserver((entries, obs) => {
@@ -65,8 +58,8 @@ export default function About() {
   return (
     <>
       <Helmet>
-        <title>About Us | Mohammad Abdulla Albloshi Trading Co.</title>
-        <meta name="description" content="Learn about Mohammad Abdulla Albloshi Trading Co. — a Dammam-based multi-industry enterprise supplying industrial materials, food commodities, TELLABS specialty chemicals, and skilled manpower across Saudi Arabia since 2008." />
+        <title>{t('about_meta_title')}</title>
+        <meta name="description" content={t('about_meta_desc')} />
       </Helmet>
 
       <Header />
@@ -76,8 +69,8 @@ export default function About() {
         <div className="about-page-hero-overlay"></div>
         <div className="container">
           <div className="about-page-hero-content">
-            <h1>Mohammad Abdulla<br />Albloshi Trading Co.</h1>
-            <p>A premier multi-industry enterprise supplying industrial materials, specialty chemicals, food commodities, and skilled manpower to businesses across the Kingdom of Saudi Arabia.</p>
+            <h1>{t('about_hero_title_l1')}<br />{t('about_hero_title_l2')}</h1>
+            <p>{t('about_hero_desc')}</p>
           </div>
         </div>
       </section>
@@ -87,9 +80,9 @@ export default function About() {
         <div className="container">
           <div className="about-stats-grid">
             {STATS.map(s => (
-              <div key={s.label} className="about-stat-item">
+              <div key={s.labelKey} className="about-stat-item">
                 <span className="about-stat-value">{s.value}</span>
-                <span className="about-stat-label">{s.label}</span>
+                <span className="about-stat-label">{t(s.labelKey)}</span>
               </div>
             ))}
           </div>
@@ -106,26 +99,21 @@ export default function About() {
                 <div className="about-story-badge">
                   <span className="material-icons">verified</span>
                   <div>
-                    <strong>CR No.</strong>
+                    <strong>{t('about_story_cr_label')}</strong>
                     <span>7049763092</span>
                   </div>
                 </div>
               </div>
             </div>
             <div className="about-story-text-col about-reveal">
-              <span className="focus-label">OUR STORY</span>
-              <p className="large-para">Founded in 2017 in Dammam, Albloshi began as a premium food distribution enterprise and has grown into a four-division company serving hospitality, industrial, chemical, and manpower sectors across the Kingdom.</p>
-              <p className="large-para">Today we are the exclusive regional distributor for <strong>TELLABS Intelligent Chemicals</strong> across Saudi Arabia and the UAE — delivering food commodities, industrial materials, specialty chemicals, and skilled manpower under one trusted name.</p>
+              <span className="focus-label">{t('about_story_label')}</span>
+              <p className="large-para">{t('about_story_p1')}</p>
+              <p className="large-para">{t('about_story_p2_before')} <strong>{t('about_story_p2_strong')}</strong> {t('about_story_p2_after')}</p>
               <div className="about-story-highlights">
-                {[
-                  'Headquartered in Dammam — Eastern Province commercial hub',
-                  'Exclusive TELLABS distributor across Saudi Arabia, UAE & GCC',
-                  'SFDA, SASO, ASTM & ISO compliant supply chain',
-                  'Serving Dammam, Al Khobar, Qatif, Jubail & Al Hassa',
-                ].map(h => (
-                  <div key={h} className="about-story-highlight-item">
+                {HIGHLIGHT_KEYS.map(k => (
+                  <div key={k} className="about-story-highlight-item">
                     <span className="material-icons" style={{ color: 'var(--color-primary)', fontSize: '1.1rem' }}>check_circle</span>
-                    <span>{h}</span>
+                    <span>{t(k)}</span>
                   </div>
                 ))}
               </div>
@@ -140,18 +128,18 @@ export default function About() {
           <div className="about-mv-grid">
             <div className="about-mv-card about-reveal">
               <div className="about-mv-icon"><span className="material-icons">flag</span></div>
-              <h3>Our Mission</h3>
-              <p>To empower Saudi Arabia's industrial, commercial, and hospitality sectors by delivering a unified, high-quality supply of materials, chemicals, food commodities, and skilled workforce — backed by technical expertise, strict compliance, and uncompromising reliability.</p>
+              <h3>{t('about_mv_mission_title')}</h3>
+              <p>{t('about_mv_mission_desc')}</p>
             </div>
             <div className="about-mv-card about-mv-card--vision about-reveal">
               <div className="about-mv-icon"><span className="material-icons">visibility</span></div>
-              <h3>Our Vision</h3>
-              <p>To be recognized as one of the most trusted and efficient supply companies in the Kingdom of Saudi Arabia — offering quality products from around the world, delivered with excellence across food, industrial, chemical, and manpower divisions.</p>
+              <h3>{t('about_mv_vision_title')}</h3>
+              <p>{t('about_mv_vision_desc')}</p>
             </div>
             <div className="about-mv-card about-reveal">
               <div className="about-mv-icon"><span className="material-icons">star</span></div>
-              <h3>Our Promise</h3>
-              <p>Every order, every delivery, every client interaction reflects our fundamental commitment: that choosing Albloshi means choosing a partner who understands your industry, respects your timelines, and stands behind every product with full documentation and after-sales support.</p>
+              <h3>{t('about_mv_promise_title')}</h3>
+              <p>{t('about_mv_promise_desc')}</p>
             </div>
           </div>
         </div>
@@ -161,16 +149,16 @@ export default function About() {
       <section className="section-padding" style={{ background: 'var(--color-light)' }}>
         <div className="container">
           <div className="text-center">
-            <span className="focus-label">WHAT WE STAND FOR</span>
-            <h2 className="section-title center" style={{ marginTop: '1rem' }}>Our Core Values</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 3.5rem' }}>These principles define how we operate, how we serve our clients, and how we make decisions at every level of the business.</p>
+            <span className="focus-label">{t('about_values_label')}</span>
+            <h2 className="section-title center" style={{ marginTop: '1rem' }}>{t('about_values_title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 3.5rem' }}>{t('about_values_desc')}</p>
           </div>
           <div className="about-values-grid">
             {VALUES.map(v => (
-              <div key={v.title} className="about-value-card about-reveal">
+              <div key={v.titleKey} className="about-value-card about-reveal">
                 <div className="about-value-icon"><span className="material-icons">{v.icon}</span></div>
-                <h4>{v.title}</h4>
-                <p>{v.desc}</p>
+                <h4>{t(v.titleKey)}</h4>
+                <p>{t(v.descKey)}</p>
               </div>
             ))}
           </div>
@@ -181,16 +169,12 @@ export default function About() {
       <section id="team" className="team-section section-padding">
         <div className="container">
           <div className="text-center">
-            <span className="focus-label">OUR LEADERSHIP</span>
-            <h2 className="section-title center">Executive Management Team</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 3.5rem' }}>Our leadership team steers Albloshi toward sustainable industrial innovation and robust supply chain solutions across Saudi Arabia.</p>
+            <span className="focus-label">{t('about_team_label')}</span>
+            <h2 className="section-title center">{t('about_team_title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 3.5rem' }}>{t('about_team_desc')}</p>
           </div>
           <div className="team-grid">
-            {[
-              { id: 1, name: 'Mohammad Abdulla Albloshi', role: 'Chairman & Founder', bio: 'Steering the strategic vision and long-term growth of the company across KSA\'s key industrial sectors.' },
-              { id: 2, name: 'Mohammad Riaz', role: 'Business Development Manager', bio: 'Leading enterprise growth and strategic partnerships, including our exclusive alliance with TELLABS chemicals.' },
-              { id: 3, name: 'Eng. Fahad Al-Mutairi', role: 'Director of Operations & Logistics', bio: 'Directing logistics operations, warehousing networks, and quality compliance logs across all supply divisions.' },
-            ].map(m => (
+            {TEAM.map(m => (
               <div key={m.id} className="team-card">
                 <div className="team-img-wrapper">
                   <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -211,8 +195,8 @@ export default function About() {
                 </div>
                 <div className="team-info">
                   <h3>{m.name}</h3>
-                  <div className="team-role">{m.role}</div>
-                  <p className="team-bio">{m.bio}</p>
+                  <div className="team-role">{t(m.roleKey)}</div>
+                  <p className="team-bio">{t(m.bioKey)}</p>
                 </div>
               </div>
             ))}
@@ -223,22 +207,17 @@ export default function About() {
       {/* Distribution Network — same as Home page */}
       <section id="network" className="network-hero bg-dark-section">
         <div className="container relative z-10 text-center">
-          <h2 className="section-title center text-white" style={{ marginBottom: '1rem' }}>Robust Saudi Distribution Network</h2>
-          <p className="large-para text-white-80" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>Headquartered strategically in Dammam to support the industrial heartland of the Eastern Province, Albloshi operates comprehensive localized fulfillment pipelines across primary commercial hubs.</p>
+          <h2 className="section-title center text-white" style={{ marginBottom: '1rem' }}>{t('about_network_title')}</h2>
+          <p className="large-para text-white-80" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>{t('about_network_desc')}</p>
           <div className="network-interactive-map">
             <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80" alt="Distribution Map" className="network-map-bg" />
             <div className="map-overlay-dark"></div>
-            {[
-              { cls: 'card-dammam', title: 'Dammam (HQ)', sub: 'Corporate Hub & Central Distribution' },
-              { cls: 'card-khobar', title: 'Al Khobar · Qatif', sub: 'Sales Office & Client Services' },
-              { cls: 'card-jubail', title: 'Jubail · Al Hassa', sub: 'Industrial & Regional Supply' },
-              { cls: 'card-other', title: 'Expanding Across KSA', sub: 'Riyadh · Jeddah · Madinah · Makkah · Abha' },
-            ].map(c => (
+            {NETWORK_CARDS.map(c => (
               <div key={c.cls} className={`map-floating-card ${c.cls}`}>
                 <div className="pulse-dot"></div>
                 <div className="card-content glass-card-dark">
-                  <h4>{c.title}</h4>
-                  <span>{c.sub}</span>
+                  <h4>{t(c.titleKey)}</h4>
+                  <span>{t(c.subKey)}</span>
                 </div>
               </div>
             ))}
@@ -252,12 +231,12 @@ export default function About() {
           <div className="blog-cta-card">
             <div className="blog-cta-inner">
               <div className="blog-cta-text">
-                <h2>Ready to Partner with Albloshi?</h2>
-                <p>Whether you need industrial materials for a shutdown, chemicals for a water plant, food products for a hotel chain, or a certified manpower team — we have the resources and the expertise to deliver.</p>
+                <h2>{t('about_cta_title')}</h2>
+                <p>{t('about_cta_desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <Link to="/contact" className="btn btn-primary">Send Us an Inquiry</Link>
-                <Link to="/#segments" className="btn btn-outline">Explore Our Verticals</Link>
+                <Link to="/contact" className="btn btn-primary">{t('about_cta_btn1')}</Link>
+                <Link to="/#segments" className="btn btn-outline">{t('about_cta_btn2')}</Link>
               </div>
             </div>
           </div>

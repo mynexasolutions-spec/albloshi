@@ -24,6 +24,17 @@ body {
     overflow-x: hidden;
 }
 
+/* Form controls don't inherit the page font by default in browsers —
+   without this, any button/input lacking its own explicit font-family
+   silently falls back to the OS default (e.g. Arial), breaking font
+   consistency site-wide and especially visible against Cairo in Arabic. */
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
 /* Typography Elements */
 h1,
 h2,

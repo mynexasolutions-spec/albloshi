@@ -419,3 +419,80 @@
     top: 10px;
 }
 
+/* ==========================================================================
+   HEADER ACTIONS & LANGUAGE TOGGLE
+   ========================================================================== */
+.header-right-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.lang-switch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(27, 95, 175, 0.06);
+    border: 1px solid rgba(27, 95, 175, 0.15);
+    color: var(--color-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 40px;
+}
+
+.lang-switch-btn:hover {
+    background: var(--color-primary);
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(27, 95, 175, 0.25);
+    transform: translateY(-1px);
+}
+
+.lang-switch-btn .material-icons {
+    font-size: 1.15rem;
+}
+
+/* RTL overrides for Header */
+[dir="rtl"] .dropdown-submenu .submenu {
+    right: calc(100% + 10px);
+    left: auto;
+}
+
+[dir="rtl"] .dropdown-submenu > .dropdown-item::after {
+    content: 'chevron_left';
+    margin-right: auto;
+    margin-left: 0;
+}
+
+[dir="rtl"] .nav-link-dropdown::after {
+    margin-right: 4px;
+    margin-left: 0;
+}
+
+[dir="rtl"] .nav-cta {
+    margin-right: 1rem;
+    margin-left: 0;
+}
+
+@media (max-width: 1200px) {
+    [dir="rtl"] .nav-menu {
+        right: -100%;
+        left: auto;
+        transition: var(--transition-smooth);
+    }
+    
+    [dir="rtl"] .nav-menu.open {
+        right: 0;
+        left: auto;
+    }
+    
+    [dir="rtl"] .dropdown-menu,
+    [dir="rtl"] .megamenu {
+        padding: 0 1rem 1rem 0;
+    }
+}
+
+

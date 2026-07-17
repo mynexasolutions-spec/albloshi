@@ -5,8 +5,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
+import { useLanguage } from '../contexts/LanguageContext';
 
-const SOLUTIONS = [
+const SOLUTIONS_EN = [
   {
     id: 'water-treatment',
     img: '/images/intelligent_chemicals/Industrial Water Treatment.webp',
@@ -89,7 +90,104 @@ const SOLUTIONS = [
   },
 ];
 
+const SOLUTIONS_AR = [
+  {
+    id: 'water-treatment',
+    img: '/images/intelligent_chemicals/Industrial Water Treatment.webp',
+    title: 'معالجة المياه الصناعية',
+    desc: 'كيميائيات معالجة مياه متقدمة مصممة لتحسين الكفاءة التشغيلية، ومنع التآكل، وتقليل الترسبات، وتحسين أنظمة المياه الصناعية.',
+    lists: [
+      { heading: 'تشمل الحلول', items: ['مثبطات ومانعات الترسب', 'مثبطات التآكل', 'المبيدات الحيوية وكاسحات الأكسجين', 'منظفات الأغشية', 'معالجة مياه الغلايات والتبريد', 'كيميائيات التناضح العكسي', 'معالجة الدورة المغلقة'] },
+      { heading: 'التطبيقات', items: ['أبراج التبريد', 'الغلايات', 'محطات التناضح العكسي', 'أنظمة المياه الصناعية', 'محطات معالجة مياه الصرف'] },
+    ],
+  },
+  {
+    id: 'polymers',
+    img: '/images/intelligent_chemicals/Polymers (Coagulants & Flocculants).webp',
+    title: 'البوليمرات (المخثرات والمندفات)',
+    desc: 'مخثرات ومندفات عالية الأداء مصممة لمعالجة فعالة لمياه الصرف وأنظمة التوضيح الصناعية.',
+    lists: [
+      { heading: 'مجموعة المنتجات', items: ['مخثرات عضوية وغير عضوية', 'كلوريد الألومنيوم المتعدد (PAC)', 'عوامل إزالة اللون', 'مندفات بودرة ومستحلبة', 'أنواع أنيونية وكاتيونية وغير أيونية', 'مساعدات نزع الماء'] },
+      { heading: 'الصناعات المخدومة', items: ['المياه ومياه الصرف', 'النسيج والصباغة والتعدين', 'الصلب والطلاء الكهربائي', 'الصناعات الدوائية', 'السكر وتصنيع الأغذية', 'الأسمنت واللب والورق'] },
+    ],
+  },
+  {
+    id: 'defoamers',
+    img: '/images/intelligent_chemicals/Silicone & Organic Defoamers.webp',
+    title: 'مزيلات الرغوة السيليكونية والعضوية',
+    desc: 'تركيبات مزيلة للرغوة متخصصة طُورت للتحكم في تكوّن الرغوة في أنظمة المعالجة الصناعية.',
+    lists: [
+      { heading: 'التطبيقات', items: ['مصانع اللب والورق', 'الدهانات والطلاءات', 'محطات معالجة مياه الصرف', 'النفط والمصافي', 'أنظمة التنظيف الصناعي', 'تصنيع الأغذية والمشروبات'] },
+      { heading: 'الفوائد الرئيسية', items: ['استقرار أفضل للعمليات', 'كفاءة إنتاج محسّنة', 'تقليل تكوّن الرغوة', 'أداء أفضل للمعدات'] },
+    ],
+  },
+  {
+    id: 'fuel-additives',
+    img: '/images/intelligent_chemicals/Fuel Additives.webp',
+    title: 'مضافات الوقود',
+    desc: 'تقنيات مبتكرة لمضافات الوقود طُورت لتحسين كفاءة الاحتراق وتقليل الانبعاثات.',
+    lists: [
+      { heading: 'التطبيقات', items: ['غلايات الفحم: تحسين الاحتراق', 'تقليل الكربون غير المحترق', 'تحسين نسبة البخار إلى الوقود', 'الوقود الزراعي: قشور الأرز، نشارة الخشب، مصاصة قصب السكر', 'الوقود السائل: الديزل، زيت الأفران، الديزل الحيوي، الزيت الثقيل'] },
+      { heading: 'المزايا', items: ['انبعاثات أقل', 'نقل حراري محسّن', 'تآكل أقل', 'كفاءة وقود أعلى', 'توفر أفضل للمعدات'] },
+    ],
+  },
+  {
+    id: 'activated-carbon',
+    img: '/images/activated_carbon.webp',
+    title: 'حلول الكربون المنشط',
+    desc: 'منتجات كربون منشط فاخرة مصممة لتطبيقات التنقية والترشيح والامتزاز الصناعي.',
+    lists: [
+      { heading: 'بودرة وحبيبات', items: ['تنقية مياه البلديات', 'التطبيقات الدوائية', 'الأغذية والمشروبات', 'التنقية الكيميائية', 'الترشيح التعديني والصناعي', 'التحكم في انبعاثات السيارات'] },
+      { heading: 'الكربون المبثوق', items: ['معالجة الهواء البيئي', 'إزالة الروائح', 'إزالة الزئبق', 'المعالجة الصناعية'] },
+    ],
+  },
+  {
+    id: 'cleaning-disinfection',
+    img: '/images/intelligent_chemicals/Cleaning & Disinfection Solutions.webp',
+    title: 'حلول التنظيف والتطهير',
+    desc: 'كيميائيات تنظيف وتعقيم بدرجة صناعية طُورت لتصنيع الأغذية والصناعات الحرجة من ناحية النظافة.',
+    lists: [
+      { heading: 'تشمل الحلول', items: ['كيميائيات التنظيف في الموقع (CIP)', 'حلول تنظيف الأسطح', 'مزلقات الناقلات', 'حلول غسيل الصناديق', 'منتجات النظافة الشخصية', 'تطهير المركبات'] },
+      { heading: 'الصناعات المخدومة', items: ['الألبان', 'تصنيع الأغذية', 'مصانع المشروبات', 'المزارع والثروة الحيوانية', 'صناعات الماشية'] },
+    ],
+  },
+  {
+    id: 'pulp-paper',
+    img: '/images/intelligent_chemicals/Pulp & Paper Chemical Solutions.webp',
+    title: 'حلول كيميائية للب والورق',
+    desc: 'كيميائيات متخصصة عالية الأداء مصممة لصناعات تصنيع الورق ومعالجة اللب.',
+    lists: [
+      { heading: 'المعالجة والبوليمرات', items: ['كيميائيات التناضح العكسي والغلايات', 'مانعات الترسب والمبيدات الحيوية', 'مساعدات الاحتفاظ والتصريف', 'توضيح المياه البيضاء', 'كيميائيات معالجة الفضلات السائلة'] },
+      { heading: 'مضادات الرغوة والمعالجة', items: ['مزيلات رغوة آلات الورق ومصانع اللب', 'مزيلات رغوة الطلاء', 'كيميائيات إزالة الحبر', 'مضافات تقوية', 'التحكم باللزوجة وعوامل ربط الطبقات'] },
+    ],
+  },
+  {
+    id: 'sugar-industry',
+    img: '/images/intelligent_chemicals/Sugar Industry Solutions.webp',
+    title: 'حلول صناعة السكر',
+    desc: 'تركيبات كيميائية متخصصة طُورت لتصنيع السكر ومصانع السكر الصناعية.',
+    lists: [
+      { heading: 'التطبيقات', items: ['كيميائيات ترسيب الطين', 'تعقيم المطاحن', 'مانعات ترسب المبخرات', 'مخفضات اللزوجة', 'حلول التوضيح', 'الكربون المنشط ومساعدات الغليان'] },
+      { heading: 'دعم معالجة المياه', items: ['معالجة مياه التبريد', 'معالجة مياه الغلايات', 'معالجة أغشية التناضح العكسي'] },
+    ],
+  },
+];
+
+const TRUST_CARDS = [
+  { icon: 'factory', titleKey: 'ic_trust1_title', descKey: 'ic_trust1_desc' },
+  { icon: 'biotech', titleKey: 'ic_trust2_title', descKey: 'ic_trust2_desc' },
+  { icon: 'verified', titleKey: 'ic_trust3_title', descKey: 'ic_trust3_desc' },
+  { icon: 'eco', titleKey: 'ic_trust4_title', descKey: 'ic_trust4_desc' },
+  { icon: 'support_agent', titleKey: 'ic_trust5_title', descKey: 'ic_trust5_desc' },
+  { icon: 'language', titleKey: 'ic_trust6_title', descKey: 'ic_trust6_desc' },
+];
+
+const COMMITMENT_KEYS = ['ic_commitment_item1', 'ic_commitment_item2', 'ic_commitment_item3', 'ic_commitment_item4', 'ic_commitment_item5'];
+
 export default function IntelligentChemicals() {
+  const { t, language } = useLanguage();
+  const SOLUTIONS = language === 'ar' ? SOLUTIONS_AR : SOLUTIONS_EN;
+
   useEffect(() => {
     const blocks = document.querySelectorAll('.solution-block');
     blocks.forEach((block, i) => {
@@ -110,8 +208,8 @@ export default function IntelligentChemicals() {
   return (
     <>
       <Helmet>
-        <title>Intelligent Chemicals | ALBLOSHI</title>
-        <meta name="description" content="Tellabs Chemicals Pvt. Ltd. is a leading manufacturer and exporter of specialty chemicals focused on delivering innovative, sustainable, and high-performance solutions for industrial applications." />
+        <title>{t('ic_meta_title')}</title>
+        <meta name="description" content={t('ic_meta_desc')} />
       </Helmet>
 
       <Header />
@@ -119,8 +217,8 @@ export default function IntelligentChemicals() {
       {/* Hero */}
       <section className="ic-page-hero">
         <div className="container">
-          <h1>Intelligent Chemical<br />Solutions</h1>
-          <p>Advanced specialty chemical formulations delivering high-performance solutions across water treatment, pulp &amp; paper, fuel optimization, and industrial cleaning.</p>
+          <h1>{t('ic_hero_title_l1')}<br />{t('ic_hero_title_l2')}</h1>
+          <p>{t('ic_hero_desc')}</p>
         </div>
       </section>
 
@@ -128,12 +226,12 @@ export default function IntelligentChemicals() {
       <section className="solutions-wrapper">
         <div className="container">
           <div className="text-center" style={{ marginBottom: '5rem' }}>
-            <span className="focus-label">PRODUCTS</span>
-            <h2 className="section-title center" style={{ marginTop: '1rem' }}>Our Specialty Chemical Solutions</h2>
+            <span className="focus-label">{t('ic_products_label')}</span>
+            <h2 className="section-title center" style={{ marginTop: '1rem' }}>{t('ic_products_title')}</h2>
           </div>
 
           {SOLUTIONS.map((sol, i) => (
-            <div key={sol.title} id={sol.id} className={`solution-block${i % 2 !== 0 ? ' reverse' : ''}`}>
+            <div key={sol.id} id={sol.id} className={`solution-block${i % 2 !== 0 ? ' reverse' : ''}`}>
               <div className="solution-img-col">
                 <img src={sol.img} alt={sol.title} />
               </div>
@@ -162,22 +260,15 @@ export default function IntelligentChemicals() {
       <section className="trust-section">
         <div className="container">
           <div className="text-center" style={{ marginBottom: '3rem' }}>
-            <span className="focus-label">OUR EXPERTISE</span>
-            <h2 className="section-title center" style={{ marginTop: '1rem' }}>Why Industries Trust Tellabs</h2>
+            <span className="focus-label">{t('ic_expertise_label')}</span>
+            <h2 className="section-title center" style={{ marginTop: '1rem' }}>{t('ic_trust_title')}</h2>
           </div>
           <div className="trust-grid">
-            {[
-              { icon: 'factory', title: 'Advanced Manufacturing', desc: 'Modern production facilities equipped with advanced reactors, homogenizers, and blending systems ensure consistent product quality and reliable supply.' },
-              { icon: 'biotech', title: 'Innovation Driven', desc: 'Continuous investment in laboratory research and product development enables high-performance and customized chemical solutions.' },
-              { icon: 'verified', title: 'Quality Assurance', desc: 'Strict quality control systems and rigorous testing at every production stage guarantee industry-standard products.' },
-              { icon: 'eco', title: 'Sustainable Solutions', desc: 'Eco-friendly formulations designed to support environmental responsibility and industrial efficiency.' },
-              { icon: 'support_agent', title: 'Customer Support', desc: 'Technical assistance and responsive support teams help clients optimize performance and operations.' },
-              { icon: 'language', title: 'Global Standards', desc: 'Products manufactured under certified processes including Halal, ISO, and Kosher standards.' },
-            ].map(c => (
-              <div key={c.title} className="trust-card">
+            {TRUST_CARDS.map(c => (
+              <div key={c.titleKey} className="trust-card">
                 <div className="trust-icon"><span className="material-icons">{c.icon}</span></div>
-                <h3>{c.title}</h3>
-                <p>{c.desc}</p>
+                <h3>{t(c.titleKey)}</h3>
+                <p>{t(c.descKey)}</p>
               </div>
             ))}
           </div>
@@ -187,11 +278,11 @@ export default function IntelligentChemicals() {
       {/* Commitment */}
       <section className="commitment-banner">
         <div className="container">
-          <h2>Commitment to Excellence</h2>
-          <p>Tellabs Chemicals is committed to delivering reliable industrial solutions. Our mission is to empower industries through innovative chemical technologies that improve operational efficiency, sustainability, and performance.</p>
+          <h2>{t('ic_commitment_title')}</h2>
+          <p>{t('ic_commitment_desc')}</p>
           <div className="commitment-list">
-            {['Reliable Industrial Solutions', 'Sustainable Chemical Technologies', 'Advanced Research & Development', 'Global Quality Standards', 'Long-Term Customer Partnerships'].map(s => (
-              <span key={s}>{s}</span>
+            {COMMITMENT_KEYS.map(k => (
+              <span key={k}>{t(k)}</span>
             ))}
           </div>
         </div>
@@ -203,12 +294,12 @@ export default function IntelligentChemicals() {
           <div className="blog-cta-card">
             <div className="blog-cta-inner">
               <div className="blog-cta-text">
-                <h2>Ready to Elevate Your Operations?</h2>
-                <p>Partner with Tellabs Chemicals for industry-leading specialty solutions, sustainable technologies, and exceptional technical support.</p>
+                <h2>{t('ic_cta_title')}</h2>
+                <p>{t('ic_cta_desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <Link to="/contact" className="btn btn-primary">Contact Our Experts</Link>
-                <Link to="/#segments" className="btn btn-outline">Explore Our Verticals</Link>
+                <Link to="/contact" className="btn btn-primary">{t('ic_cta_btn1')}</Link>
+                <Link to="/#segments" className="btn btn-outline">{t('ic_cta_btn2')}</Link>
               </div>
             </div>
           </div>

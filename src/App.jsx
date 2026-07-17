@@ -39,42 +39,46 @@ function ScrollToHash() {
   return null;
 }
 
+import { LanguageProvider } from './contexts/LanguageContext';
+
 export default function App() {
   return (
     <HelmetProvider>
-      <BrowserRouter>
-        <AuthProvider>
-          <ScrollToHash />
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 5000,
-              style: { fontFamily: 'Inter, sans-serif', fontSize: '0.95rem' },
-            }}
-          />
-          <Routes>
-            {/* Public site */}
-            <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/industrial-services" element={<IndustrialServices />} />
-            <Route path="/food-services" element={<FoodServices />} />
-            <Route path="/intelligent-chemicals" element={<IntelligentChemicals />} />
-            <Route path="/tellabs-chemicals" element={<TellabsChemicals />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+      <LanguageProvider>
+        <BrowserRouter>
+          <AuthProvider>
+            <ScrollToHash />
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 5000,
+                style: { fontFamily: 'Inter, sans-serif', fontSize: '0.95rem' },
+              }}
+            />
+            <Routes>
+              {/* Public site */}
+              <Route path="/" element={<Home />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/industrial-services" element={<IndustrialServices />} />
+              <Route path="/food-services" element={<FoodServices />} />
+              <Route path="/intelligent-chemicals" element={<IntelligentChemicals />} />
+              <Route path="/tellabs-chemicals" element={<TellabsChemicals />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
 
-            {/* Admin */}
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminGuard><AdminDashboard /></AdminGuard>} />
-            <Route path="/admin/leads" element={<AdminGuard><AdminLeads /></AdminGuard>} />
-            <Route path="/admin/blogs" element={<AdminGuard><AdminBlogs /></AdminGuard>} />
-            <Route path="/admin/blogs/new" element={<AdminGuard><AdminBlogEditor /></AdminGuard>} />
-            <Route path="/admin/blogs/:id" element={<AdminGuard><AdminBlogEditor /></AdminGuard>} />
-          </Routes>
-          <Chatbot />
-        </AuthProvider>
-      </BrowserRouter>
+              {/* Admin */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminGuard><AdminDashboard /></AdminGuard>} />
+              <Route path="/admin/leads" element={<AdminGuard><AdminLeads /></AdminGuard>} />
+              <Route path="/admin/blogs" element={<AdminGuard><AdminBlogs /></AdminGuard>} />
+              <Route path="/admin/blogs/new" element={<AdminGuard><AdminBlogEditor /></AdminGuard>} />
+              <Route path="/admin/blogs/:id" element={<AdminGuard><AdminBlogEditor /></AdminGuard>} />
+            </Routes>
+            <Chatbot />
+          </AuthProvider>
+        </BrowserRouter>
+      </LanguageProvider>
     </HelmetProvider>
   );
 }

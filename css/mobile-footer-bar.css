@@ -31,11 +31,11 @@
         text-decoration: none;
         padding: 8px 4px;
         transition: color 0.2s, background 0.2s;
-        border-right: 1px solid rgba(255, 255, 255, 0.15);
+        border-inline-end: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .mfb-item:last-child {
-        border-right: none;
+        border-inline-end: none;
     }
 
     .mfb-item:hover,

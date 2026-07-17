@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Header() {
+  const { language, toggleLanguage, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
@@ -66,7 +68,7 @@ export default function Header() {
                 className="nav-link nav-link-dropdown"
                 onClick={(e) => toggleSubmenu(e, 'divisions')}
               >
-                Business Verticals
+                {t('business_verticals')}
               </a>
               <ul className="dropdown-menu">
                 <li className={`dropdown-submenu${openNestedSubmenu === 'chemicals' ? ' open-mobile-nested-submenu' : ''}`}>
@@ -76,47 +78,47 @@ export default function Header() {
                     onClick={(e) => toggleNestedSubmenu(e, 'chemicals')}
                   >
                     <span className="material-icons">science</span>
-                    <span className="dropdown-text">Intelligent Chemicals</span>
+                    <span className="dropdown-text">{t('intelligent_chemicals')}</span>
                   </Link>
                   <ul className="submenu">
                     <li>
                       <Link to="/intelligent-chemicals#water-treatment" className="dropdown-item">
-                        <span className="dropdown-text">Industrial Water Treatment</span>
+                        <span className="dropdown-text">{t('industrial_water_treatment')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/intelligent-chemicals#polymers" className="dropdown-item">
-                        <span className="dropdown-text">Polymers (Coagulants &amp; Flocculants)</span>
+                        <span className="dropdown-text">{t('polymers_coagulants')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/intelligent-chemicals#defoamers" className="dropdown-item">
-                        <span className="dropdown-text">Silicone &amp; Organic Defoamers</span>
+                        <span className="dropdown-text">{t('silicone_organic_defoamers')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/intelligent-chemicals#fuel-additives" className="dropdown-item">
-                        <span className="dropdown-text">Fuel Additives</span>
+                        <span className="dropdown-text">{t('fuel_additives')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/intelligent-chemicals#activated-carbon" className="dropdown-item">
-                        <span className="dropdown-text">Activated Carbon Solutions</span>
+                        <span className="dropdown-text">{t('activated_carbon_solutions')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/intelligent-chemicals#cleaning-disinfection" className="dropdown-item">
-                        <span className="dropdown-text">Cleaning &amp; Disinfection</span>
+                        <span className="dropdown-text">{t('cleaning_disinfection')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/intelligent-chemicals#pulp-paper" className="dropdown-item">
-                        <span className="dropdown-text">Pulp &amp; Paper Solutions</span>
+                        <span className="dropdown-text">{t('pulp_paper_solutions')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/intelligent-chemicals#sugar-industry" className="dropdown-item">
-                        <span className="dropdown-text">Sugar Industry Solutions</span>
+                        <span className="dropdown-text">{t('sugar_industry_solutions')}</span>
                       </Link>
                     </li>
                   </ul>
@@ -129,27 +131,27 @@ export default function Header() {
                     onClick={(e) => toggleNestedSubmenu(e, 'industrial')}
                   >
                     <span className="material-icons">precision_manufacturing</span>
-                    <span className="dropdown-text">Industrial Materials</span>
+                    <span className="dropdown-text">{t('industrial_materials')}</span>
                   </Link>
                   <ul className="submenu">
                     <li>
                       <Link to="/industrial-services#steel-pipes" className="dropdown-item">
-                        <span className="dropdown-text">Steel Pipes</span>
+                        <span className="dropdown-text">{t('steel_pipes')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/industrial-services#valves-flanges" className="dropdown-item">
-                        <span className="dropdown-text">Valves &amp; Flanges</span>
+                        <span className="dropdown-text">{t('valves_flanges')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/industrial-services#cable-trays" className="dropdown-item">
-                        <span className="dropdown-text">Cable Trays &amp; Fittings</span>
+                        <span className="dropdown-text">{t('cable_trays')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/industrial-services#welding-safety" className="dropdown-item">
-                        <span className="dropdown-text">Welding &amp; Safety Gear</span>
+                        <span className="dropdown-text">{t('welding_safety')}</span>
                       </Link>
                     </li>
                   </ul>
@@ -162,27 +164,27 @@ export default function Header() {
                     onClick={(e) => toggleNestedSubmenu(e, 'food')}
                   >
                     <span className="material-icons">restaurant</span>
-                    <span className="dropdown-text">Food Distribution</span>
+                    <span className="dropdown-text">{t('food_distribution')}</span>
                   </Link>
                   <ul className="submenu">
                     <li>
                       <Link to="/food-services#basmati-rice" className="dropdown-item">
-                        <span className="dropdown-text">Premium Basmati Rice</span>
+                        <span className="dropdown-text">{t('premium_basmati_rice')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/food-services#cooking-oil" className="dropdown-item">
-                        <span className="dropdown-text">Refined Palm Cooking Oil</span>
+                        <span className="dropdown-text">{t('refined_palm_cooking_oil')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/food-services#restaurant-essentials" className="dropdown-item">
-                        <span className="dropdown-text">Restaurant Essentials</span>
+                        <span className="dropdown-text">{t('restaurant_essentials')}</span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/food-services#wholesale-grain" className="dropdown-item">
-                        <span className="dropdown-text">Wholesale Grain &amp; Sugar</span>
+                        <span className="dropdown-text">{t('wholesale_grain_sugar')}</span>
                       </Link>
                     </li>
                   </ul>
@@ -191,7 +193,7 @@ export default function Header() {
                 <li>
                   <Link to="/contact" className="dropdown-item">
                     <span className="material-icons">groups</span>
-                    <span className="dropdown-text">Manpower Supply</span>
+                    <span className="dropdown-text">{t('manpower_supply')}</span>
                   </Link>
                 </li>
               </ul>
@@ -204,47 +206,54 @@ export default function Header() {
                 className="nav-link nav-link-dropdown"
                 onClick={(e) => toggleSubmenu(e, 'partners')}
               >
-                Partnerships
+                {t('partnerships')}
               </a>
               <ul className="dropdown-menu">
-                <li><Link to="/tellabs-chemicals" className="dropdown-item"><span className="material-icons">biotech</span><span className="dropdown-text">TELLABS Chemicals</span></Link></li>
-                <li><a href={hashLink('#why-choose-us')} className="dropdown-item"><span className="material-icons">public</span><span className="dropdown-text">Sourcing Brands</span></a></li>
+                <li><Link to="/tellabs-chemicals" className="dropdown-item"><span className="material-icons">biotech</span><span className="dropdown-text">{t('tellabs_chemicals')}</span></Link></li>
+                <li><a href={hashLink('#why-choose-us')} className="dropdown-item"><span className="material-icons">public</span><span className="dropdown-text">{t('sourcing_brands')}</span></a></li>
               </ul>
             </li>
 
             {/* Blog */}
             <li className="nav-item">
-              <Link to="/blog" className={`nav-link${location.pathname === '/blog' ? ' active' : ''}`}>Blogs</Link>
+              <Link to="/blog" className={`nav-link${location.pathname === '/blog' ? ' active' : ''}`}>{t('blogs')}</Link>
             </li>
 
             {/* About */}
             <li className="nav-item">
-              <Link to="/about" className={`nav-link${location.pathname === '/about' ? ' active' : ''}`}>About</Link>
+              <Link to="/about" className={`nav-link${location.pathname === '/about' ? ' active' : ''}`}>{t('about')}</Link>
             </li>
 
             {/* Contact */}
             <li className="nav-item">
-              <Link to="/contact" className={`nav-link${location.pathname === '/contact' ? ' active' : ''}`}>Contact</Link>
+              <Link to="/contact" className={`nav-link${location.pathname === '/contact' ? ' active' : ''}`}>{t('contact')}</Link>
             </li>
 
             {/* CTA */}
             <li className="nav-cta">
               <Link to="/contact" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontSize: '0.94rem' }}>
-                Request a Quote
+                {t('request_quote')}
               </Link>
             </li>
           </ul>
         </nav>
 
-        <button
-          className={`mobile-nav-toggle${menuOpen ? ' open' : ''}`}
-          aria-label="Toggle Menu"
-          onClick={toggleMenu}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <div className="header-right-actions">
+          <button onClick={toggleLanguage} className="lang-switch-btn" aria-label="Switch Language">
+            <span className="material-icons">language</span>
+            <span className="lang-text">{language === 'en' ? 'العربية' : 'English'}</span>
+          </button>
+
+          <button
+            className={`mobile-nav-toggle${menuOpen ? ' open' : ''}`}
+            aria-label="Toggle Menu"
+            onClick={toggleMenu}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
       </div>
     </header>
   );

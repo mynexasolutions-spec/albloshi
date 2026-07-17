@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
+
+/* ==========================================================================
+   GLOBAL RTL STYLES & OVERRIDES
+   ========================================================================== */
+/* Re-point the shared font variables so every rule using
+   var(--font-sans) / var(--font-heading) — buttons, nav, cards, chatbot,
+   forms, stat numbers, etc. — picks up Cairo instead of silently falling
+   back to a mismatched system Arabic font (Poppins has no Arabic glyphs). */
+[dir="rtl"] {
+    --font-sans: 'Cairo', 'Poppins', sans-serif;
+    --font-heading: 'Cairo', 'Poppins', sans-serif;
+    font-family: 'Cairo', 'Inter', sans-serif;
+}
+
+[dir="rtl"] body {
+    font-family: 'Cairo', 'Inter', sans-serif;
+    text-align: right;
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+    font-family: 'Cairo', 'Poppins', sans-serif;
+    /* No text-align here: it would out-specificity component classes
+       like .section-title.center (which must stay centered in both
+       languages). Right-alignment is already inherited from
+       [dir="rtl"] body for any heading that doesn't set its own. */
+}
+
+[dir="rtl"] .text-left {
+    text-align: right !important;
+}
+
+[dir="rtl"] .text-right {
+    text-align: left !important;
+}
+
+/* Button & Icons RTL alignment */
+[dir="rtl"] .btn {
+    direction: rtl;
+}
+
+/* Intelligent Chemicals Bento Grid RTL Overrides */
+[dir="rtl"] .bento-header-card {
+    text-align: right;
+}
+
+[dir="rtl"] .intel-trust-banner {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .intel-trust-left {
+    text-align: right;
+}
+
+[dir="rtl"] .intel-trust-right {
+    text-align: left;
+}
+
+/* Footer RTL Overrides */
+[dir="rtl"] .footer-contact-item {
+    gap: 0.85rem;
+}
+
+[dir="rtl"] .footer-contact-item .material-icons {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+[dir="rtl"] .footer-bottom .container {
+    flex-direction: row-reverse;
+}

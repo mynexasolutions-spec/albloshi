@@ -7,11 +7,13 @@ import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { supabase } from '../lib/supabase';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const fmt = (iso) =>
   new Date(iso).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
 
 export default function BlogPost() {
+  const { t } = useLanguage();
   const { slug } = useParams();
   const [post,    setPost]    = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,7 +38,7 @@ export default function BlogPost() {
     <>
       <Header />
       <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8' }}>
-        Loading…
+        {t('bp_loading')}
       </div>
       <Footer />
     </>
@@ -47,8 +49,8 @@ export default function BlogPost() {
       <Header />
       <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
         <span className="material-icons" style={{ fontSize: '3rem', color: '#cbd5e1' }}>article</span>
-        <h2 style={{ color: '#0f172a', fontSize: '1.4rem', fontWeight: 700 }}>Post not found</h2>
-        <Link to="/blog" style={{ color: '#1B5FAF', fontWeight: 600 }}>← Back to Blog</Link>
+        <h2 style={{ color: '#0f172a', fontSize: '1.4rem', fontWeight: 700 }}>{t('bp_not_found')}</h2>
+        <Link to="/blog" style={{ color: '#1B5FAF', fontWeight: 600 }}>{t('bp_back_to_blog_arrow')}</Link>
       </div>
       <Footer />
     </>
@@ -81,9 +83,9 @@ export default function BlogPost() {
 
         {/* Breadcrumb */}
         <nav style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: '#94a3b8', marginBottom: '1.5rem' }}>
-          <Link to="/blog" style={{ color: '#1B5FAF', textDecoration: 'none', fontWeight: 600 }}>Blog</Link>
+          <Link to="/blog" style={{ color: '#1B5FAF', textDecoration: 'none', fontWeight: 600 }}>{t('bp_breadcrumb_blog')}</Link>
           <span className="material-icons" style={{ fontSize: '0.95rem' }}>chevron_right</span>
-          <span style={{ color: '#64748b' }}>{post.category || 'Article'}</span>
+          <span style={{ color: '#64748b' }}>{post.category || t('bp_default_category')}</span>
         </nav>
 
         {/* Category badge */}
@@ -101,7 +103,7 @@ export default function BlogPost() {
         {/* Meta */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#64748b', fontSize: '0.875rem', marginBottom: '2.5rem', flexWrap: 'wrap' }}>
           <span className="material-icons" style={{ fontSize: '1rem', color: '#94a3b8' }}>person_outline</span>
-          <span>{post.author || 'Albloshi Team'}</span>
+          <span>{post.author || t('bp_default_author')}</span>
           <span style={{ color: '#cbd5e1' }}>•</span>
           <span className="material-icons" style={{ fontSize: '1rem', color: '#94a3b8' }}>calendar_today</span>
           <span>{fmt(post.published_at || post.created_at)}</span>
@@ -136,7 +138,7 @@ export default function BlogPost() {
         <div style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid #f1f5f9' }}>
           <Link to="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#1B5FAF', fontWeight: 700, textDecoration: 'none', fontSize: '0.9rem' }}>
             <span className="material-icons" style={{ fontSize: '1.1rem' }}>arrow_back</span>
-            Back to Blog
+            {t('bp_back_to_blog')}
           </Link>
         </div>
       </article>

@@ -5,55 +5,36 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
+import { useLanguage } from '../contexts/LanguageContext';
 
-const SLIDES = [
+const SLIDE_KEYS = [
   {
     bg: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80',
-    subtitle: 'Industrial Supplies',
-    title: 'Industrial Materials and Building Solutions',
-    cta: 'Explore Industrial Vertical',
+    subtitleKey: 'home_slide1_subtitle',
+    titleKey: 'home_slide1_title',
+    ctaKey: 'home_slide1_cta',
     href: '/industrial-services',
   },
   {
     bg: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80',
-    subtitle: 'Food Trading',
-    title: 'Premium Food Distribution Across Saudi Arabia',
-    cta: 'Explore Food Vertical',
+    subtitleKey: 'home_slide2_subtitle',
+    titleKey: 'home_slide2_title',
+    ctaKey: 'home_slide2_cta',
     href: '/food-services',
   },
   {
     bg: 'https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=1920&q=80',
-    subtitle: 'Intelligent Chemicals',
-    title: 'Intelligent Chemical Solutions for Water Treatment',
-    cta: 'Explore Chemical Vertical',
+    subtitleKey: 'home_slide3_subtitle',
+    titleKey: 'home_slide3_title',
+    ctaKey: 'home_slide3_cta',
     href: '/intelligent-chemicals',
   },
 ];
 
-const FAQS = [
-  {
-    q: 'What critical industry sectors does Albloshi serve in Saudi Arabia?',
-    a: 'We serve primary strategic industries across the Kingdom, including Oil and Gas refinery setups, heavy civil construction projects, municipal and industrial water treatment installations, central food preparation hospitality chains, and commercial manufacturing plants.',
-  },
-  {
-    q: 'Do you supply comprehensive technical documentation such as mill certificates and MSDS?',
-    a: 'Absolutely. Every industrial material shipment is backed by corresponding Mill Test Certificates (MTC) conforming to ASTM/ASME metrics. Similarly, all specialty chemicals distributed from our TELLABS alliance arrive with detailed Material Safety Data Sheets (MSDS) and technical execution sheets.',
-  },
-  {
-    q: 'Is Albloshi an official and authorized distributor of TELLABS chemicals?',
-    a: 'Yes. Mohammad Abdulla Albloshi Trading Co. is the designated, official regional distribution partner for TELLABS Intelligent Specialty Chemicals across Saudi Arabia and the broader GCC markets, offering local inventory stocking and direct technical support.',
-  },
-  {
-    q: 'What regions of Saudi Arabia do your warehousing and logistics operations support?',
-    a: 'Our central logistics headquarters and massive warehousing networks are based in Dammam, enabling direct supply execution to Al Khobar, Jubail, Qatif, Al Hassa, and surrounding Eastern Province sectors. We also offer planned enterprise freight dispatch to Riyadh and Jeddah.',
-  },
-  {
-    q: 'Do you support specialized industrial manpower supply services?',
-    a: 'Yes. We deploy highly skilled technical manpower under strictly compliant parameters. Our labor pool includes certified heavy pipe welders, industrial electricians, mechanical pipe fitters, safety inspectors, and specialized shutdown maintenance teams.',
-  },
-];
+const FAQ_KEYS = ['home_faq1', 'home_faq2', 'home_faq3', 'home_faq4', 'home_faq5'];
 
 export default function Home() {
+  const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
@@ -108,7 +89,7 @@ export default function Home() {
   const startSlideshow = () => {
     clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
-      setCurrentSlide(prev => (prev + 1) % SLIDES.length);
+      setCurrentSlide(prev => (prev + 1) % SLIDE_KEYS.length);
     }, 5500);
   };
 
@@ -150,11 +131,11 @@ export default function Home() {
   }, []);
 
   const prevSlide = () => {
-    setCurrentSlide(prev => (prev - 1 + SLIDES.length) % SLIDES.length);
+    setCurrentSlide(prev => (prev - 1 + SLIDE_KEYS.length) % SLIDE_KEYS.length);
     startSlideshow();
   };
   const nextSlide = () => {
-    setCurrentSlide(prev => (prev + 1) % SLIDES.length);
+    setCurrentSlide(prev => (prev + 1) % SLIDE_KEYS.length);
     startSlideshow();
   };
 
@@ -170,8 +151,8 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>ALBLOSHI – Supplying Strength Every Industry | Industrial, Chemicals, Food, and Manpower Solutions Saudi Arabia</title>
-        <meta name="description" content="Mohammad Abdulla Albloshi Trading Co. is a premium multi-industry Saudi enterprise based in Dammam. Leading suppliers of industrial materials, food products, TELLABS specialty chemicals, and manpower across the GCC." />
+        <title>{t('home_meta_title')}</title>
+        <meta name="description" content={t('home_meta_desc')} />
       </Helmet>
 
       <Header />
@@ -185,50 +166,50 @@ export default function Home() {
           if (Math.abs(diff) > 60) { diff > 0 ? prevSlide() : nextSlide(); }
         }}
       >
-        {SLIDES.map((slide, i) => (
+        {SLIDE_KEYS.map((slide, i) => (
           <div key={i} className={`slide${currentSlide === i ? ' active' : ''}`}>
             <div className="slide-bg" style={{ backgroundImage: `url('${slide.bg}')` }}></div>
             <div className="slide-overlay"></div>
             <div className="container">
               <div className="slide-content">
-                <h3>{slide.subtitle}</h3>
-                <h1>{slide.title}</h1>
+                <h3>{t(slide.subtitleKey)}</h3>
+                <h1>{t(slide.titleKey)}</h1>
                 <div className="slide-actions">
-                  <Link to={slide.href} className="btn btn-primary">{slide.cta}</Link>
+                  <Link to={slide.href} className="btn btn-primary">{t(slide.ctaKey)}</Link>
                 </div>
               </div>
             </div>
           </div>
         ))}
         <div className="slider-dots">
-          {SLIDES.map((_, i) => (
+          {SLIDE_KEYS.map((_, i) => (
             <div key={i} className={`dot${currentSlide === i ? ' active' : ''}`} onClick={() => { setCurrentSlide(i); startSlideshow(); }}></div>
           ))}
         </div>
-        <button className="slider-arrow slider-arrow-left" aria-label="Previous Slide" onClick={prevSlide}></button>
-        <button className="slider-arrow slider-arrow-right" aria-label="Next Slide" onClick={nextSlide}></button>
+        <button className="slider-arrow slider-arrow-left" aria-label={t('home_aria_prev_slide')} onClick={prevSlide}></button>
+        <button className="slider-arrow slider-arrow-right" aria-label={t('home_aria_next_slide')} onClick={nextSlide}></button>
       </section>
 
       {/* Who We Are */}
       <section id="who-we-are" className="who-we-are-section section-padding">
         <div className="container">
           <div className="who-header text-center">
-            <span className="focus-label">WHO WE ARE</span>
-            <h2 className="section-title center">Driving Progress. Delivering Value.</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>A trusted multi-division trading company delivering quality products, reliable supply, and expert solutions across Saudi Arabia's key industries.</p>
+            <span className="focus-label">{t('home_who_label')}</span>
+            <h2 className="section-title center">{t('home_who_title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>{t('home_who_desc')}</p>
           </div>
           <div className="who-features-grid">
             {[
-              { icon: 'public', label: 'Trusted Across KSA', desc: 'Dammam Headquarters with Kingdom-wide reach.' },
-              { icon: 'verified_user', label: 'ISO-Based Supply', desc: 'Strict quality-controlled international sourcing.' },
-              { icon: 'local_shipping', label: 'Fast Distribution', desc: 'Advanced fleet routing for on-time delivery.' },
-              { icon: 'engineering', label: 'Industrial Expertise', desc: 'Decades of collective technical knowledge.' },
+              { icon: 'public', labelKey: 'home_who_f1_label', descKey: 'home_who_f1_desc' },
+              { icon: 'verified_user', labelKey: 'home_who_f2_label', descKey: 'home_who_f2_desc' },
+              { icon: 'local_shipping', labelKey: 'home_who_f3_label', descKey: 'home_who_f3_desc' },
+              { icon: 'engineering', labelKey: 'home_who_f4_label', descKey: 'home_who_f4_desc' },
             ].map(f => (
               <div key={f.icon} className="who-f-item">
                 <div className="who-f-icon"><span className="material-icons">{f.icon}</span></div>
                 <div className="who-f-text">
-                  <h4 className="f-label">{f.label}</h4>
-                  <p className="f-desc">{f.desc}</p>
+                  <h4 className="f-label">{t(f.labelKey)}</h4>
+                  <p className="f-desc">{t(f.descKey)}</p>
                 </div>
               </div>
             ))}
@@ -239,8 +220,8 @@ export default function Home() {
       {/* Trusted Section */}
       <section className="trusted-section section-padding" style={{ background: 'radial-gradient(circle at center, #f4f8ff 0%, #eaf1fa 100%)' }}>
         <div className="container text-center">
-          <h2 className="section-title center" style={{ marginBottom: '1rem', color: '#0b2246' }}>Trusted by leading companies<br />around the world</h2>
-          <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>We collaborate with global leaders and trusted organizations to deliver high-quality solutions and long-term value.</p>
+          <h2 className="section-title center" style={{ marginBottom: '1rem', color: '#0b2246' }}>{t('home_trusted_title_l1')}<br />{t('home_trusted_title_l2')}</h2>
+          <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>{t('home_trusted_desc')}</p>
         </div>
         <div className="marquee-outer">
           <div className="marquee-track" ref={marqueeRef}>
@@ -260,18 +241,22 @@ export default function Home() {
         <div className="container">
           <div className="bento-grid">
             <div className="bento-card bento-header-card">
-              <span className="focus-label on-dark">OUR INTELLIGENT CHEMICALS</span>
-              <h2 className="section-title text-left" style={{ color: 'white' }}>Smart Chemicals.<br />Real Impact.</h2>
-              <p className="large-para" style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '2rem' }}>Our specialty chemicals are designed to solve complex challenges and deliver superior performance across industries.</p>
-              <Link to="/intelligent-chemicals" className="btn" style={{ padding: '1rem 3rem', fontSize: '1.05rem', borderRadius: '50px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-primary)', color: 'white', border: 'none', boxShadow: '0 10px 25px rgba(27,95,175,0.4)', fontWeight: '700', textDecoration: 'none', transition: 'transform 0.3s ease' }}>Know More</Link>
+              <span className="focus-label on-dark">{t('our_intelligent_chemicals')}</span>
+              <h2 className="section-title text-left" style={{ color: 'white' }}>
+                {t('smart_chemicals_real_impact').split('\n').map((line, i) => (
+                  <span key={i}>{line}{i === 0 && <br />}</span>
+                ))}
+              </h2>
+              <p className="large-para" style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '2rem' }}>{t('bento_subtitle')}</p>
+              <Link to="/intelligent-chemicals" className="btn" style={{ padding: '1rem 3rem', fontSize: '1.05rem', borderRadius: '50px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-primary)', color: 'white', border: 'none', boxShadow: '0 10px 25px rgba(27,95,175,0.4)', fontWeight: '700', textDecoration: 'none', transition: 'transform 0.3s ease' }}>{t('know_more')}</Link>
             </div>
             {[
-              { img: '/images/IWT.webp', icon: 'water', title: 'Industrial Water Treatment', desc: 'Prevent scale, corrosion & microbiological growth.' },
-              { img: '/images/Polymers.webp', icon: 'bubble_chart', title: 'Polymers (Coagulants & Flocculants)', desc: 'Solid liquid separation with flocculants & coagulants.' },
-              { img: '/images/activated_carbon.webp', icon: 'filter_alt', title: 'Activated Carbon', desc: 'Removal of odour, colour, COD & organic impurities.' },
-              { img: '/images/pulp_and_paper.webp', icon: 'waves', title: 'Antifoam & Defoamers', desc: 'Prevent & control foaming in aqueous systems.' },
-              { img: '/images/cleaning_disinfection.webp', icon: 'cleaning_services', title: 'Cleaning & Disinfection', desc: 'Cleaning & hygiene in dairies, poultry & beverage.' },
-              { img: '/images/Fuel_additives.webp', icon: 'local_gas_station', title: 'Fuel Additives', desc: 'Enhance fuel performance, efficiency & combustion quality.' },
+              { img: '/images/IWT.webp', icon: 'water', title: t('industrial_water_treatment'), desc: t('iwt_desc') },
+              { img: '/images/Polymers.webp', icon: 'bubble_chart', title: t('polymers_coagulants'), desc: t('polymers_desc') },
+              { img: '/images/activated_carbon.webp', icon: 'filter_alt', title: t('activated_carbon_solutions'), desc: t('activated_carbon_desc') },
+              { img: '/images/pulp_and_paper.webp', icon: 'waves', title: t('silicone_organic_defoamers'), desc: t('defoamers_desc') },
+              { img: '/images/cleaning_disinfection.webp', icon: 'cleaning_services', title: t('cleaning_disinfection'), desc: t('cleaning_desc') },
+              { img: '/images/Fuel_additives.webp', icon: 'local_gas_station', title: t('fuel_additives'), desc: t('fuel_desc') },
             ].map(card => (
               <div key={card.title} className="bento-card bento-feature-card img-bento" style={{ backgroundImage: `url('${card.img}')` }}>
                 <div className="bento-icon-small"><span className="material-icons">{card.icon}</span></div>
@@ -284,12 +269,12 @@ export default function Home() {
             <div className="intel-trust-left">
               <span className="material-icons trust-shield">security</span>
               <div className="trust-text">
-                <h5>Quality You Can Trust. Performance You Can See.</h5>
-                <p>High quality products. Consistent results. Stronger operations.</p>
+                <h5>{t('quality_trust_perf')}</h5>
+                <p>{t('trust_subtitle')}</p>
               </div>
             </div>
             <div className="intel-trust-right">
-              <span>Our Strategic Partner</span>
+              <span>{t('strategic_partner')}</span>
               <span className="partner-logo-text">TELLABS<br /><small>Intelligent Chemicals</small></span>
             </div>
           </div>
@@ -300,30 +285,30 @@ export default function Home() {
       <section id="segments" className="verticals-section section-padding">
         <div className="container">
           <div className="verticals-header text-center">
-            <span className="focus-label">OUR BUSINESS VERTICALS</span>
-            <h2 className="section-title">Three Verticals. One Commitment.</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>We operate across three key verticals, delivering value and excellence through quality products, reliable supply, and expert solutions.</p>
+            <span className="focus-label">{t('home_verticals_label')}</span>
+            <h2 className="section-title">{t('home_verticals_title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>{t('home_verticals_desc')}</p>
           </div>
           <div className="verticals-bento-grid">
             <div className="v-card img-bento dark-overlay" style={{ backgroundImage: "url('/right.png')" }}>
               <div className="v-content">
-                <h3>Intelligent Chemicals</h3>
-                <p>Specialty chemical solutions powered by innovation, quality, and our strategic partnership with Tellabs Chemicals.</p>
-                <Link to="/intelligent-chemicals" className="v-link">Explore Chemicals</Link>
+                <h3>{t('home_vert_chem_title')}</h3>
+                <p>{t('home_vert_chem_desc')}</p>
+                <Link to="/intelligent-chemicals" className="v-link">{t('home_vert_chem_link')}</Link>
               </div>
             </div>
             <div className="v-card img-bento" style={{ backgroundImage: "url('/images/products/food_distribution.webp')" }}>
               <div className="v-content">
-                <h3>Food Distribution</h3>
-                <p>High volume distribution of premium food products with a strong network ensuring freshness and reliability.</p>
-                <Link to="/food-services" className="v-link">Learn More</Link>
+                <h3>{t('home_vert_food_title')}</h3>
+                <p>{t('home_vert_food_desc')}</p>
+                <Link to="/food-services" className="v-link">{t('home_verticals_learn_more')}</Link>
               </div>
             </div>
             <div className="v-card img-bento" style={{ backgroundImage: "url('/images/products/industrial_material_and_manpower.webp')" }}>
               <div className="v-content">
-                <h3>Industrial Material &amp; Manpower Supply</h3>
-                <p>Supplying critical materials and skilled manpower solutions to keep industries running efficiently and safely.</p>
-                <Link to="/industrial-services" className="v-link">Learn More</Link>
+                <h3>{t('home_vert_ind_title')}</h3>
+                <p>{t('home_vert_ind_desc')}</p>
+                <Link to="/industrial-services" className="v-link">{t('home_verticals_learn_more')}</Link>
               </div>
             </div>
           </div>
@@ -334,24 +319,24 @@ export default function Home() {
       <section id="why-choose-us" className="section-padding">
         <div className="container">
           <div className="text-center">
-            <h2 className="section-title center">Why Choose Albloshi</h2>
-            <p className="large-para" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>Aligning logistics precision, product compliance, and enterprise commercial transparency to deliver an elevated supply experience.</p>
+            <h2 className="section-title center">{t('home_why_title')}</h2>
+            <p className="large-para" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>{t('home_why_desc')}</p>
           </div>
           <div className="reasons-bento-grid">
             {[
-              { img: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80', title: 'Reliable Supply Chain', desc: 'By operating unified warehousing hubs and direct import pathways, Albloshi maintains continuous reserve levels of high-volume industrial and food commodities.', large: true },
-              { img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=400&q=80', title: 'Trusted Global Partners', desc: 'From our core partnership with TELLABS Specialty Chemicals to our verified mill suppliers, we maintain complete traceability and quality compliance logs.' },
-              { img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80', title: 'Technical Expertise', desc: 'Our sales engineers, chemicals technicians, and project delivery managers have deep regulatory knowledge of Saudi Aramco, SASO, and SFDA standards.' },
-              { img: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80', title: 'Fast Regional Delivery', desc: 'Operating a customized logistics fleet of temperature-controlled and industrial vehicles, we execute seamless door-to-door deliveries on schedules.' },
-              { img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80', title: 'Multi-Industry Systems', desc: 'One single enterprise vendor account provides your procurement team access to metals, specialized chemicals, bulk foods, and skilled manpower services.' },
-              { img: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80', title: 'Customer-Centric Support', desc: 'Every client is assigned a dedicated Account Coordinator to oversee invoice terms, dispatch schedules, custom inspections, and emergency inquiries.', large: true },
+              { img: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80', titleKey: 'home_reason1_title', descKey: 'home_reason1_desc', large: true },
+              { img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=400&q=80', titleKey: 'home_reason2_title', descKey: 'home_reason2_desc' },
+              { img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80', titleKey: 'home_reason3_title', descKey: 'home_reason3_desc' },
+              { img: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80', titleKey: 'home_reason4_title', descKey: 'home_reason4_desc' },
+              { img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80', titleKey: 'home_reason5_title', descKey: 'home_reason5_desc' },
+              { img: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80', titleKey: 'home_reason6_title', descKey: 'home_reason6_desc', large: true },
             ].map(r => (
-              <div key={r.title} className={`r-card${r.large ? ' r-large' : ''}`}>
-                <div className="r-img-wrapper"><img src={r.img} alt={r.title} /></div>
+              <div key={r.titleKey} className={`r-card${r.large ? ' r-large' : ''}`}>
+                <div className="r-img-wrapper"><img src={r.img} alt={t(r.titleKey)} /></div>
                 <div className="r-content-wrapper">
                   <div className="r-content">
-                    <h3>{r.title}</h3>
-                    <p className="large-para">{r.desc}</p>
+                    <h3>{t(r.titleKey)}</h3>
+                    <p className="large-para">{t(r.descKey)}</p>
                   </div>
                 </div>
               </div>
@@ -363,22 +348,22 @@ export default function Home() {
       {/* Distribution Network */}
       <section id="network" className="network-hero bg-dark-section">
         <div className="container relative z-10 text-center">
-          <h2 className="section-title center text-white" style={{ marginBottom: '1rem' }}>Robust Saudi Distribution Network</h2>
-          <p className="large-para text-white-80" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>Headquartered strategically in Dammam to support the industrial heartland of the Eastern Province, Albloshi operates comprehensive localized fulfillment pipelines across primary commercial hubs.</p>
+          <h2 className="section-title center text-white" style={{ marginBottom: '1rem' }}>{t('home_network_title')}</h2>
+          <p className="large-para text-white-80" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>{t('home_network_desc')}</p>
           <div className="network-interactive-map">
             <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80" alt="Distribution Map" className="network-map-bg" />
             <div className="map-overlay-dark"></div>
             {[
-              { cls: 'card-dammam', title: 'Dammam (HQ)', sub: 'Corporate Hub & Central Distribution' },
-              { cls: 'card-khobar', title: 'Al Khobar', sub: 'Sales Office & Client Services' },
-              { cls: 'card-jubail', title: 'Jubail', sub: 'Industrial Storage & Logistics' },
-              { cls: 'card-other', title: 'Other Hubs', sub: 'Riyadh · Jeddah · Madinah · Makkah · Abha' },
+              { cls: 'card-dammam', titleKey: 'home_network_dammam_title', subKey: 'home_network_dammam_sub' },
+              { cls: 'card-khobar', titleKey: 'home_network_khobar_title', subKey: 'home_network_khobar_sub' },
+              { cls: 'card-jubail', titleKey: 'home_network_jubail_title', subKey: 'home_network_jubail_sub' },
+              { cls: 'card-other', titleKey: 'home_network_other_title', subKey: 'home_network_other_sub' },
             ].map(c => (
               <div key={c.cls} className={`map-floating-card ${c.cls}`}>
                 <div className="pulse-dot"></div>
                 <div className="card-content glass-card-dark">
-                  <h4>{c.title}</h4>
-                  <span>{c.sub}</span>
+                  <h4>{t(c.titleKey)}</h4>
+                  <span>{t(c.subKey)}</span>
                 </div>
               </div>
             ))}
@@ -390,34 +375,34 @@ export default function Home() {
       <section id="testimonials" className="section-padding">
         <div className="container">
           <div className="text-center" style={{ marginBottom: '3.5rem' }}>
-            <h2 className="section-title center">What Our Clients Say</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto' }}>Trusted by procurement managers, project engineers, and operations leaders across Saudi Arabia's key industries.</p>
+            <h2 className="section-title center">{t('home_testimonials_title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto' }}>{t('home_testimonials_desc')}</p>
           </div>
           <div className="reviews-carousel-wrapper">
-            <button className="reviews-arrow reviews-arrow-prev" aria-label="Previous review" onClick={() => handleReviewArrow(-1)}>&#8592;</button>
+            <button className="reviews-arrow reviews-arrow-prev" aria-label={t('home_aria_prev_review')} onClick={() => handleReviewArrow(-1)}>&#8592;</button>
             <div className="reviews-viewport" ref={reviewsViewportRef}>
               <div className="reviews-track">
                 {[
-                  { quote: '"Albloshi\'s carbon steel pipes and custom flanges are of exceptional mill quality. Every batch arrived with complete test certificates — an absolute bedrock of supply reliability."', name: 'Eng. Hameed Al-Subaie', title: 'Chief Procurement Officer, Gulf Construction Consortium', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=60&q=80' },
-                  { quote: '"Albloshi\'s food division supplied premium Basmati rice and refined cooking oils without a single shipping delay. Highly professional service that keeps our kitchens running perfectly."', name: 'Sarah Chowdhury', title: 'Executive Operations Manager, Oasis Foodservice Group', img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=60&q=80' },
-                  { quote: '"Partnering with Albloshi for TELLABS chemicals gave us immediate local inventory access and on-site consultation. The activated carbon filters have performed flawlessly, significantly lowering BOD levels."', name: 'Dr. Faisal Al-Qahtani', title: 'Technical Operations Director, Eastern Chemical Systems', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=60&q=80' },
-                  { quote: '"Their robust distribution network across Saudi Arabia ensures that our facilities in Jubail and Riyadh never face downtime due to material shortages."', name: 'Omar Al-Rashid', title: 'Director of Manufacturing, ALR Industries', img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=60&q=80' },
-                  { quote: '"A single vendor solution that actually works. Managing our procurement for both heavy industrial components and hospitality foods has never been easier."', name: 'Layla Hassan', title: 'Procurement Lead, Saudi Hospitality Corp', img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=60&q=80' },
+                  { quoteKey: 'home_review1_quote', name: 'Eng. Hameed Al-Subaie', titleKey: 'home_review1_title', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=60&q=80' },
+                  { quoteKey: 'home_review2_quote', name: 'Sarah Chowdhury', titleKey: 'home_review2_title', img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=60&q=80' },
+                  { quoteKey: 'home_review3_quote', name: 'Dr. Faisal Al-Qahtani', titleKey: 'home_review3_title', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=60&q=80' },
+                  { quoteKey: 'home_review4_quote', name: 'Omar Al-Rashid', titleKey: 'home_review4_title', img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=60&q=80' },
+                  { quoteKey: 'home_review5_quote', name: 'Layla Hassan', titleKey: 'home_review5_title', img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=60&q=80' },
                 ].map(r => (
                   <div key={r.name} className="review-card">
-                    <blockquote className="review-text">{r.quote}</blockquote>
+                    <blockquote className="review-text">{t(r.quoteKey)}</blockquote>
                     <div className="review-author">
                       <img src={r.img} alt={r.name} className="review-author-img" />
                       <div>
                         <div className="review-author-name">{r.name}</div>
-                        <div className="review-author-title">{r.title}</div>
+                        <div className="review-author-title">{t(r.titleKey)}</div>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            <button className="reviews-arrow reviews-arrow-next" aria-label="Next review" onClick={() => handleReviewArrow(1)}>&#8594;</button>
+            <button className="reviews-arrow reviews-arrow-next" aria-label={t('home_aria_next_review')} onClick={() => handleReviewArrow(1)}>&#8594;</button>
           </div>
         </div>
       </section>
@@ -426,18 +411,18 @@ export default function Home() {
       <section id="faq" className="section-padding">
         <div className="container">
           <div className="text-center">
-            <h2 className="section-title center">Frequently Asked Questions</h2>
-            <p className="large-para" style={{ maxWidth: '800px', margin: '0 auto 3rem' }}>Clear, transparent answers to help guide your procurement or chemical operations partnership with Albloshi.</p>
+            <h2 className="section-title center">{t('home_faq_title')}</h2>
+            <p className="large-para" style={{ maxWidth: '800px', margin: '0 auto 3rem' }}>{t('home_faq_desc')}</p>
           </div>
           <div className="faq-container">
-            {FAQS.map((faq, i) => (
+            {FAQ_KEYS.map((key, i) => (
               <div key={i} className={`faq-item${openFaq === i ? ' active' : ''}`}>
                 <button className="faq-header" onClick={() => setOpenFaq(openFaq === i ? -1 : i)}>
-                  <span className="faq-question">{faq.q}</span>
+                  <span className="faq-question">{t(`${key}_q`)}</span>
                   <span className="faq-arrow"></span>
                 </button>
                 <div className="faq-content">
-                  <div className="faq-body"><p>{faq.a}</p></div>
+                  <div className="faq-body"><p>{t(`${key}_a`)}</p></div>
                 </div>
               </div>
             ))}
@@ -451,12 +436,12 @@ export default function Home() {
           <div className="blog-cta-card">
             <div className="blog-cta-inner">
               <div className="blog-cta-text">
-                <h2>Have More Questions?</h2>
-                <p>Get in touch with our team today to discuss your specific requirements, request custom quotes, or verify product specifications.</p>
+                <h2>{t('home_cta_title')}</h2>
+                <p>{t('home_cta_desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <Link to="/contact" className="btn btn-primary">Contact Us Now</Link>
-                <Link to="/#segments" className="btn btn-outline">Explore Our Verticals</Link>
+                <Link to="/contact" className="btn btn-primary">{t('home_cta_btn1')}</Link>
+                <Link to="/#segments" className="btn btn-outline">{t('home_cta_btn2')}</Link>
               </div>
             </div>
           </div>
