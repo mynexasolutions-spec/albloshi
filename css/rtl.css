@@ -61,6 +61,26 @@
     text-align: left;
 }
 
+/* FAQ RTL Overrides */
+[dir="rtl"] .faq-header {
+    text-align: right;
+}
+
+[dir="rtl"] .faq-question {
+    padding-right: 0;
+    padding-left: 2rem;
+}
+
+[dir="rtl"] .faq-item {
+    border-left: none;
+    border-right: 3px solid transparent;
+}
+
+[dir="rtl"] .faq-item.active {
+    border-left-color: transparent;
+    border-right-color: var(--color-primary);
+}
+
 /* Footer RTL Overrides */
 [dir="rtl"] .footer-contact-item {
     gap: 0.85rem;
