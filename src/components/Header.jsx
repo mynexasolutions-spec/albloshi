@@ -133,7 +133,7 @@ export default function Header() {
                     <span className="material-icons">precision_manufacturing</span>
                     <span className="dropdown-text">{t('industrial_materials')}</span>
                   </Link>
-                  <ul className="submenu">
+                  <ul className="submenu industrial-submenu-grid">
                     <li>
                       <Link to="/industrial-services#steel-pipes" className="dropdown-item">
                         <span className="dropdown-text">{t('steel_pipes')}</span>
@@ -154,6 +154,131 @@ export default function Header() {
                         <span className="dropdown-text">{t('welding_safety')}</span>
                       </Link>
                     </li>
+                    <li>
+                      <Link to="/industrial-services#cs-flanges" className="dropdown-item">
+                        <span className="dropdown-text">CS Flanges</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#ss-flanges" className="dropdown-item">
+                        <span className="dropdown-text">SS Flanges</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#cs-buttweld-fittings" className="dropdown-item">
+                        <span className="dropdown-text">Carbon Steel Buttweld Fittings</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#ss-buttweld-fittings" className="dropdown-item">
+                        <span className="dropdown-text">Stainless Steel Buttweld Fittings</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#forged-cs-fittings" className="dropdown-item">
+                        <span className="dropdown-text">Forged Carbon Steel Fittings</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#forged-ss-fittings" className="dropdown-item">
+                        <span className="dropdown-text">Forged Stainless Steel Fittings</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#malleable-iron-fittings" className="dropdown-item">
+                        <span className="dropdown-text">Forged Malleable Iron Fittings</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#fire-hydrant-grooved-fittings" className="dropdown-item">
+                        <span className="dropdown-text">Fire Hydrant & Grooved Fittings</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#instrumentation-accessories-tube-fittings" className="dropdown-item">
+                        <span className="dropdown-text">Instrumentation Accessories & Tube Fittings</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#valves" className="dropdown-item">
+                        <span className="dropdown-text">Valves</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#fasteners-stud-bolts" className="dropdown-item">
+                        <span className="dropdown-text">Fasteners & Stud Bolts</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#gasket-insulation-kits" className="dropdown-item">
+                        <span className="dropdown-text">Gasket & Insulation Kits</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#industrial-electrical-materials" className="dropdown-item">
+                        <span className="dropdown-text">Industrial Electrical Materials</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#industrial-telecom" className="dropdown-item">
+                        <span className="dropdown-text">Industrial Telecom</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#cable-tray-ladder-support" className="dropdown-item">
+                        <span className="dropdown-text">Cable Tray & Ladder Support</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#earthing-support" className="dropdown-item">
+                        <span className="dropdown-text">Earthing Support</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#welding-materials-accessories" className="dropdown-item">
+                        <span className="dropdown-text">Welding Materials & Accessories</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#industrial-safety-materials-tools" className="dropdown-item">
+                        <span className="dropdown-text">Industrial Safety Materials & Tools</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#construction-chemicals" className="dropdown-item">
+                        <span className="dropdown-text">Construction Chemicals</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#sanitary-products" className="dropdown-item">
+                        <span className="dropdown-text">Sanitary Products</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#drains" className="dropdown-item">
+                        <span className="dropdown-text">Drains</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#pvc-cpvc-cement" className="dropdown-item">
+                        <span className="dropdown-text">PVC / CPVC Cement</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#pvc-cpvc-upvc-hdpe-pvdf-pipes" className="dropdown-item">
+                        <span className="dropdown-text">PVC / CPVC / uPVC / HDPE / PVDF Pipes</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#ppr-pipes-fittings" className="dropdown-item">
+                        <span className="dropdown-text">PPR Pipes & Fittings</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/industrial-services#electrical-coated-conduit-fittings" className="dropdown-item">
+                        <span className="dropdown-text">Electrical Coated Conduit & Fittings</span>
+                      </Link>
+                    </li>
                   </ul>
                 </li>
 
@@ -166,7 +291,7 @@ export default function Header() {
                     <span className="material-icons">restaurant</span>
                     <span className="dropdown-text">{t('food_distribution')}</span>
                   </Link>
-                  <ul className="submenu">
+                  <ul className="submenu food-submenu-grid">
                     <li>
                       <Link to="/food-services#basmati-rice" className="dropdown-item">
                         <span className="dropdown-text">{t('premium_basmati_rice')}</span>
@@ -185,6 +310,71 @@ export default function Header() {
                     <li>
                       <Link to="/food-services#wholesale-grain" className="dropdown-item">
                         <span className="dropdown-text">{t('wholesale_grain_sugar')}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#white-sugar" className="dropdown-item">
+                        <span className="dropdown-text">Premium Refined White Sugar</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#spices" className="dropdown-item">
+                        <span className="dropdown-text">Premium Whole & Ground Spices</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#food-supply" className="dropdown-item">
+                        <span className="dropdown-text">Premium Packaged Food Products</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#custom-basmati" className="dropdown-item">
+                        <span className="dropdown-text">Custom Branded Basmati Rice</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#palm-olein" className="dropdown-item">
+                        <span className="dropdown-text">Premium Refined Palm Olein Oil</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#steam-basmati" className="dropdown-item">
+                        <span className="dropdown-text">1121 XXXL Steam Basmati Rice</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#golden-sella" className="dropdown-item">
+                        <span className="dropdown-text">1121 XXXL Golden Sella Basmati Rice</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#premium-1121" className="dropdown-item">
+                        <span className="dropdown-text">Premium 1121 Basmati Rice</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#honey" className="dropdown-item">
+                        <span className="dropdown-text">Pure Natural Honey</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#grains-pulses" className="dropdown-item">
+                        <span className="dropdown-text">Premium Grains & Pulses</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#chicken" className="dropdown-item">
+                        <span className="dropdown-text">Fresh & Frozen Chicken</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#eggs" className="dropdown-item">
+                        <span className="dropdown-text">Farm Fresh Table Eggs</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/food-services#coffee" className="dropdown-item">
+                        <span className="dropdown-text">Premium Coffee Beans</span>
                       </Link>
                     </li>
                   </ul>
@@ -255,6 +445,33 @@ export default function Header() {
           </button>
         </div>
       </div>
+      <style>{`
+        @media (min-width: 1201px) {
+          .food-submenu-grid, .industrial-submenu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 1rem;
+            width: 650px !important;
+            padding: 0.5rem;
+            max-height: 60vh;
+            overflow-y: auto;
+          }
+          .food-submenu-grid::-webkit-scrollbar, .industrial-submenu-grid::-webkit-scrollbar {
+            width: 6px;
+          }
+          .food-submenu-grid::-webkit-scrollbar-track, .industrial-submenu-grid::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+          }
+          .food-submenu-grid::-webkit-scrollbar-thumb, .industrial-submenu-grid::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+          }
+          .food-submenu-grid li, .industrial-submenu-grid li {
+            width: 100%;
+          }
+        }
+      `}</style>
     </header>
   );
 }
