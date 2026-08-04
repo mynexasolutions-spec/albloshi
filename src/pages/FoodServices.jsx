@@ -237,7 +237,7 @@ export default function FoodServices() {
             {PRODUCTS.map(p => (
               <div key={p.titleKey} className="product-block" id={p.id} style={p.comingSoon ? { opacity: 0.85 } : {}}>
                 <div style={{ position: 'relative' }}>
-                  <img src={p.img} alt={t(p.titleKey)} className="product-block-img" style={{ aspectRatio: '16/10', ...(p.comingSoon ? { filter: 'brightness(0.75)' } : {}) }} />
+                  <img src={p.img} alt={t(p.titleKey)} className="product-block-img" style={{ aspectRatio: '1/1', ...(p.comingSoon ? { filter: 'brightness(0.75)' } : {}) }} />
                   {p.comingSoon && (
                     <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'var(--color-primary)', color: 'white', fontSize: '0.78rem', fontWeight: '700', padding: '0.35rem 0.9rem', borderRadius: '50px', letterSpacing: '0.5px' }}>
                       {t('food_coming_soon_badge')}
@@ -273,7 +273,7 @@ export default function FoodServices() {
             {NEW_PRODUCTS.map(p => (
               <div key={p.titleKey} className="product-block" id={p.id}>
                 <div style={{ position: 'relative' }}>
-                  <img src={p.img} alt={t(p.titleKey)} className="product-block-img" style={{ aspectRatio: '16/10' }} />
+                  <img src={p.img} alt={t(p.titleKey)} className="product-block-img" style={{ aspectRatio: '1/1' }} />
                 </div>
                 <div className="product-block-body" style={{ padding: '1.25rem' }}>
                   <span className="product-block-tag">{t(p.tagKey)}</span>

@@ -27,6 +27,8 @@ const TEAM = [
   { id: 1, name: 'Mohammad Abdulla Albloshi', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio' },
   { id: 2, name: 'Mohammad Riaz', roleKey: 'about_team_2_role', bioKey: 'about_team_2_bio' },
   { id: 3, name: 'Eng. Fahad Al-Mutairi', roleKey: 'about_team_3_role', bioKey: 'about_team_3_bio' },
+  { id: 4, name: 'Sajid Pachhapure', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
+  { id: 5, name: 'Ajay Adnala', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/ajay_adnala.jpeg' },
 ];
 
 const NETWORK_CARDS = [
@@ -177,21 +179,25 @@ export default function About() {
             {TEAM.map(m => (
               <div key={m.id} className="team-card">
                 <div className="team-img-wrapper">
-                  <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                      <linearGradient id={`avatarGradAbout${m.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#f8fafc" />
-                        <stop offset="100%" stopColor="#cbd5e1" />
-                      </linearGradient>
-                      <linearGradient id={`primaryGradAbout${m.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#1B5FAF" />
-                        <stop offset="100%" stopColor="#0b2246" />
-                      </linearGradient>
-                    </defs>
-                    <rect width="100" height="100" fill={`url(#avatarGradAbout${m.id})`} />
-                    <circle cx="50" cy="40" r="18" fill={`url(#primaryGradAbout${m.id})`} opacity="0.85" />
-                    <path d="M20 80C20 63.43 33.43 50 50 50C66.57 50 80 63.43 80 80V85H20V80Z" fill={`url(#primaryGradAbout${m.id})`} opacity="0.85" />
-                  </svg>
+                  {m.img ? (
+                    <img src={m.img} alt={m.name} className="team-img" style={{ objectFit: 'cover' }} />
+                  ) : (
+                    <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <linearGradient id={`avatarGradAbout${m.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#f8fafc" />
+                          <stop offset="100%" stopColor="#cbd5e1" />
+                        </linearGradient>
+                        <linearGradient id={`primaryGradAbout${m.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#1B5FAF" />
+                          <stop offset="100%" stopColor="#0b2246" />
+                        </linearGradient>
+                      </defs>
+                      <rect width="100" height="100" fill={`url(#avatarGradAbout${m.id})`} />
+                      <circle cx="50" cy="40" r="18" fill={`url(#primaryGradAbout${m.id})`} opacity="0.85" />
+                      <path d="M20 80C20 63.43 33.43 50 50 50C66.57 50 80 63.43 80 80V85H20V80Z" fill={`url(#primaryGradAbout${m.id})`} opacity="0.85" />
+                    </svg>
+                  )}
                 </div>
                 <div className="team-info">
                   <h3>{m.name}</h3>

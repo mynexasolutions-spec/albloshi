@@ -205,6 +205,12 @@ export const translations = {
     about_team_3_role: "Director of Operations & Logistics",
     about_team_3_bio:
       "Directing logistics operations, warehousing networks, and quality compliance logs across all supply divisions.",
+    about_team_4_role: "Director",
+    about_team_4_bio:
+      "Guiding the company's strategic vision and operations.",
+    about_team_5_role: "Director",
+    about_team_5_bio:
+      "Driving growth and operational excellence across the organization.",
     about_network_title: "Robust Saudi Distribution Network",
     about_network_desc:
       "Headquartered strategically in Dammam to support the industrial heartland of the Eastern Province, Albloshi operates comprehensive localized fulfillment pipelines across primary commercial hubs.",
@@ -1021,6 +1027,12 @@ export const translations = {
     about_team_3_role: "مدير العمليات واللوجستيات",
     about_team_3_bio:
       "يدير العمليات اللوجستية وشبكات التخزين وسجلات الامتثال للجودة عبر جميع أقسام التوريد.",
+    about_team_4_role: "مدير",
+    about_team_4_bio:
+      "توجيه الرؤية الاستراتيجية للشركة وعملياتها.",
+    about_team_5_role: "مدير",
+    about_team_5_bio:
+      "قيادة النمو والتميز التشغيلي في جميع أنحاء المؤسسة.",
     about_network_title: "شبكة توزيع سعودية قوية",
     about_network_desc:
       "بمقر رئيسي استراتيجي في الدمام لدعم القلب الصناعي للمنطقة الشرقية، تدير البلوشي خطوط توريد محلية شاملة عبر المراكز التجارية الرئيسية.",

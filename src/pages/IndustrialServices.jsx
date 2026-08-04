@@ -81,7 +81,7 @@ const PRODUCTS = [
   },
   {
     id: 'forged-cs-fittings',
-    img: '/images/Industrial_Materials/FORGED_CARBON STEEL_FITTINGS.webp',
+    img: '/images/Industrial_Materials/FORGED_CARBON_20STEEL_FITTINGS.png',
     tagKey: 'Piping Systems',
     titleKey: 'Forged Carbon Steel Fittings',
     descKey: 'Heavy-duty forged Carbon Steel threaded and socket weld fittings designed for high-pressure piping applications where strength, safety and long service life are essential.',
@@ -89,7 +89,7 @@ const PRODUCTS = [
   },
   {
     id: 'forged-ss-fittings',
-    img: '/images/Industrial_Materials/FORGED_STAINLESS_STEEL_FITTINGS.webp',
+    img: '/images/Industrial_Materials/FORGED_STAINLESS_STEEL_FITTINGS.png',
     tagKey: 'Piping Systems',
     titleKey: 'Forged Stainless Steel Fittings',
     descKey: 'Forged Stainless Steel fittings provide reliable threaded and socket weld connections for corrosive and high-pressure industrial piping applications.',
@@ -111,7 +111,7 @@ const PRODUCTS = [
   },
   {
     id: 'fire-hydrant-grooved-fittings',
-    img: '/images/Industrial_Materials/FIRE_HYDRANT_& GROOVED_FITTINGS.webp',
+    img: '/images/Industrial_Materials/FIRE_HYDRANT_&_20GROOVED_FITTINGS.png',
     tagKey: 'Fire Protection',
     titleKey: 'Fire Hydrant & Grooved Fittings',
     descKey: 'Complete range of fire hydrants, grooved couplings, valves and accessories designed for dependable fire protection systems in commercial and industrial facilities.',
@@ -126,7 +126,7 @@ const PRODUCTS = [
   },
   {
     id: 'instrumentation-accessories-tube-fittings',
-    img: '/images/Industrial_Materials/INSTRUMENTATION_ACCESSORIES_TUBE FITTINGS.webp',
+    img: '/images/Industrial_Materials/INSTRUMENTATION_ACCESSORIES_TUBE_20FITTINGS.png',
     tagKey: 'Instrumentation',
     titleKey: 'Instrumentation Accessories & Tube Fittings',
     descKey: 'Precision tube fittings, valves, gauges and instrumentation accessories manufactured for accurate fluid control and industrial process measurement applications.',
@@ -140,7 +140,7 @@ const PRODUCTS = [
   },
   {
     id: 'valves',
-    img: '/images/Industrial_Materials/VALVES.webp',
+    img: '/images/Industrial_Materials/VALVES.png',
     tagKey: 'Flow Control',
     titleKey: 'Valves',
     descKey: 'Industrial valves engineered for efficient flow control across oil and gas, water treatment, power generation and process industries with dependable sealing performance.',
@@ -148,7 +148,7 @@ const PRODUCTS = [
   },
   {
     id: 'fasteners-stud-bolts',
-    img: '/images/Industrial_Materials/FASTENERS_AND_STUD.webp',
+    img: '/images/Industrial_Materials/FASTENERS_AND_STUD.png',
     tagKey: 'Industrial Supplies',
     titleKey: 'Fasteners & Stud Bolts',
     descKey: 'Industrial fasteners including bolts, nuts, washers and stud bolts manufactured for secure structural and piping connections in demanding industrial environments.',
@@ -162,7 +162,7 @@ const PRODUCTS = [
   },
   {
     id: 'gasket-insulation-kits',
-    img: '/images/Industrial_Materials/GASKET_AND_INSULATION_KITS.webp',
+    img: '/images/Industrial_Materials/GASKET_AND_INSULATION_KITS.png',
     tagKey: 'Industrial Supplies',
     titleKey: 'Gasket & Insulation Kits',
     descKey: 'Industrial sealing products designed to minimize leakage, improve safety and maintain reliable flange performance across various piping applications.',
@@ -207,7 +207,7 @@ const PRODUCTS = [
   },
   {
     id: 'cable-tray-ladder-support',
-    img: '/images/Industrial_Materials/CABLE_TRAY_&_LADDER_SUPPORT.png',
+    img: '/images/Industrial_Materials/CABLE_TRAY_&_LADDER_SUPPORT.webp',
     tagKey: 'Cable Management',
     titleKey: 'Cable Tray & Ladder Support',
     descKey: 'Cable trays and ladder support systems designed for organized, secure and efficient cable routing across industrial facilities.',
@@ -407,7 +407,7 @@ export default function IndustrialServices() {
             {PRODUCTS.map(p => (
               <div key={p.titleKey} className="product-block" id={p.id}>
                 <div style={{ position: 'relative' }}>
-                  <img src={p.img} alt={t(p.titleKey)} className="product-block-img" style={{ aspectRatio: '16/10' }} />
+                  <img src={p.img} alt={t(p.titleKey)} className="product-block-img" style={{ aspectRatio: '1/1' }} />
                 </div>
                 <div className="product-block-body" style={{ padding: '1.25rem' }}>
                   <span className="product-block-tag">{t(p.tagKey)}</span>
