@@ -946,142 +946,141 @@
     transform: scale(1.03);
 }
 
-/* Main 2 Bento Cards Grid */
+/* Main 12 Bento Cards Grid */
 .mp-main-cards-section {
-    padding: 2.5rem 0 3rem;
+    padding: 40px 0 30px;
 }
 
-.mp-main-cards-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-.mp-bento-card {
-    background: #FFFFFF;
-    border-radius: 24px;
-    border: 1px solid #E2E8F0;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
-    overflow: hidden;
+.mp-filter-tabs {
     display: flex;
-    flex-direction: row;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
 }
 
-.mp-bento-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.09);
+.mp-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 50px;
+    background: #F1F5F9;
+    border: 1px solid #E2E8F0;
+    color: #475569;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mp-tab-btn .material-icons {
+    font-size: 1.15rem;
+    color: #64748B;
+    transition: color 0.3s ease;
+}
+
+.mp-tab-btn:hover {
+    background: #E2E8F0;
+    color: #0F172A;
+}
+
+.mp-tab-btn.active {
+    background: linear-gradient(135deg, #0B2545 0%, #1E3A8A 100%);
+    border-color: #0B2545;
+    color: #FFFFFF;
+    box-shadow: 0 6px 18px rgba(11, 37, 69, 0.2);
+}
+
+.mp-tab-btn.active .material-icons {
+    color: #60A5FA;
+}
+
+.mp-12-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.mp-grid-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+    overflow: hidden;
+    padding: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    scroll-margin-top: 120px;
+}
+
+.mp-grid-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 35px rgba(15, 23, 42, 0.08);
     border-color: #CBD5E1;
 }
 
-.mp-card-img-col {
-    flex: 0 0 38%;
-    position: relative;
-    min-height: 380px;
-    overflow: hidden;
+.mp-grid-card.mp-card-highlight {
+    animation: mpPulseHighlight 2s ease-in-out;
 }
 
-.mp-card-img-col img {
+@keyframes mpPulseHighlight {
+    0%, 100% {
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+        border-color: #E2E8F0;
+    }
+    50% {
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.4), 0 20px 40px rgba(37, 99, 235, 0.2);
+        border-color: #2563EB;
+        transform: translateY(-6px);
+    }
+}
+
+.mp-grid-card-img-wrapper {
+    width: 100%;
+    height: 200px;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    background-color: #F8FAFC;
+}
+
+.mp-grid-card-img-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
+    display: block;
+    transition: transform 0.5s ease;
 }
 
-.mp-card-content-col {
-    flex: 1;
-    padding: 2.25rem 2rem;
+.mp-grid-card:hover .mp-grid-card-img-wrapper img {
+    transform: scale(1.06);
+}
+
+.mp-grid-card-body {
+    padding-top: 1.1rem;
+    padding-bottom: 0.4rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
-}
-
-.mp-card-header {
-    display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
 }
 
-.mp-card-icon-badge {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #0F52BA 0%, #1E3A8A 100%);
-    color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 16px rgba(30, 58, 138, 0.25);
-    flex-shrink: 0;
-}
-
-.mp-card-icon-badge .material-icons {
-    font-size: 1.75rem;
-}
-
-.mp-card-header-text {
-    flex: 1;
-}
-
-.mp-card-title {
-    font-size: 1.25rem;
+.mp-grid-card-title {
+    font-size: 1.02rem;
     font-weight: 800;
     color: #0F172A;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    margin: 0 0 4px 0;
-}
-
-.mp-card-title-dash {
-    width: 36px;
-    height: 3px;
-    background-color: #2563EB;
-    border-radius: 2px;
-}
-
-.mp-card-list {
-    list-style: none;
-    padding: 0;
+    line-height: 1.45;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
+    transition: color 0.25s ease;
 }
 
-.mp-card-list-item {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #334155;
-    line-height: 1.4;
-    border-bottom: 1px dashed #F1F5F9;
-    padding-bottom: 0.65rem;
-}
-
-.mp-card-list-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.mp-check-icon {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background-color: #0B2545;
-    color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.mp-check-icon .material-icons {
-    font-size: 0.9rem;
-    font-weight: bold;
+.mp-grid-card:hover .mp-grid-card-title {
+    color: #1D4ED8;
 }
 
 /* Feature 4 Cards Row */
@@ -1286,12 +1285,13 @@
 }
 
 /* Responsive Styles for Manpower Page */
-@media (max-width: 1100px) {
-    .mp-main-cards-grid {
-        grid-template-columns: 1fr;
+@media (max-width: 1200px) {
+    .mp-12-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
     }
-    .mp-bento-card {
-        flex-direction: row;
+    .mp-grid-card-img-wrapper {
+        height: 190px;
     }
 }
 
@@ -1305,20 +1305,25 @@
     }
 }
 
+@media (max-width: 840px) {
+    .mp-12-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    .mp-grid-card-img-wrapper {
+        height: 175px;
+    }
+    .mp-grid-card {
+        padding: 0.9rem;
+    }
+    .mp-grid-card-title {
+        font-size: 0.95rem;
+    }
+}
+
 @media (max-width: 680px) {
     .mp-hero-wrapper {
         padding: 2.5rem 0 1.25rem;
-    }
-    .mp-bento-card {
-        flex-direction: column;
-    }
-    .mp-card-img-col {
-        flex: none;
-        width: 100%;
-        min-height: 240px;
-    }
-    .mp-card-content-col {
-        padding: 1.75rem 1.25rem;
     }
     .mp-features-grid {
         grid-template-columns: 1fr;
@@ -1340,6 +1345,16 @@
     }
     .mp-cta-btn .material-icons, .mp-cta-phone-btn .material-icons {
         font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 520px) {
+    .mp-12-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.1rem;
+    }
+    .mp-grid-card-img-wrapper {
+        height: 270px;
     }
 }
 

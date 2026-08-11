@@ -380,11 +380,77 @@ export default function Header() {
                   </ul>
                 </li>
 
-                <li>
-                  <Link to="/manpower-supply" className="dropdown-item">
+                <li className={`dropdown-submenu${openNestedSubmenu === 'manpower' ? ' open-mobile-nested-submenu' : ''}`}>
+                  <Link
+                    to="/manpower-supply"
+                    className="dropdown-item"
+                    onClick={(e) => toggleNestedSubmenu(e, 'manpower')}
+                  >
                     <span className="material-icons">groups</span>
                     <span className="dropdown-text">{t('manpower_supply')}</span>
                   </Link>
+                  <ul className="submenu manpower-submenu-grid">
+                    <li>
+                      <Link to="/manpower-supply#engineers-supervisors-foremen" className="dropdown-item">
+                        <span className="dropdown-text">{t('mp_skilled_item1')}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/manpower-supply#electricians-instrument-technicians" className="dropdown-item">
+                        <span className="dropdown-text">{t('mp_skilled_item2')}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/manpower-supply#welders-fabricators-pipefitters" className="dropdown-item">
+                        <span className="dropdown-text">{t('mp_skilled_item3')}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/manpower-supply#plumbers-hvac-technicians" className="dropdown-item">
+                        <span className="dropdown-text">{t('mp_skilled_item4')}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/manpower-supply#riggers-scaffolders-operators" className="dropdown-item">
+                        <span className="dropdown-text">{t('mp_skilled_item5')}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/manpower-supply#safety-storekeepers-timekeepers" className="dropdown-item">
+                        <span className="dropdown-text">{t('mp_skilled_item6')}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/manpower-supply#general-labour-helpers" className="dropdown-item">
+                        <span className="dropdown-text">{t('mp_unskilled_item1')}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/manpower-supply#loading-unloading-material-handling" className="dropdown-item">
+                        <span className="dropdown-text">{t('mp_unskilled_item2')}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/manpower-supply#site-cleaning-housekeeping" className="dropdown-item">
+                        <span className="dropdown-text">{t('mp_unskilled_item3')}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/manpower-supply#packing-sorting-warehouse" className="dropdown-item">
+                        <span className="dropdown-text">{t('mp_unskilled_item4')}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/manpower-supply#construction-support-civil-helpers" className="dropdown-item">
+                        <span className="dropdown-text">{t('mp_unskilled_item5')}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/manpower-supply#shutdown-mobilization-crews" className="dropdown-item">
+                        <span className="dropdown-text">{t('mp_unskilled_item6')}</span>
+                      </Link>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>
@@ -447,27 +513,27 @@ export default function Header() {
       </div>
       <style>{`
         @media (min-width: 1201px) {
-          .food-submenu-grid, .industrial-submenu-grid {
+          .food-submenu-grid, .industrial-submenu-grid, .manpower-submenu-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            column-gap: 1rem;
-            width: 650px !important;
-            padding: 0.5rem;
-            max-height: 60vh;
+            column-gap: 1.25rem;
+            width: 730px !important;
+            padding: 0.6rem;
+            max-height: 65vh;
             overflow-y: auto;
           }
-          .food-submenu-grid::-webkit-scrollbar, .industrial-submenu-grid::-webkit-scrollbar {
+          .food-submenu-grid::-webkit-scrollbar, .industrial-submenu-grid::-webkit-scrollbar, .manpower-submenu-grid::-webkit-scrollbar {
             width: 6px;
           }
-          .food-submenu-grid::-webkit-scrollbar-track, .industrial-submenu-grid::-webkit-scrollbar-track {
+          .food-submenu-grid::-webkit-scrollbar-track, .industrial-submenu-grid::-webkit-scrollbar-track, .manpower-submenu-grid::-webkit-scrollbar-track {
             background: rgba(0, 0, 0, 0.05);
             border-radius: 10px;
           }
-          .food-submenu-grid::-webkit-scrollbar-thumb, .industrial-submenu-grid::-webkit-scrollbar-thumb {
+          .food-submenu-grid::-webkit-scrollbar-thumb, .industrial-submenu-grid::-webkit-scrollbar-thumb, .manpower-submenu-grid::-webkit-scrollbar-thumb {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
           }
-          .food-submenu-grid li, .industrial-submenu-grid li {
+          .food-submenu-grid li, .industrial-submenu-grid li, .manpower-submenu-grid li {
             width: 100%;
           }
         }

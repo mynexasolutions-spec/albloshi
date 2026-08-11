@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
@@ -9,24 +9,101 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 export default function ManpowerSupply() {
   const { t } = useLanguage();
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState('all');
 
-  const skilledItems = [
-    t('mp_skilled_item1'),
-    t('mp_skilled_item2'),
-    t('mp_skilled_item3'),
-    t('mp_skilled_item4'),
-    t('mp_skilled_item5'),
-    t('mp_skilled_item6'),
+  const manpowerItems = [
+    {
+      id: 'engineers-supervisors-foremen',
+      titleKey: 'mp_skilled_item1',
+      image: '/images/manpower/engineers-supervisors-foremen.webp',
+      category: 'skilled',
+    },
+    {
+      id: 'electricians-instrument-technicians',
+      titleKey: 'mp_skilled_item2',
+      image: '/images/manpower/Electricians and Instrument technicians.webp',
+      category: 'skilled',
+    },
+    {
+      id: 'welders-fabricators-pipefitters',
+      titleKey: 'mp_skilled_item3',
+      image: '/images/manpower/Welders, fabricator and pipe fitters.webp',
+      category: 'skilled',
+    },
+    {
+      id: 'plumbers-hvac-technicians',
+      titleKey: 'mp_skilled_item4',
+      image: '/images/manpower/Plumbers and HVAC technicians.webp',
+      category: 'skilled',
+    },
+    {
+      id: 'riggers-scaffolders-operators',
+      titleKey: 'mp_skilled_item5',
+      image: '/images/manpower/Riggers, scaffolders and equipment operators.webp',
+      category: 'skilled',
+    },
+    {
+      id: 'safety-storekeepers-timekeepers',
+      titleKey: 'mp_skilled_item6',
+      image: '/images/manpower/Safety officers, storekeepers and timekeepers.webp',
+      category: 'skilled',
+    },
+    {
+      id: 'general-labour-helpers',
+      titleKey: 'mp_unskilled_item1',
+      image: '/images/manpower/General labour and helpers.webp',
+      category: 'unskilled',
+    },
+    {
+      id: 'loading-unloading-material-handling',
+      titleKey: 'mp_unskilled_item2',
+      image: '/images/manpower/Loading, unloading and material handling.webp',
+      category: 'unskilled',
+    },
+    {
+      id: 'site-cleaning-housekeeping',
+      titleKey: 'mp_unskilled_item3',
+      image: '/images/manpower/Site cleaning and housekeeping teams.webp',
+      category: 'unskilled',
+    },
+    {
+      id: 'packing-sorting-warehouse',
+      titleKey: 'mp_unskilled_item4',
+      image: '/images/manpower/Packing, sorting and warehouse support.webp',
+      category: 'unskilled',
+    },
+    {
+      id: 'construction-support-civil-helpers',
+      titleKey: 'mp_unskilled_item5',
+      image: '/images/manpower/Construction support and civil helpers.webp',
+      category: 'unskilled',
+    },
+    {
+      id: 'shutdown-mobilization-crews',
+      titleKey: 'mp_unskilled_item6',
+      image: '/images/manpower/Shutdown and project mobilization crews.webp',
+      category: 'unskilled',
+    },
   ];
 
-  const unskilledItems = [
-    t('mp_unskilled_item1'),
-    t('mp_unskilled_item2'),
-    t('mp_unskilled_item3'),
-    t('mp_unskilled_item4'),
-    t('mp_unskilled_item5'),
-    t('mp_unskilled_item6'),
-  ];
+  useEffect(() => {
+    if (location.hash) {
+      const targetId = location.hash.replace('#', '');
+      const element = document.getElementById(targetId);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          element.classList.add('mp-card-highlight');
+          setTimeout(() => element.classList.remove('mp-card-highlight'), 2500);
+        }, 300);
+      }
+    }
+  }, [location]);
+
+  const filteredItems = activeTab === 'all' 
+    ? manpowerItems 
+    : manpowerItems.filter(item => item.category === activeTab);
 
   const features = [
     {
@@ -98,75 +175,50 @@ export default function ManpowerSupply() {
         </div>
       </section>
 
-      {/* Main 2 Cards (Skilled & Non-Skilled) */}
+      {/* Main 12 Cards Grid Section */}
       <section className="mp-main-cards-section">
         <div className="container">
-          <div className="mp-main-cards-grid">
-            {/* Skilled Manpower Card */}
-            <div className="mp-bento-card">
-              <div className="mp-card-img-col">
-                <img
-                  src="/images/manpower/manpower_skilled.png"
-                  alt="Skilled Manpower"
-                  loading="lazy"
-                />
-              </div>
-              <div className="mp-card-content-col">
-                <div className="mp-card-header">
-                  <div className="mp-card-icon-badge">
-                    <span className="material-icons">construction</span>
-                  </div>
-                  <div className="mp-card-header-text">
-                    <h2 className="mp-card-title">{t('mp_skilled_title')}</h2>
-                    <div className="mp-card-title-dash"></div>
-                  </div>
+          {/* Category Filter Tabs */}
+          <div className="mp-filter-tabs">
+            <button
+              className={`mp-tab-btn ${activeTab === 'all' ? 'active' : ''}`}
+              onClick={() => setActiveTab('all')}
+            >
+              <span className="material-icons">apps</span>
+              <span>All Manpower Solutions</span>
+            </button>
+            <button
+              className={`mp-tab-btn ${activeTab === 'skilled' ? 'active' : ''}`}
+              onClick={() => setActiveTab('skilled')}
+            >
+              <span className="material-icons">construction</span>
+              <span>{t('mp_skilled_title')}</span>
+            </button>
+            <button
+              className={`mp-tab-btn ${activeTab === 'unskilled' ? 'active' : ''}`}
+              onClick={() => setActiveTab('unskilled')}
+            >
+              <span className="material-icons">groups</span>
+              <span>{t('mp_unskilled_title')}</span>
+            </button>
+          </div>
+
+          {/* Responsive 12 Cards Grid */}
+          <div className="mp-12-cards-grid">
+            {filteredItems.map((item) => (
+              <div key={item.id} id={item.id} className="mp-grid-card">
+                <div className="mp-grid-card-img-wrapper">
+                  <img
+                    src={item.image}
+                    alt={t(item.titleKey)}
+                    loading="lazy"
+                  />
                 </div>
-
-                <ul className="mp-card-list">
-                  {skilledItems.map((item, idx) => (
-                    <li key={idx} className="mp-card-list-item">
-                      <span className="mp-check-icon">
-                        <span className="material-icons">check</span>
-                      </span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Non-Skilled Labour Card */}
-            <div className="mp-bento-card">
-              <div className="mp-card-img-col">
-                <img
-                  src="/images/manpower/manpower_unskilled.png"
-                  alt="Non-Skilled Labour"
-                  loading="lazy"
-                />
-              </div>
-              <div className="mp-card-content-col">
-                <div className="mp-card-header">
-                  <div className="mp-card-icon-badge">
-                    <span className="material-icons">groups</span>
-                  </div>
-                  <div className="mp-card-header-text">
-                    <h2 className="mp-card-title">{t('mp_unskilled_title')}</h2>
-                    <div className="mp-card-title-dash"></div>
-                  </div>
+                <div className="mp-grid-card-body">
+                  <h3 className="mp-grid-card-title">{t(item.titleKey)}</h3>
                 </div>
-
-                <ul className="mp-card-list">
-                  {unskilledItems.map((item, idx) => (
-                    <li key={idx} className="mp-card-list-item">
-                      <span className="mp-check-icon">
-                        <span className="material-icons">check</span>
-                      </span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -213,3 +265,4 @@ export default function ManpowerSupply() {
     </div>
   );
 }
+
