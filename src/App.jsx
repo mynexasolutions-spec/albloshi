@@ -12,6 +12,7 @@ import FoodServices from './pages/FoodServices';
 import IntelligentChemicals from './pages/IntelligentChemicals';
 import TellabsChemicals from './pages/TellabsChemicals';
 import Contact from './pages/Contact';
+import ManpowerSupply from './pages/ManpowerSupply';
 import Chatbot from './components/Chatbot';
 
 import { AuthProvider } from './contexts/AuthContext';
@@ -64,6 +65,7 @@ export default function App() {
               <Route path="/food-services" element={<FoodServices />} />
               <Route path="/intelligent-chemicals" element={<IntelligentChemicals />} />
               <Route path="/tellabs-chemicals" element={<TellabsChemicals />} />
+              <Route path="/manpower-supply" element={<ManpowerSupply />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
 

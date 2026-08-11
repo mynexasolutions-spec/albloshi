@@ -381,7 +381,7 @@ export default function Header() {
                 </li>
 
                 <li>
-                  <Link to="/contact" className="dropdown-item">
+                  <Link to="/manpower-supply" className="dropdown-item">
                     <span className="material-icons">groups</span>
                     <span className="dropdown-text">{t('manpower_supply')}</span>
                   </Link>

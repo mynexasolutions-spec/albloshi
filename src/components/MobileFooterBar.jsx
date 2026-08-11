@@ -18,10 +18,10 @@ export default function MobileFooterBar() {
         <span className="material-icons mfb-icon">restaurant</span>
         <span className="mfb-label">{t('mfb_food')}</span>
       </Link>
-      <a href="/contact" className="mfb-item">
+      <Link to="/manpower-supply" className="mfb-item">
         <span className="material-icons mfb-icon">groups</span>
         <span className="mfb-label">{t('mfb_manpower')}</span>
-      </a>
+      </Link>
     </nav>
   );
 }

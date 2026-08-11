@@ -26,7 +26,7 @@ export default function Footer() {
                 <li><Link to="/industrial-services">{t('industrial_materials')}</Link></li>
                 <li><Link to="/intelligent-chemicals">{t('tellabs_chemicals')}</Link></li>
                 <li><Link to="/food-services">{t('food_distribution')}</Link></li>
-                <li><a href={hashLink('#contact')}>{t('manpower_supply')}</a></li>
+                <li><Link to="/manpower-supply">{t('manpower_supply')}</Link></li>
               </ul>
             </div>
 
