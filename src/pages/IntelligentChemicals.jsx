@@ -184,6 +184,15 @@ const TRUST_CARDS = [
 
 const COMMITMENT_KEYS = ['ic_commitment_item1', 'ic_commitment_item2', 'ic_commitment_item3', 'ic_commitment_item4', 'ic_commitment_item5'];
 
+const CHEMICAL_TEAM = [
+  { id: 1, name: 'Jetu Lalwani', roleKey: 'team_chemical_jetu_role', bioKey: 'team_chemical_jetu_bio' },
+  { id: 2, name: 'Sajid Pachhapure', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
+  { id: 3, name: 'Ajay Adnala', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/ajay_adnala.jpeg' },
+  { id: 4, name: 'Mohammed Abdul Balushi', roleKey: 'team_chemical_mab_role', bioKey: 'team_chemical_mab_bio' },
+  { id: 5, name: 'Arbaz Shaikh', roleKey: 'team_chemical_arbaz_role', bioKey: 'team_chemical_arbaz_bio' },
+  { id: 6, name: 'I Akhter', roleKey: 'team_chemical_akhter_role', bioKey: 'team_chemical_akhter_bio' },
+];
+
 export default function IntelligentChemicals() {
   const { t, language } = useLanguage();
   const SOLUTIONS = language === 'ar' ? SOLUTIONS_AR : SOLUTIONS_EN;
@@ -283,6 +292,49 @@ export default function IntelligentChemicals() {
           <div className="commitment-list">
             {COMMITMENT_KEYS.map(k => (
               <span key={k}>{t(k)}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="team-section section-padding" style={{ backgroundColor: 'var(--color-white)', borderTop: '1px solid var(--color-border)' }}>
+        <div className="container">
+          <div className="text-center" style={{ marginBottom: '3.5rem' }}>
+            <span className="focus-label">{t('about_team_label')}</span>
+            <h2 className="section-title center">{t('chem_team_title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto' }}>{t('chem_team_desc')}</p>
+          </div>
+          <div className="team-grid">
+            {CHEMICAL_TEAM.map(m => (
+              <div key={m.id} className="team-card">
+                <div className="team-img-wrapper">
+                  {m.img ? (
+                    <img src={m.img} alt={m.name} className="team-img" style={{ objectFit: 'cover' }} />
+                  ) : (
+                    <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <linearGradient id={`avatarGradChem${m.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#f8fafc" />
+                          <stop offset="100%" stopColor="#cbd5e1" />
+                        </linearGradient>
+                        <linearGradient id={`primaryGradChem${m.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#1B5FAF" />
+                          <stop offset="100%" stopColor="#0b2246" />
+                        </linearGradient>
+                      </defs>
+                      <rect width="100" height="100" fill={`url(#avatarGradChem${m.id})`} />
+                      <circle cx="50" cy="40" r="18" fill={`url(#primaryGradChem${m.id})`} opacity="0.85" />
+                      <path d="M20 80C20 63.43 33.43 50 50 50C66.57 50 80 63.43 80 80V85H20V80Z" fill={`url(#primaryGradChem${m.id})`} opacity="0.85" />
+                    </svg>
+                  )}
+                </div>
+                <div className="team-info">
+                  <h3>{m.name}</h3>
+                  <div className="team-role">{t(m.roleKey)}</div>
+                  <p className="team-bio">{t(m.bioKey)}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>

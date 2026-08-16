@@ -120,7 +120,7 @@ const KB_EN = {
     ],
   },
   chem_iwt: {
-    text: '<strong>Industrial Water Treatment (IWT)</strong><br/><br/>Our IWT chemical range prevents scale, corrosion & microbiological growth in:<br/><br/>• Cooling towers<br/>• Reverse Osmosis (RO) systems<br/>• MEE (Multi-Effect Evaporators)<br/>• Boilers & heat exchangers<br/>• Effluent & wastewater systems<br/><br/><strong>Includes:</strong> Corrosion inhibitors, scale inhibitors, biocides, dispersants & pH adjusters.<br/><br/><em>Used by petrochemical plants, desalination facilities & industrial water utilities across KSA.</em>',
+    text: '<strong>Industrial Water Treatment (IWT)</strong><br/><br/>Our IWT chemical range prevents scale, corrosion & microbiological growth in:<br/><br/>• Cooling towers<br/>• Reverse Osmosis (RO) systems<br/>• MEE (Multi-Effect Evaporators)<br/>• Boilers & heat exchangers<br/>• Closed Loop Treatment<br/>• Effluent & wastewater systems<br/><br/><strong>Includes:</strong> Corrosion inhibitors, scale inhibitors, biocides, dispersants & pH adjusters.<br/><br/><em>Used by petrochemical plants, desalination facilities & industrial water utilities across KSA.</em>',
     chips: [
       chip('biotech',      'Polymers',           'chem_polymer'),
       chip('filter_alt',   'Activated Carbon',   'chem_carbon'),
@@ -354,7 +354,7 @@ const KB_AR = {
     ],
   },
   chem_iwt: {
-    text: '<strong>معالجة المياه الصناعية (IWT)</strong><br/><br/>تمنع مجموعتنا الكيميائية للمعالجة الترسبات والتآكل والنمو الميكروبيولوجي في:<br/><br/>• أبراج التبريد<br/>• أنظمة التناضح العكسي (RO)<br/>• المبخرات متعددة التأثير (MEE)<br/>• الغلايات ومبادلات الحرارة<br/>• أنظمة الفضلات ومياه الصرف<br/><br/><strong>تشمل:</strong> مثبطات التآكل، مثبطات الترسب، المبيدات الحيوية، المشتتات ومعدلات الأس الهيدروجيني.<br/><br/><em>تستخدمها المصانع البتروكيماوية ومحطات التحلية ومرافق المياه الصناعية في جميع أنحاء المملكة.</em>',
+    text: '<strong>معالجة المياه الصناعية (IWT)</strong><br/><br/>تمنع مجموعتنا الكيميائية للمعالجة الترسبات والتآكل والنمو الميكروبيولوجي في:<br/><br/>• أبراج التبريد<br/>• أنظمة التناضح العكسي (RO)<br/>• المبخرات متعددة التأثير (MEE)<br/>• الغلايات ومبادلات الحرارة<br/>• معالجة الحلقة المغلقة<br/>• أنظمة الفضلات ومياه الصرف<br/><br/><strong>تشمل:</strong> مثبطات التآكل، مثبطات الترسب، المبيدات الحيوية، المشتتات ومعدلات الأس الهيدروجيني.<br/><br/><em>تستخدمها المصانع البتروكيماوية ومحطات التحلية ومرافق المياه الصناعية في جميع أنحاء المملكة.</em>',
     chips: [
       chip('biotech',      'البوليمرات',           'chem_polymer'),
       chip('filter_alt',   'الكربون المنشط',       'chem_carbon'),

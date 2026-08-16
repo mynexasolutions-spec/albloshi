@@ -191,6 +191,12 @@ const STRENGTHS = [
 
 const STANDARD_KEYS = ['food_standard1', 'food_standard2', 'food_standard3', 'food_standard4', 'food_standard5', 'food_standard6'];
 
+const FOOD_TEAM = [
+  { id: 11, name: 'Mohammed Abdulla Al Balushi', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio' },
+  { id: 12, name: 'Raj Kumar Soni', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio' },
+  { id: 13, name: 'I Akhter', roleKey: 'team_food_akhter_role', bioKey: 'team_food_akhter_bio' },
+];
+
 export default function FoodServices() {
   const { t } = useLanguage();
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -351,6 +357,49 @@ export default function FoodServices() {
           <div className="standards-grid">
             {STANDARD_KEYS.map(k => (
               <span key={k} className="standard-badge">{t(k)}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="team-section section-padding" style={{ backgroundColor: 'var(--color-white)', borderTop: '1px solid var(--color-border)' }}>
+        <div className="container">
+          <div className="text-center" style={{ marginBottom: '3.5rem' }}>
+            <span className="focus-label">{t('about_team_label')}</span>
+            <h2 className="section-title center">{t('food_team_title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto' }}>{t('food_team_desc')}</p>
+          </div>
+          <div className="team-grid">
+            {FOOD_TEAM.map(m => (
+              <div key={m.id} className="team-card">
+                <div className="team-img-wrapper">
+                  {m.img ? (
+                    <img src={m.img} alt={m.name} className="team-img" style={{ objectFit: 'cover' }} />
+                  ) : (
+                    <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <linearGradient id={`avatarGradFood${m.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#f8fafc" />
+                          <stop offset="100%" stopColor="#cbd5e1" />
+                        </linearGradient>
+                        <linearGradient id={`primaryGradFood${m.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#1B5FAF" />
+                          <stop offset="100%" stopColor="#0b2246" />
+                        </linearGradient>
+                      </defs>
+                      <rect width="100" height="100" fill={`url(#avatarGradFood${m.id})`} />
+                      <circle cx="50" cy="40" r="18" fill={`url(#primaryGradFood${m.id})`} opacity="0.85" />
+                      <path d="M20 80C20 63.43 33.43 50 50 50C66.57 50 80 63.43 80 80V85H20V80Z" fill={`url(#primaryGradFood${m.id})`} opacity="0.85" />
+                    </svg>
+                  )}
+                </div>
+                <div className="team-info">
+                  <h3>{m.name}</h3>
+                  <div className="team-role">{t(m.roleKey)}</div>
+                  <p className="team-bio">{t(m.bioKey)}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>

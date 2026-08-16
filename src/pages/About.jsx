@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -24,11 +24,26 @@ const VALUES = [
 ];
 
 const TEAM = [
-  { id: 1, name: 'Mohammad Abdulla Albloshi', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio' },
-  { id: 2, name: 'Mohammad Riaz', roleKey: 'about_team_2_role', bioKey: 'about_team_2_bio' },
-  { id: 3, name: 'Eng. Fahad Al-Mutairi', roleKey: 'about_team_3_role', bioKey: 'about_team_3_bio' },
-  { id: 4, name: 'Sajid Pachhapure', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
-  { id: 5, name: 'Ajay Adnala', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/ajay_adnala.jpeg' },
+  // Chemical
+  { id: 1, name: 'Jetu Lalwani', category: 'chemical', roleKey: 'team_chemical_jetu_role', bioKey: 'team_chemical_jetu_bio' },
+  { id: 2, name: 'Sajid Pachhapure', category: 'chemical', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
+  { id: 3, name: 'Ajay Adnala', category: 'chemical', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/ajay_adnala.jpeg' },
+  { id: 4, name: 'Mohammed Abdul Balushi', category: 'chemical', roleKey: 'team_chemical_mab_role', bioKey: 'team_chemical_mab_bio' },
+  { id: 5, name: 'Arbaz Shaikh', category: 'chemical', roleKey: 'team_chemical_arbaz_role', bioKey: 'team_chemical_arbaz_bio' },
+  { id: 6, name: 'I Akhter', category: 'chemical', roleKey: 'team_chemical_akhter_role', bioKey: 'team_chemical_akhter_bio' },
+  
+  // Industrial
+  { id: 7, name: 'Mohammed Riaz', category: 'industrial', roleKey: 'about_team_2_role', bioKey: 'about_team_2_bio' },
+  { id: 8, name: 'Mr. T.A. Khan', category: 'industrial', roleKey: 'team_industrial_khan_role', bioKey: 'team_industrial_khan_bio' },
+
+  // Manpower
+  { id: 9, name: 'Ahsan Jafri', category: 'manpower', roleKey: 'team_manpower_ahsan_role', bioKey: 'team_manpower_ahsan_bio' },
+  { id: 10, name: 'Iqbal Jafri', category: 'manpower', roleKey: 'team_manpower_iqbal_role', bioKey: 'team_manpower_iqbal_bio' },
+
+  // Food
+  { id: 11, name: 'Mohammed Abdulla Al Balushi', category: 'food', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio' },
+  { id: 12, name: 'Raj Kumar Soni', category: 'food', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio' },
+  { id: 13, name: 'I Akhter', category: 'food', roleKey: 'team_food_akhter_role', bioKey: 'team_food_akhter_bio' },
 ];
 
 const NETWORK_CARDS = [
@@ -56,6 +71,11 @@ export default function About() {
     els.forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, []);
+
+  const [activeVertical, setActiveVertical] = useState('all');
+  const filteredTeam = activeVertical === 'all'
+    ? TEAM
+    : TEAM.filter(m => m.category === activeVertical);
 
   return (
     <>
@@ -173,10 +193,50 @@ export default function About() {
           <div className="text-center">
             <span className="focus-label">{t('about_team_label')}</span>
             <h2 className="section-title center">{t('about_team_title')}</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 3.5rem' }}>{t('about_team_desc')}</p>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 2.5rem' }}>{t('about_team_desc')}</p>
           </div>
+
+          {/* Category Filter Tabs */}
+          <div className="mp-filter-tabs" style={{ marginBottom: '3rem' }}>
+            <button
+              className={`mp-tab-btn ${activeVertical === 'all' ? 'active' : ''}`}
+              onClick={() => setActiveVertical('all')}
+            >
+              <span className="material-icons">apps</span>
+              <span>{t('about_team_vertical_all')}</span>
+            </button>
+            <button
+              className={`mp-tab-btn ${activeVertical === 'chemical' ? 'active' : ''}`}
+              onClick={() => setActiveVertical('chemical')}
+            >
+              <span className="material-icons">science</span>
+              <span>{t('about_team_vertical_chemical')}</span>
+            </button>
+            <button
+              className={`mp-tab-btn ${activeVertical === 'industrial' ? 'active' : ''}`}
+              onClick={() => setActiveVertical('industrial')}
+            >
+              <span className="material-icons">settings</span>
+              <span>{t('about_team_vertical_industrial')}</span>
+            </button>
+            <button
+              className={`mp-tab-btn ${activeVertical === 'food' ? 'active' : ''}`}
+              onClick={() => setActiveVertical('food')}
+            >
+              <span className="material-icons">restaurant</span>
+              <span>{t('about_team_vertical_food')}</span>
+            </button>
+            <button
+              className={`mp-tab-btn ${activeVertical === 'manpower' ? 'active' : ''}`}
+              onClick={() => setActiveVertical('manpower')}
+            >
+              <span className="material-icons">engineering</span>
+              <span>{t('about_team_vertical_manpower')}</span>
+            </button>
+          </div>
+
           <div className="team-grid">
-            {TEAM.map(m => (
+            {filteredTeam.map(m => (
               <div key={m.id} className="team-card">
                 <div className="team-img-wrapper">
                   {m.img ? (

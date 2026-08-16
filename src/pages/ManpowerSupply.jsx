@@ -7,6 +7,11 @@ import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { useLanguage } from '../contexts/LanguageContext';
 
+const MANPOWER_TEAM = [
+  { id: 9, name: 'Ahsan Jafri', roleKey: 'team_manpower_ahsan_role', bioKey: 'team_manpower_ahsan_bio' },
+  { id: 10, name: 'Iqbal Jafri', roleKey: 'team_manpower_iqbal_role', bioKey: 'team_manpower_iqbal_bio' },
+];
+
 export default function ManpowerSupply() {
   const { t } = useLanguage();
   const location = useLocation();
@@ -306,6 +311,49 @@ export default function ManpowerSupply() {
               </div>
             ))}
           </div>
+
+          {/* Team Section */}
+          <section className="team-section section-padding" style={{ backgroundColor: 'var(--color-white)', borderTop: '1px solid var(--color-border)', marginTop: '4rem' }}>
+            <div className="container">
+              <div className="text-center" style={{ marginBottom: '3.5rem' }}>
+                <span className="focus-label">{t('about_team_label')}</span>
+                <h2 className="section-title center">{t('manpower_team_title')}</h2>
+                <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto' }}>{t('manpower_team_desc')}</p>
+              </div>
+              <div className="team-grid">
+                {MANPOWER_TEAM.map(m => (
+                  <div key={m.id} className="team-card">
+                    <div className="team-img-wrapper">
+                      {m.img ? (
+                        <img src={m.img} alt={m.name} className="team-img" style={{ objectFit: 'cover' }} />
+                      ) : (
+                        <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                          <defs>
+                            <linearGradient id={`avatarGradMan${m.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#f8fafc" />
+                              <stop offset="100%" stopColor="#cbd5e1" />
+                            </linearGradient>
+                            <linearGradient id={`primaryGradMan${m.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#1B5FAF" />
+                              <stop offset="100%" stopColor="#0b2246" />
+                            </linearGradient>
+                          </defs>
+                          <rect width="100" height="100" fill={`url(#avatarGradMan${m.id})`} />
+                          <circle cx="50" cy="40" r="18" fill={`url(#primaryGradMan${m.id})`} opacity="0.85" />
+                          <path d="M20 80C20 63.43 33.43 50 50 50C66.57 50 80 63.43 80 80V85H20V80Z" fill={`url(#primaryGradMan${m.id})`} opacity="0.85" />
+                        </svg>
+                      )}
+                    </div>
+                    <div className="team-info">
+                      <h3>{m.name}</h3>
+                      <div className="team-role">{t(m.roleKey)}</div>
+                      <p className="team-bio">{t(m.bioKey)}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
 
           {/* CTA Box */}
           <div className="mp-cta-section">

@@ -33,6 +33,34 @@ const SLIDE_KEYS = [
 
 const FAQ_KEYS = ['home_faq1', 'home_faq2', 'home_faq3', 'home_faq4', 'home_faq5'];
 
+const CLIENTS = [
+  // Saudi Arabia
+  { id: 1, path: '/images/Saudi Clients/Screenshot 2026-05-10 101106.png', country: 'saudi', name: 'Saudi Client 1' },
+  { id: 2, path: '/images/Saudi Clients/Screenshot 2026-05-18 011150.png', country: 'saudi', name: 'Saudi Client 2' },
+  { id: 3, path: '/images/Saudi Clients/Screenshot 2026-05-31 164025.png', country: 'saudi', name: 'Saudi Client 3' },
+  { id: 4, path: '/images/Saudi Clients/Screenshot 2026-06-18 142924.png', country: 'saudi', name: 'Saudi Client 4' },
+  { id: 5, path: '/images/Saudi Clients/Screenshot 2026-06-24 125035.png', country: 'saudi', name: 'Saudi Client 5' },
+  { id: 6, path: '/images/Saudi Clients/Screenshot 2026-06-24 130332.png', country: 'saudi', name: 'Saudi Client 6' },
+  { id: 7, path: '/images/Saudi Clients/Screenshot 2026-06-24 130613.png', country: 'saudi', name: 'Saudi Client 7' },
+
+  // India
+  { id: 8, path: '/images/Indian Clients/Screenshot 2026-07-06 133939.png', country: 'india', name: 'Indian Client 1' },
+  { id: 9, path: '/images/Indian Clients/Screenshot 2026-07-06 134032.png', country: 'india', name: 'Indian Client 2' },
+  { id: 10, path: '/images/Indian Clients/Screenshot 2026-07-06 134131.png', country: 'india', name: 'Indian Client 3' },
+  { id: 11, path: '/images/Indian Clients/Screenshot 2026-07-06 134207.png', country: 'india', name: 'Indian Client 4' },
+  { id: 12, path: '/images/Indian Clients/Screenshot 2026-07-06 134453.png', country: 'india', name: 'Indian Client 5' },
+  { id: 13, path: '/images/Indian Clients/Screenshot 2026-07-06 134703.png', country: 'india', name: 'Indian Client 6' },
+  { id: 14, path: '/images/Indian Clients/Screenshot 2026-07-06 134831.png', country: 'india', name: 'Indian Client 7' },
+  { id: 15, path: '/images/Indian Clients/Screenshot 2026-07-06 134928.png', country: 'india', name: 'Indian Client 8' },
+  { id: 16, path: '/images/Indian Clients/Screenshot 2026-07-06 135348.png', country: 'india', name: 'Indian Client 9' },
+  { id: 17, path: '/images/Indian Clients/Screenshot 2026-07-06 135638.png', country: 'india', name: 'Indian Client 10' },
+  { id: 18, path: '/images/Indian Clients/Screenshot 2026-07-06 135812.png', country: 'india', name: 'Indian Client 11' },
+  { id: 19, path: '/images/Indian Clients/Screenshot 2026-07-06 135929.png', country: 'india', name: 'Indian Client 12' },
+
+  // Egypt
+  { id: 20, path: '/images/Egypt Clients/Screenshot 2026-07-06 140622.png', country: 'egypt', name: 'Egypt Client' }
+];
+
 export default function Home() {
   const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -72,17 +100,17 @@ export default function Home() {
       let norm = currentX % halfWidth;
       if (norm > 0) norm -= halfWidth;
       track.style.transform = '';
-      track.style.animationDelay = `${(norm / halfWidth) * 22}s`;
+      track.style.animationDelay = `${(norm / halfWidth) * 60}s`;
       track.style.animationPlayState = 'running';
     };
 
     track.addEventListener('touchstart', onTouchStart, { passive: true });
-    track.addEventListener('touchmove',  onTouchMove,  { passive: true });
-    track.addEventListener('touchend',   onTouchEnd);
+    track.addEventListener('touchmove', onTouchMove, { passive: true });
+    track.addEventListener('touchend', onTouchEnd);
     return () => {
       track.removeEventListener('touchstart', onTouchStart);
-      track.removeEventListener('touchmove',  onTouchMove);
-      track.removeEventListener('touchend',   onTouchEnd);
+      track.removeEventListener('touchmove', onTouchMove);
+      track.removeEventListener('touchend', onTouchEnd);
     };
   }, []);
 
@@ -221,14 +249,21 @@ export default function Home() {
       <section className="trusted-section section-padding" style={{ background: 'radial-gradient(circle at center, #f4f8ff 0%, #eaf1fa 100%)' }}>
         <div className="container text-center">
           <h2 className="section-title center" style={{ marginBottom: '1rem', color: '#0b2246' }}>{t('home_trusted_title_l1')}<br />{t('home_trusted_title_l2')}</h2>
-          <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>{t('home_trusted_desc')}</p>
+          <p 
+            className="large-para" 
+            style={{ maxWidth: '650px', margin: '0 auto 4rem' }}
+            dangerouslySetInnerHTML={{ 
+              __html: t('home_trusted_desc')
+                .replace(/(Saudi Arabia|India|Egypt|المملكة العربية السعودية|الهند|مصر|الخليج العربي|GCC)/g, '<strong style="color: var(--color-primary); font-weight: 700;">$1</strong>') 
+            }}
+          />
         </div>
         <div className="marquee-outer">
           <div className="marquee-track" ref={marqueeRef}>
             {[...Array(4)].flatMap((_, rep) =>
-              [1, 2, 3, 4, 5].map(n => (
-                <div key={`${rep}-${n}`} className="marquee-card">
-                  <img src={`/images/clients/client_${n}.png`} alt={`Client ${n}`} />
+              CLIENTS.map(c => (
+                <div key={`${rep}-${c.id}`} className="marquee-card">
+                  <img src={c.path} alt={c.name} />
                 </div>
               ))
             )}
