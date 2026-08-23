@@ -102,7 +102,7 @@ export default function ManpowerSupply() {
     {
       id: 'construction-support-civil-helpers',
       titleKey: 'mp_unskilled_item5',
-      image: '/images/manpower/construction support and civil helpers.webp',
+      image: '/images/manpower/construction.webp',
       category: 'unskilled',
       desc: 'Dedicated civil helpers for concrete works, masonry assistance, trench digging, formwork support, and foundation preparation.',
       specs: ['Civil Works Helper', 'Concrete Pour Support', 'Formwork Assistance', 'Trenching & Prep']
