@@ -136,12 +136,37 @@
     }
 }
 
+/* Reviews Dots Pagination */
+.reviews-dots {
+    display: none;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1.5rem;
+}
+
+.reviews-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.reviews-dot.active {
+    background: var(--color-primary);
+    transform: scale(1.2);
+}
+
 @media (max-width: 768px) {
     .review-card {
         flex: 0 0 100%; /* 1 per row */
     }
     .reviews-arrow {
-        display: none; /* Hide arrows on mobile, they can just swipe */
+        display: none !important;
+    }
+    .reviews-dots {
+        display: flex;
     }
 }
 

@@ -34,7 +34,7 @@ const KB_EN = {
   },
 
   about_albloshi: {
-    text: '<strong>Mohammed Al Bloshi Trading Company</strong> was established in <strong>2017</strong> in Dammam, Eastern Province, Saudi Arabia.<br/><br/>We are a multi-division enterprise specializing in:<br/>• Food Distribution (rice, palm oil, restaurant supplies)<br/>• Intelligent Chemicals (exclusive TELLABS distributor for KSA & UAE)<br/>• Industrial Materials (pipes, valves, cable trays, safety gear)<br/>• Manpower Supply (certified industrial workforce)<br/><br/>Operating across <strong>Dammam, Al Khobar, Qatif, Jubail & Al Hassa</strong> — with 100+ containers imported and ambitious expansion plans across the Kingdom.',
+    text: '<strong>Mohammed Abdulla Al Bloshi Co</strong> was established in <strong>2017</strong> in Dammam, Eastern Province, Saudi Arabia.<br/><br/>We are a multi-division enterprise specializing in:<br/>• Food Distribution (rice, palm oil, restaurant supplies)<br/>• Intelligent Chemicals (exclusive TELLABS distributor for KSA & UAE)<br/>• Industrial Materials (pipes, valves, cable trays, safety gear)<br/>• Manpower Supply (certified industrial workforce)<br/><br/>Operating across <strong>Dammam, Al Khobar, Qatif, Jubail & Al Hassa</strong> — with 100+ containers imported and ambitious expansion plans across the Kingdom.',
     chips: [
       chip('restaurant',             'Food Distribution',     'food_main'),
       chip('science',                'Intelligent Chemicals', 'chemicals_main'),
@@ -268,7 +268,7 @@ const KB_AR = {
   },
 
   about_albloshi: {
-    text: '<strong>شركة محمد البلوشي التجارية</strong> تأسست عام <strong>2017</strong> في الدمام، المنطقة الشرقية، المملكة العربية السعودية.<br/><br/>نحن مؤسسة متعددة الأقسام متخصصة في:<br/>• توزيع الأغذية (الأرز، زيت النخيل، مستلزمات المطاعم)<br/>• الكيميائيات الذكية (الموزع الحصري لتيلابس في السعودية والإمارات)<br/>• المواد الصناعية (الأنابيب، الصمامات، حوامل الكابلات، معدات السلامة)<br/>• توفير العمالة (قوى عاملة صناعية معتمدة)<br/><br/>نعمل في <strong>الدمام والخبر والقطيف والجبيل والأحساء</strong> — مع أكثر من 100 حاوية مستوردة وخطط توسع طموحة في جميع أنحاء المملكة.',
+    text: '<strong>شركة محمد عبد الله البلوشي Co</strong> تأسست عام <strong>2017</strong> في الدمام، المنطقة الشرقية، المملكة العربية السعودية.<br/><br/>نحن مؤسسة متعددة الأقسام متخصصة في:<br/>• توزيع الأغذية (الأرز، زيت النخيل، مستلزمات المطاعم)<br/>• الكيميائيات الذكية (الموزع الحصري لتيلابس في السعودية والإمارات)<br/>• المواد الصناعية (الأنابيب، الصمامات، حوامل الكابلات، معدات السلامة)<br/>• توفير العمالة (قوى عاملة صناعية معتمدة)<br/><br/>نعمل في <strong>الدمام والخبر والقطيف والجبيل والأحساء</strong> — مع أكثر من 100 حاوية مستوردة وخطط توسع طموحة في جميع أنحاء المملكة.',
     chips: [
       chip('restaurant',             'توزيع الأغذية',      'food_main'),
       chip('science',                'الكيميائيات الذكية', 'chemicals_main'),

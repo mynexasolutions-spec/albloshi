@@ -31,7 +31,7 @@ const TEAM = [
   { id: 4, name: 'Mohammed Abdul Balushi', category: 'chemical', roleKey: 'team_chemical_mab_role', bioKey: 'team_chemical_mab_bio' },
   { id: 5, name: 'Arbaz Shaikh', category: 'chemical', roleKey: 'team_chemical_arbaz_role', bioKey: 'team_chemical_arbaz_bio' },
   { id: 6, name: 'I Akhter', category: 'chemical', roleKey: 'team_chemical_akhter_role', bioKey: 'team_chemical_akhter_bio' },
-  
+
   // Industrial
   { id: 7, name: 'Mohammed Riaz', category: 'industrial', roleKey: 'about_team_2_role', bioKey: 'about_team_2_bio' },
   { id: 8, name: 'Mr. T.A. Khan', category: 'industrial', roleKey: 'team_industrial_khan_role', bioKey: 'team_industrial_khan_bio' },

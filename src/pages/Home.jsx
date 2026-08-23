@@ -66,9 +66,50 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
+  const [currentReview, setCurrentReview] = useState(0);
   const reviewsViewportRef = useRef(null);
   const intervalRef = useRef(null);
+  const reviewsIntervalRef = useRef(null);
   const marqueeRef = useRef(null);
+
+  const startReviewsAutoplay = () => {
+    clearInterval(reviewsIntervalRef.current);
+    reviewsIntervalRef.current = setInterval(() => {
+      const vp = reviewsViewportRef.current;
+      if (!vp) return;
+      const card = vp.querySelector('.review-card');
+      const amount = card ? card.offsetWidth + 24 : 350;
+
+      const maxScrollLeft = vp.scrollWidth - vp.clientWidth;
+      let nextScrollLeft = vp.scrollLeft + amount;
+
+      if (nextScrollLeft >= maxScrollLeft - 10) {
+        nextScrollLeft = 0;
+      }
+
+      vp.scrollTo({ left: nextScrollLeft, behavior: 'smooth' });
+    }, 4500);
+  };
+
+  useEffect(() => {
+    startReviewsAutoplay();
+    return () => clearInterval(reviewsIntervalRef.current);
+  }, []);
+
+  useEffect(() => {
+    const vp = reviewsViewportRef.current;
+    if (!vp) return;
+
+    const handleScroll = () => {
+      const card = vp.querySelector('.review-card');
+      const amount = card ? card.offsetWidth + 24 : 350;
+      const index = Math.round(vp.scrollLeft / amount);
+      setCurrentReview(index);
+    };
+
+    vp.addEventListener('scroll', handleScroll, { passive: true });
+    return () => vp.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const track = marqueeRef.current;
@@ -173,6 +214,7 @@ export default function Home() {
     const card = vp.querySelector('.review-card');
     const amount = card ? card.offsetWidth + 24 : 350;
     vp.scrollBy({ left: dir * amount, behavior: 'smooth' });
+    startReviewsAutoplay();
   };
 
 
@@ -249,12 +291,12 @@ export default function Home() {
       <section className="trusted-section section-padding" style={{ background: 'radial-gradient(circle at center, #f4f8ff 0%, #eaf1fa 100%)' }}>
         <div className="container text-center">
           <h2 className="section-title center" style={{ marginBottom: '1rem', color: '#0b2246' }}>{t('home_trusted_title_l1')}<br />{t('home_trusted_title_l2')}</h2>
-          <p 
-            className="large-para" 
+          <p
+            className="large-para"
             style={{ maxWidth: '650px', margin: '0 auto 4rem' }}
-            dangerouslySetInnerHTML={{ 
+            dangerouslySetInnerHTML={{
               __html: t('home_trusted_desc')
-                .replace(/(Saudi Arabia|India|Egypt|المملكة العربية السعودية|الهند|مصر|الخليج العربي|GCC)/g, '<strong style="color: var(--color-primary); font-weight: 700;">$1</strong>') 
+                .replace(/(Saudi Arabia|India|Egypt|المملكة العربية السعودية|الهند|مصر|الخليج العربي|GCC)/g, '<strong style="color: var(--color-primary); font-weight: 700;">$1</strong>')
             }}
           />
         </div>
@@ -418,11 +460,11 @@ export default function Home() {
             <div className="reviews-viewport" ref={reviewsViewportRef}>
               <div className="reviews-track">
                 {[
-                  { quoteKey: 'home_review1_quote', name: 'Eng. Hameed Al-Subaie', titleKey: 'home_review1_title', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=60&q=80' },
-                  { quoteKey: 'home_review2_quote', name: 'Sarah Chowdhury', titleKey: 'home_review2_title', img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=60&q=80' },
-                  { quoteKey: 'home_review3_quote', name: 'Dr. Faisal Al-Qahtani', titleKey: 'home_review3_title', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=60&q=80' },
-                  { quoteKey: 'home_review4_quote', name: 'Omar Al-Rashid', titleKey: 'home_review4_title', img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=60&q=80' },
-                  { quoteKey: 'home_review5_quote', name: 'Layla Hassan', titleKey: 'home_review5_title', img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=60&q=80' },
+                  { quoteKey: 'home_review1_quote', name: 'Eng. Hameed Al-Subaie', titleKey: 'home_review1_title', img: '/images/testimonials/ChatGPT Image Aug 23, 2026, 09_27_26 PM.webp' },
+                  { quoteKey: 'home_review2_quote', name: 'Sarah Al-Ghamdi', titleKey: 'home_review2_title', img: '/images/testimonials/ChatGPT Image Aug 23, 2026, 09_31_16 PM.webp' },
+                  { quoteKey: 'home_review3_quote', name: 'Dr. Faisal Al-Qahtani', titleKey: 'home_review3_title', img: '/images/testimonials/ChatGPT Image Aug 23, 2026, 09_06_19 PM.webp' },
+                  { quoteKey: 'home_review4_quote', name: 'Omar Al-Rashid', titleKey: 'home_review4_title', img: '/images/testimonials/ChatGPT Image Aug 23, 2026, 09_06_15 PM.webp' },
+                  { quoteKey: 'home_review5_quote', name: 'Layla Al-Harbi', titleKey: 'home_review5_title', img: '/images/testimonials/ChatGPT Image Aug 23, 2026, 09_05_27 PM.webp' },
                 ].map(r => (
                   <div key={r.name} className="review-card">
                     <blockquote className="review-text">{t(r.quoteKey)}</blockquote>
@@ -438,6 +480,24 @@ export default function Home() {
               </div>
             </div>
             <button className="reviews-arrow reviews-arrow-next" aria-label={t('home_aria_next_review')} onClick={() => handleReviewArrow(1)}>&#8594;</button>
+          </div>
+          <div className="reviews-dots">
+            {[0, 1, 2, 3, 4].map(idx => (
+              <div
+                key={idx}
+                className={`reviews-dot${currentReview === idx ? ' active' : ''}`}
+                onClick={() => {
+                  setCurrentReview(idx);
+                  const vp = reviewsViewportRef.current;
+                  if (vp) {
+                    const card = vp.querySelector('.review-card');
+                    const amount = card ? card.offsetWidth + 24 : 350;
+                    vp.scrollTo({ left: idx * amount, behavior: 'smooth' });
+                  }
+                  startReviewsAutoplay();
+                }}
+              ></div>
+            ))}
           </div>
         </div>
       </section>

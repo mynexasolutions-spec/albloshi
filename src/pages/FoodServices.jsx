@@ -16,49 +16,6 @@ const STATS = [
 
 const PRODUCTS = [
   {
-    id: 'basmati-rice',
-    img: '/images/products/premium_basmati_rice.webp',
-    tagKey: 'food_prod1_tag',
-    titleKey: 'food_prod1_title',
-    descKey: 'food_prod1_desc',
-    specKeys: ['food_prod1_spec1', 'food_prod1_spec2', 'food_prod1_spec3', 'food_prod1_spec4'],
-  },
-  {
-    id: 'cooking-oil',
-    img: '/images/products/refined_palm_cooking_oil.webp',
-    tagKey: 'food_prod2_tag',
-    titleKey: 'food_prod2_title',
-    descKey: 'food_prod2_desc',
-    specKeys: ['food_prod2_spec1', 'food_prod2_spec2', 'food_prod2_spec3', 'food_prod2_spec4'],
-  },
-  {
-    id: 'restaurant-essentials',
-    img: '/images/products/restaurant_essentials.webp',
-    tagKey: 'food_prod3_tag',
-    titleKey: 'food_prod3_title',
-    descKey: 'food_prod3_desc',
-    specKeys: ['food_prod3_spec1', 'food_prod3_spec2', 'food_prod3_spec3', 'food_prod3_spec4'],
-  },
-  {
-    id: 'wholesale-grain',
-    img: '/images/products/wholesale_grain_and_sugar.webp',
-    tagKey: 'food_prod4_tag',
-    titleKey: 'food_prod4_title',
-    descKey: 'food_prod4_desc',
-    specKeys: ['food_prod4_spec1', 'food_prod4_spec2', 'food_prod4_spec3', 'food_prod4_spec4'],
-  },
-  {
-    id: 'pakistani-spices',
-    img: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=900&q=80',
-    tagKey: 'food_prod5_tag',
-    titleKey: 'food_prod5_title',
-    descKey: 'food_prod5_desc',
-    specKeys: ['food_prod5_spec1', 'food_prod5_spec2', 'food_prod5_spec3', 'food_prod5_spec4'],
-  },
-];
-
-const NEW_PRODUCTS = [
-  {
     id: 'white-sugar',
     img: '/images/food_services/sugar.webp',
     tagKey: 'food_prod6_tag',
@@ -273,35 +230,6 @@ export default function FoodServices() {
                       </a>
                     </div>
                   )}
-                </div>
-              </div>
-            ))}
-            {NEW_PRODUCTS.map(p => (
-              <div key={p.titleKey} className="product-block" id={p.id}>
-                <div style={{ position: 'relative' }}>
-                  <img src={p.img} alt={t(p.titleKey)} className="product-block-img" style={{ aspectRatio: '1/1' }} />
-                </div>
-                <div className="product-block-body" style={{ padding: '1.25rem' }}>
-                  <span className="product-block-tag">{t(p.tagKey)}</span>
-                  <h3>{t(p.titleKey)}</h3>
-                  <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto', paddingTop: '1rem', flexDirection: 'row' }}>
-                    <button 
-                      onClick={() => setSelectedProduct({
-                        title: t(p.titleKey),
-                        desc: t(p.descKey),
-                        tag: t(p.tagKey),
-                        img: p.img,
-                        specs: p.specKeys.map(sk => t(sk))
-                      })}
-                      className="product-block-btn" 
-                      style={{ background: 'transparent', color: 'var(--color-primary)', border: '1.5px solid var(--color-primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0.5rem', fontSize: '0.85rem' }}>
-                      Read More
-                    </button>
-                    <a href="/contact" className="product-block-btn" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0.5rem', fontSize: '0.85rem' }}>
-                      <span className="material-icons" style={{ fontSize: '1rem', marginRight: '4px' }}>mail_outline</span>
-                      {t('food_get_quote')}
-                    </a>
-                  </div>
                 </div>
               </div>
             ))}

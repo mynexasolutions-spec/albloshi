@@ -211,7 +211,13 @@
 /* Responsive Hide for Mobile (reliance on intuitive touch swipe gestures) */
 @media (max-width: 768px) {
     .slider-arrow {
-        display: none !important;
+        display: flex !important;
+    }
+    .slider-arrow-left {
+        left: 1rem;
+    }
+    .slider-arrow-right {
+        right: 1rem;
     }
 }
 

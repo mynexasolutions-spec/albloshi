@@ -418,14 +418,14 @@ export default function IndustrialServices() {
                   <span className="product-block-tag">{t(p.tagKey)}</span>
                   <h3>{t(p.titleKey)}</h3>
                   <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto', paddingTop: '1rem', flexDirection: 'row' }}>
-                    <button 
+                    <button
                       onClick={() => setSelectedProduct({
                         title: t(p.titleKey),
                         desc: t(p.descKey),
                         tag: t(p.tagKey),
                         specs: p.specKeys.map(sk => t(sk))
                       })}
-                      className="product-block-btn" 
+                      className="product-block-btn"
                       style={{ background: 'transparent', color: 'var(--color-primary)', border: '1.5px solid var(--color-primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0.5rem', fontSize: '0.85rem' }}>
                       Read More
                     </button>
@@ -539,9 +539,9 @@ export default function IndustrialServices() {
 
       {selectedProduct && (
         <div style={{
-          position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', 
+          position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
           backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(4px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', 
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
           zIndex: 9999, padding: '1rem'
         }}>
           <style>{`
@@ -567,17 +567,17 @@ export default function IndustrialServices() {
             }
           `}</style>
           <div className="modern-scrollbar" style={{
-            background: '#fff', borderRadius: '16px', overflow: 'hidden', 
-            maxWidth: '600px', width: '100%', maxHeight: '90vh', 
+            background: '#fff', borderRadius: '16px', overflow: 'hidden',
+            maxWidth: '600px', width: '100%', maxHeight: '90vh',
             overflowY: 'auto', position: 'relative', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)'
           }}>
-            <button 
-              onClick={() => setSelectedProduct(null)} 
+            <button
+              onClick={() => setSelectedProduct(null)}
               style={{
-                position: 'absolute', top: '1rem', right: '1rem', 
-                background: 'rgba(255, 255, 255, 0.9)', border: 'none', 
-                borderRadius: '50%', width: '36px', height: '36px', 
-                display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                position: 'absolute', top: '1rem', right: '1rem',
+                background: 'rgba(255, 255, 255, 0.9)', border: 'none',
+                borderRadius: '50%', width: '36px', height: '36px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: 'pointer', zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
               }}
             >
@@ -587,7 +587,7 @@ export default function IndustrialServices() {
               <span className="product-block-tag" style={{ display: 'inline-block', marginBottom: '0.5rem' }}>{selectedProduct.tag}</span>
               <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1rem', color: 'var(--color-dark)' }}>{selectedProduct.title}</h3>
               <p style={{ color: 'var(--color-body)', lineHeight: '1.7', marginBottom: '1.5rem' }}>{selectedProduct.desc}</p>
-              
+
               {selectedProduct.specs && selectedProduct.specs.length > 0 && (
                 <div style={{ marginBottom: '2rem' }}>
                   <h4 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#666', marginBottom: '0.75rem' }}>Specifications & Features</h4>

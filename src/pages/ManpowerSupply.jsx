@@ -22,7 +22,7 @@ export default function ManpowerSupply() {
     {
       id: 'engineers-supervisors-foremen',
       titleKey: 'mp_skilled_item1',
-      image: '/images/manpower/engineers-supervisors-foremen.webp',
+      image: '/images/manpower/Engineers, supervisors and foremen.webp',
       category: 'skilled',
       desc: 'Highly qualified civil, mechanical, electrical, and instrument engineers, site supervisors, and foremen with extensive field experience across major Saudi industrial and construction projects.',
       specs: ['Certified Engineers', 'Site Supervision', 'QA/QC Supervision', 'Project Leadership']
@@ -30,7 +30,7 @@ export default function ManpowerSupply() {
     {
       id: 'electricians-instrument-technicians',
       titleKey: 'mp_skilled_item2',
-      image: '/images/manpower/Electricians and Instrument technicians.webp',
+      image: '/images/manpower/electrician (1).webp',
       category: 'skilled',
       desc: 'Certified industrial electricians, instrument technicians, and PLC calibrators trained for power plants, oil & gas facilities, and manufacturing plants.',
       specs: ['Industrial Wiring', 'PLC & Instrument Calibration', 'High Voltage Certified', 'Troubleshooting']
@@ -38,7 +38,7 @@ export default function ManpowerSupply() {
     {
       id: 'welders-fabricators-pipefitters',
       titleKey: 'mp_skilled_item3',
-      image: '/images/manpower/Welders, fabricator and pipe fitters.webp',
+      image: '/images/manpower/welding (1).webp',
       category: 'skilled',
       desc: '6G certified welders (TIG, MIG, ARC), experienced structural fabricators, and precision pipefitters for plant piping and heavy steel structures.',
       specs: ['6G Certified Welders', 'Pipe Fabricators', 'Structural Assembly', 'ASME & API Standards']
@@ -46,7 +46,7 @@ export default function ManpowerSupply() {
     {
       id: 'plumbers-hvac-technicians',
       titleKey: 'mp_skilled_item4',
-      image: '/images/manpower/Plumbers and HVAC technicians.webp',
+      image: '/images/manpower/plumber.webp',
       category: 'skilled',
       desc: 'Reliable HVAC specialists delivering central cooling, duct installation, chilled water piping, and industrial plumbing services.',
       specs: ['Chilled Water Systems', 'Plumbing Maintenance', 'HVAC Diagnostics']
@@ -54,7 +54,7 @@ export default function ManpowerSupply() {
     {
       id: 'riggers-scaffolders-operators',
       titleKey: 'mp_skilled_item5',
-      image: '/images/manpower/Riggers, scaffolders and equipment operators.webp',
+      image: '/images/manpower/riggers.webp',
       category: 'skilled',
       desc: 'TUV & Aramco certified riggers, certified scaffolders for heavy plant structures, and licensed operators for cranes, forklifts, and excavators.',
       specs: ['Aramco / TUV Certified', 'Heavy Lifting Operations', 'Certified Scaffold Erection', 'Equipment Safety']
@@ -62,7 +62,7 @@ export default function ManpowerSupply() {
     {
       id: 'safety-storekeepers-timekeepers',
       titleKey: 'mp_skilled_item6',
-      image: '/images/manpower/Safety officers, storekeepers and timekeepers.webp',
+      image: '/images/manpower/safety_officers.webp',
       category: 'skilled',
       desc: 'NEBOSH/OSHA certified safety officers, warehouse storekeepers, material managers, and digital timekeepers for workforce attendance tracking.',
       specs: ['NEBOSH / OSHA Certified', 'Site HSE Audit', 'Store & Material Management', 'Automated Timekeeping']
@@ -70,7 +70,7 @@ export default function ManpowerSupply() {
     {
       id: 'general-labour-helpers',
       titleKey: 'mp_unskilled_item1',
-      image: '/images/manpower/General labour and helpers.webp',
+      image: '/images/manpower/general labors and helpers.webp',
       category: 'unskilled',
       desc: 'Energetic and safety-trained general labourers and site helpers for daily construction, industrial plant support, and routine site duties.',
       specs: ['Physically Fit', 'Safety Induction Done', 'Daily Site Helper', 'Rapid Deployment']
@@ -78,7 +78,7 @@ export default function ManpowerSupply() {
     {
       id: 'loading-unloading-material-handling',
       titleKey: 'mp_unskilled_item2',
-      image: '/images/manpower/Loading, unloading and material handling.webp',
+      image: '/images/manpower/loading unloading material handling.webp',
       category: 'unskilled',
       desc: 'Experienced material handling teams for heavy cargo loading, unloading container shipments, and internal factory logistics.',
       specs: ['Heavy Cargo Handling', 'Container Stacking', 'Warehouse Logistics', 'Safe Handling Protocols']
@@ -86,7 +86,7 @@ export default function ManpowerSupply() {
     {
       id: 'site-cleaning-housekeeping',
       titleKey: 'mp_unskilled_item3',
-      image: '/images/manpower/Site cleaning and housekeeping teams.webp',
+      image: '/images/manpower/site cleaning and housekeeping.webp',
       category: 'unskilled',
       desc: 'Professional housekeeping crews for post-construction site cleaning, industrial debris removal, and ongoing site sanitation.',
       specs: ['Post-Construction Cleanup', 'Industrial Debris Removal', 'Environmental Sanitation', 'Daily Upkeep']
@@ -94,7 +94,7 @@ export default function ManpowerSupply() {
     {
       id: 'packing-sorting-warehouse',
       titleKey: 'mp_unskilled_item4',
-      image: '/images/manpower/Packing, sorting and warehouse support.webp',
+      image: '/images/manpower/packing sorting and warehouse support.webp',
       category: 'unskilled',
       desc: 'Reliable warehouse assistants for goods sorting, order packing, labeling, palletization, and dispatch management.',
       specs: ['Goods Sorting & Packing', 'Palletization', 'Barcode Labeling', 'Dispatch Support']
@@ -102,7 +102,7 @@ export default function ManpowerSupply() {
     {
       id: 'construction-support-civil-helpers',
       titleKey: 'mp_unskilled_item5',
-      image: '/images/manpower/Construction support and civil helpers.webp',
+      image: '/images/manpower/construction support and civil helpers.webp',
       category: 'unskilled',
       desc: 'Dedicated civil helpers for concrete works, masonry assistance, trench digging, formwork support, and foundation preparation.',
       specs: ['Civil Works Helper', 'Concrete Pour Support', 'Formwork Assistance', 'Trenching & Prep']
@@ -110,7 +110,7 @@ export default function ManpowerSupply() {
     {
       id: 'shutdown-mobilization-crews',
       titleKey: 'mp_unskilled_item6',
-      image: '/images/manpower/Shutdown and project mobilization crews.webp',
+      image: '/images/manpower/shutdown and project mobilization.webp',
       category: 'unskilled',
       desc: 'Turnaround and shutdown mobilization teams capable of 24/7 rotational shifts for urgent refinery, petrochemical, and industrial plant maintenance.',
       specs: ['24/7 Rotational Shift', 'Rapid Plant Mobilization', 'Shutdown Specialist', 'Turnaround Support']
@@ -131,8 +131,8 @@ export default function ManpowerSupply() {
     }
   }, [location]);
 
-  const filteredItems = activeTab === 'all' 
-    ? manpowerItems 
+  const filteredItems = activeTab === 'all'
+    ? manpowerItems
     : manpowerItems.filter(item => item.category === activeTab);
 
   const features = [
@@ -161,7 +161,7 @@ export default function ManpowerSupply() {
   return (
     <div className="manpower-page">
       <Helmet>
-        <title>Industrial Manpower Solutions | Mohammad Abdulla Albloshi Trading Co.</title>
+        <title>Industrial Manpower Solutions | Mohammed Abdulla Al Bloshi Co</title>
         <meta
           name="description"
           content="Albloshi supports industrial, construction and maintenance projects with flexible manpower supply for short-term, long-term and shutdown requirements across KSA."
@@ -251,7 +251,7 @@ export default function ManpowerSupply() {
                   </span>
                   <h3>{t(item.titleKey)}</h3>
                   <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto', paddingTop: '1rem', flexDirection: 'row' }}>
-                    <button 
+                    <button
                       onClick={() => setSelectedProduct({
                         title: t(item.titleKey),
                         desc: item.desc,
@@ -259,31 +259,31 @@ export default function ManpowerSupply() {
                         img: item.image,
                         specs: item.specs
                       })}
-                      className="product-block-btn" 
-                      style={{ 
-                        background: 'transparent', 
-                        color: 'var(--color-primary)', 
-                        border: '1.5px solid var(--color-primary)', 
-                        cursor: 'pointer', 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        flex: '1 1 0%', 
-                        padding: '0.5rem', 
-                        fontSize: '0.85rem' 
+                      className="product-block-btn"
+                      style={{
+                        background: 'transparent',
+                        color: 'var(--color-primary)',
+                        border: '1.5px solid var(--color-primary)',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flex: '1 1 0%',
+                        padding: '0.5rem',
+                        fontSize: '0.85rem'
                       }}>
                       Read More
                     </button>
-                    <a 
-                      href="/contact" 
-                      className="product-block-btn" 
-                      style={{ 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        flex: '1 1 0%', 
-                        padding: '0.5rem', 
-                        fontSize: '0.85rem' 
+                    <a
+                      href="/contact"
+                      className="product-block-btn"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flex: '1 1 0%',
+                        padding: '0.5rem',
+                        fontSize: '0.85rem'
                       }}>
                       <span className="material-icons" style={{ fontSize: '1rem', marginRight: '4px' }}>mail_outline</span>
                       {t('food_get_quote') || 'Get Quote'}
@@ -378,9 +378,9 @@ export default function ManpowerSupply() {
       {/* Product Details Modal */}
       {selectedProduct && (
         <div style={{
-          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, 
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
           background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(5px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', 
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
           zIndex: 1000, padding: '1rem'
         }} onClick={() => setSelectedProduct(null)}>
           <style>{`
@@ -406,17 +406,17 @@ export default function ManpowerSupply() {
             }
           `}</style>
           <div className="modern-scrollbar" style={{
-            background: '#fff', borderRadius: '16px', overflow: 'hidden', 
-            maxWidth: '600px', width: '100%', maxHeight: '90vh', 
+            background: '#fff', borderRadius: '16px', overflow: 'hidden',
+            maxWidth: '600px', width: '100%', maxHeight: '90vh',
             overflowY: 'auto', position: 'relative', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)'
           }} onClick={(e) => e.stopPropagation()}>
-            <button 
-              onClick={() => setSelectedProduct(null)} 
+            <button
+              onClick={() => setSelectedProduct(null)}
               style={{
-                position: 'absolute', top: '1rem', right: '1rem', 
-                background: 'rgba(255, 255, 255, 0.9)', border: 'none', 
-                borderRadius: '50%', width: '36px', height: '36px', 
-                display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                position: 'absolute', top: '1rem', right: '1rem',
+                background: 'rgba(255, 255, 255, 0.9)', border: 'none',
+                borderRadius: '50%', width: '36px', height: '36px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: 'pointer', zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
               }}
             >
@@ -426,7 +426,7 @@ export default function ManpowerSupply() {
               <span className="product-block-tag" style={{ display: 'inline-block', marginBottom: '0.5rem' }}>{selectedProduct.tag}</span>
               <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1rem', color: 'var(--color-dark)' }}>{selectedProduct.title}</h3>
               <p style={{ color: 'var(--color-body)', lineHeight: '1.7', marginBottom: '1.5rem' }}>{selectedProduct.desc}</p>
-              
+
               {selectedProduct.specs && selectedProduct.specs.length > 0 && (
                 <div style={{ marginBottom: '2rem' }}>
                   <h4 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#666', marginBottom: '0.75rem' }}>Specifications & Features</h4>

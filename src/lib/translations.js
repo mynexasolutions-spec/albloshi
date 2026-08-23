@@ -47,7 +47,7 @@ export const translations = {
     compliance_certs: "Compliance and Certifications",
     privacy_policy: "Privacy Policy",
     all_rights_reserved:
-      "Mohammad Abdulla Albloshi Trading Co. All rights reserved.",
+      "Mohammed Abdulla Al Bloshi Co. All rights reserved.",
 
     // Bento Grid Section (Home)
     our_intelligent_chemicals: "OUR INTELLIGENT CHEMICALS",
@@ -83,9 +83,9 @@ export const translations = {
     mfb_manpower: "Manpower",
 
     // Contact Page
-    contact_meta_title: "Contact Us | Mohammad Abdulla Albloshi Trading Co.",
+    contact_meta_title: "Contact Us | Mohammed Abdulla Al Bloshi Co",
     contact_meta_desc:
-      "Get in touch with Mohammad Abdulla Albloshi Trading Co. — reach our business development team for industrial materials, food distribution, TELLABS chemicals, and manpower supply inquiries across Saudi Arabia.",
+      "Get in touch with Mohammed Abdulla Al Bloshi Co — reach our business development team for industrial materials, food distribution, TELLABS chemicals, and manpower supply inquiries across Saudi Arabia.",
     contact_hero_title: "Get in Touch",
     contact_hero_desc:
       "Connect with our team for inquiries, quotes, and partnership opportunities. We're here to support your business across all our divisions.",
@@ -93,7 +93,7 @@ export const translations = {
     contact_form_desc:
       "Please submit your details and project specifications below. Our business development team will analyze your request and reply within one business day.",
     contact_form_name_label: "Full Name *",
-    contact_form_name_placeholder: "e.g. Mohammad Al-Harbi",
+    contact_form_name_placeholder: "e.g. Mohammed Al-Harbi",
     contact_form_email_label: "Business Email *",
     contact_form_email_placeholder: "name@yourcompany.com",
     contact_form_phone_label: "Mobile / WhatsApp *",
@@ -117,7 +117,7 @@ export const translations = {
     contact_info_desc:
       "Connect directly with our headquarters or division directors to arrange technical consultation or obtain direct credit accounts.",
     contact_card_bd_title: "Business Development Office",
-    contact_card_bd_name: "Mohammad Riaz — Business Development Manager",
+    contact_card_bd_name: "Mohammed Riaz — Business Development Manager",
     contact_label_mobile_whatsapp: "Mobile / WhatsApp:",
     contact_card_sales_title: "General Sales Desk",
     contact_label_email: "Email:",
@@ -132,13 +132,13 @@ export const translations = {
       "Located in the heart of the Eastern Province's industrial corridor — easily accessible for site visits, inspections, and meetings.",
     contact_cta_call_btn: "Call +966 54 958 1547",
     contact_cta_email_btn: "Email sales@albloshi.co",
-
+ 
     // About Page
-    about_meta_title: "About Us | Mohammad Abdulla Albloshi Trading Co.",
+    about_meta_title: "About Us | Mohammed Abdulla Al Bloshi Co",
     about_meta_desc:
-      "Learn about Mohammad Abdulla Albloshi Trading Co. — a Dammam-based multi-industry enterprise supplying industrial materials, food commodities, TELLABS specialty chemicals, and skilled manpower across Saudi Arabia since 2008.",
-    about_hero_title_l1: "Mohammad Abdulla",
-    about_hero_title_l2: "Albloshi Trading Co.",
+      "Learn about Mohammed Abdulla Al Bloshi Co — a Dammam-based multi-industry enterprise supplying industrial materials, food commodities, TELLABS specialty chemicals, and skilled manpower across Saudi Arabia since 2008.",
+    about_hero_title_l1: "Mohammed Abdulla",
+    about_hero_title_l2: "Al Bloshi Co.",
     about_hero_desc:
       "A premier multi-industry enterprise supplying industrial materials, specialty chemicals, food commodities, and skilled manpower to businesses across the Kingdom of Saudi Arabia.",
     about_stat_years_label: "Years of Experience",
@@ -148,7 +148,7 @@ export const translations = {
     about_story_label: "OUR STORY",
     about_story_cr_label: "CR No.",
     about_story_p1:
-      "Founded in 2017 in Dammam, Albloshi began as a premium food distribution enterprise and has grown into a four-division company serving hospitality, industrial, chemical, and manpower sectors across the Kingdom.",
+      "Founded in 2017 in Dammam, Al Bloshi Co began as a premium food distribution enterprise and has grown into a four-division company serving hospitality, industrial, chemical, and manpower sectors across the Kingdom.",
     about_story_p2_before:
       "Today we are the exclusive regional distributor for",
     about_story_p2_strong: "TELLABS Intelligent Chemicals",
@@ -263,7 +263,7 @@ export const translations = {
     home_meta_title:
       "ALBLOSHI – Supplying Strength Every Industry | Industrial, Chemicals, Food, and Manpower Solutions Saudi Arabia",
     home_meta_desc:
-      "Mohammad Abdulla Albloshi Trading Co. is a premium multi-industry Saudi enterprise based in Dammam. Leading suppliers of industrial materials, food products, TELLABS specialty chemicals, and manpower across the GCC.",
+      "Mohammed Abdulla Al Bloshi Co is a premium multi-industry Saudi enterprise based in Dammam. Leading suppliers of industrial materials, food products, TELLABS specialty chemicals, and manpower across the GCC.",
     home_slide1_subtitle: "Industrial Supplies",
     home_slide1_title: "Industrial Materials and Building Solutions",
     home_slide1_cta: "Explore Industrial Vertical",
@@ -374,7 +374,7 @@ export const translations = {
     home_faq3_q:
       "Is Albloshi an official and authorized distributor of TELLABS chemicals?",
     home_faq3_a:
-      "Yes. Mohammad Abdulla Albloshi Trading Co. is the designated, official regional distribution partner for TELLABS Intelligent Specialty Chemicals across Saudi Arabia and the broader GCC markets, offering local inventory stocking and direct technical support.",
+      "Yes. Mohammed Abdulla Al Bloshi Co is the designated, official regional distribution partner for TELLABS Intelligent Specialty Chemicals across Saudi Arabia and the broader GCC markets, offering local inventory stocking and direct technical support.",
     home_faq4_q:
       "What regions of Saudi Arabia do your warehousing and logistics operations support?",
     home_faq4_a:
@@ -734,7 +734,7 @@ export const translations = {
     // Tellabs Chemicals Page
     tc_meta_title: "TELLABS Chemicals Partnership | ALBLOSHI",
     tc_meta_desc:
-      "Mohammad Abdulla Albloshi Trading Co. is the official regional partner and distributor for TELLABS specialty chemicals across Saudi Arabia and the GCC.",
+      "Mohammed Abdulla Al Bloshi Co is the official regional partner and distributor for TELLABS specialty chemicals across Saudi Arabia and the GCC.",
     tc_hero_title: "TELLABS Chemicals Alliance",
     tc_hero_desc:
       "Official regional distribution partnership delivering advanced, European-technology chemical formulations across Saudi Arabia & the GCC.",
@@ -802,18 +802,18 @@ export const translations = {
     tc_clients_label: "GLOBAL CLIENT FOOTPRINT",
     tc_clients_title: "Trusted in Primary Sectors",
     tc_clients_footer_text:
-      "Through Mohammad Abdulla Albloshi Trading Co., regional Saudi and GCC enterprises access this global supplier network and technical engineering resources locally.",
+      "Through Mohammed Abdulla Al Bloshi Co, regional Saudi and GCC enterprises access this global supplier network and technical engineering resources locally.",
     tc_cta_title: "Ready to Elevate Your Operations?",
     tc_cta_desc:
       "Partner with TELLABS Chemicals for industry-leading specialty solutions, sustainable technologies, and exceptional technical support.",
     tc_cta_btn1: "Contact Our Experts",
     tc_cta_btn2: "Explore Our Verticals",
-
+ 
     // Blog Page
     blog_meta_title:
       "Corporate Insights & Sourcing News | ALBLOSHI Trading Co.",
     blog_meta_desc:
-      "Read the latest news, supply chain insights, SASO compliance updates, and specialty chemicals research from Mohammad Abdulla Albloshi Trading Co.",
+      "Read the latest news, supply chain insights, SASO compliance updates, and specialty chemicals research from Mohammed Abdulla Al Bloshi Co.",
     blog_banner_title_before: "Corporate Insights",
     blog_banner_title_after: "Sourcing News",
     blog_banner_desc:
@@ -827,7 +827,7 @@ export const translations = {
       "From industrial piping to specialty chemicals and qualified manpower — our team is ready to deliver. Reach out today and get a tailored sourcing proposal for your next project.",
     blog_cta_btn1: "Request a Quote",
     blog_cta_btn2: "Explore Our Verticals",
-
+ 
     // Blog Post Page
     bp_loading: "Loading…",
     bp_not_found: "Post not found",
@@ -836,7 +836,7 @@ export const translations = {
     bp_default_category: "Article",
     bp_default_author: "Albloshi Team",
     bp_back_to_blog: "Back to Blog",
-
+ 
     // Chatbot UI chrome
     chat_title: "Albloshi Assistant",
     chat_online: "Online",
@@ -845,7 +845,7 @@ export const translations = {
     chat_aria_send: "Send Message",
     chat_input_placeholder: "Type a question or click a topic...",
     chat_whatsapp_intro:
-      "Connect directly with our Business Development Manager <strong>Mohammad Riaz</strong> for corporate procurement and technical pricing:",
+      "Connect directly with our Business Development Manager <strong>Mohammed Riaz</strong> for corporate procurement and technical pricing:",
     chat_redirecting: "Taking you to our contact & inquiry form...",
     chat_fallback:
       "I couldn't find an exact match. Our sales team is ready to help directly!",
