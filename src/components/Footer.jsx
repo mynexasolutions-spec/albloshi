@@ -49,7 +49,10 @@ export default function Footer() {
               </div>
               <div className="footer-contact-item">
                 <span className="material-icons footer-contact-icon">mail_outline</span>
-                <p className="footer-contact-text"><a href="mailto:sales@albloshi.co">sales@albloshi.co</a></p>
+                <p className="footer-contact-text">
+                  <a href="mailto:admin@albloshi.co">admin@albloshi.co</a><br />
+                  <a href="mailto:sales@albloshi.co">sales@albloshi.co</a>
+                </p>
               </div>
               <div className="footer-contact-item">
                 <span className="material-icons footer-contact-icon">location_on</span>

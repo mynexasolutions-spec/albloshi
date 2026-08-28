@@ -359,7 +359,7 @@ const CAPABILITIES = [
   { icon: 'handshake', titleKey: 'ind_cap6_title', descKey: 'ind_cap6_desc' },
 ];
 
-const STANDARDS = ['ASTM A106', 'ASTM A312', 'API 5L / API 600', 'ASME B16.5', 'ASME B16.9', 'IEC 61537', 'SASO', 'Saudi Aramco SAES', 'AWS D1.1'];
+
 
 const INDUSTRIAL_TEAM = [
   { id: 7, name: 'Mohammed Riaz', roleKey: 'about_team_2_role', bioKey: 'about_team_2_bio' },
@@ -455,18 +455,6 @@ export default function IndustrialServices() {
                 <h3>{t(c.titleKey)}</h3>
                 <p>{t(c.descKey)}</p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Standards */}
-      <section className="standards-section">
-        <div className="container">
-          <p className="standards-label">{t('ind_standards_label')}</p>
-          <div className="standards-grid">
-            {STANDARDS.map(s => (
-              <span key={s} className="standard-badge">{s}</span>
             ))}
           </div>
         </div>

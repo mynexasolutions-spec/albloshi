@@ -185,12 +185,13 @@ const TRUST_CARDS = [
 const COMMITMENT_KEYS = ['ic_commitment_item1', 'ic_commitment_item2', 'ic_commitment_item3', 'ic_commitment_item4', 'ic_commitment_item5'];
 
 const CHEMICAL_TEAM = [
-  { id: 1, name: 'Jetu Lalwani', roleKey: 'team_chemical_jetu_role', bioKey: 'team_chemical_jetu_bio' },
-  { id: 2, name: 'Sajid Pachhapure', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
-  { id: 3, name: 'Ajay Adnala', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/ajay_adnala.jpeg' },
-  { id: 4, name: 'Mohammed Abdul Balushi', roleKey: 'team_chemical_mab_role', bioKey: 'team_chemical_mab_bio' },
-  { id: 5, name: 'Arbaz Shaikh', roleKey: 'team_chemical_arbaz_role', bioKey: 'team_chemical_arbaz_bio' },
-  { id: 6, name: 'I Akhter', roleKey: 'team_chemical_akhter_role', bioKey: 'team_chemical_akhter_bio' },
+  { id: 1, nameKey: 'team_jetu_name', roleKey: 'team_chemical_jetu_role', bioKey: 'team_chemical_jetu_bio' },
+  { id: 2, nameKey: 'team_sajid_name', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
+  { id: 3, nameKey: 'team_ajay_name', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/ajay_adnala.jpeg' },
+  { id: 4, nameKey: 'team_mab_name', roleKey: 'team_chemical_mab_role', bioKey: 'team_chemical_mab_bio' },
+  { id: 5, nameKey: 'team_arbaz_name', roleKey: 'team_chemical_arbaz_role', bioKey: 'team_chemical_arbaz_bio' },
+  { id: 15, nameKey: 'team_amreen_name', roleKey: 'team_chemical_amreen_role', bioKey: 'team_chemical_amreen_bio' },
+  { id: 6, nameKey: 'team_akhter_name', roleKey: 'team_chemical_akhter_role', bioKey: 'team_chemical_akhter_bio' },
 ];
 
 export default function IntelligentChemicals() {
@@ -310,7 +311,7 @@ export default function IntelligentChemicals() {
               <div key={m.id} className="team-card">
                 <div className="team-img-wrapper">
                   {m.img ? (
-                    <img src={m.img} alt={m.name} className="team-img" style={{ objectFit: 'cover' }} />
+                    <img src={m.img} alt={m.nameKey ? t(m.nameKey) : m.name} className="team-img" style={{ objectFit: 'cover' }} />
                   ) : (
                     <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                       <defs>
@@ -330,7 +331,7 @@ export default function IntelligentChemicals() {
                   )}
                 </div>
                 <div className="team-info">
-                  <h3>{m.name}</h3>
+                  <h3>{m.nameKey ? t(m.nameKey) : m.name}</h3>
                   <div className="team-role">{t(m.roleKey)}</div>
                   <p className="team-bio">{t(m.bioKey)}</p>
                 </div>

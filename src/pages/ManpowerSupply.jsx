@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
@@ -161,7 +161,7 @@ export default function ManpowerSupply() {
   return (
     <div className="manpower-page">
       <Helmet>
-        <title>Industrial Manpower Solutions | Mohammed Abdulla Al Bloshi Co</title>
+        <title>Manpower Solutions | Mohammed Abdulla Al Bloshi Co</title>
         <meta
           name="description"
           content="Albloshi supports industrial, construction and maintenance projects with flexible manpower supply for short-term, long-term and shutdown requirements across KSA."
@@ -180,7 +180,7 @@ export default function ManpowerSupply() {
                 <span>{t('mp_badge')}</span>
               </div>
               <h1 className="mp-hero-title">
-                {t('mp_hero_title1')}
+                {t('mp_hero_title1')}{' '}
                 <span>{t('mp_hero_title2')}</span>
               </h1>
               <p className="mp-hero-desc">
@@ -197,7 +197,7 @@ export default function ManpowerSupply() {
             <div className="mp-hero-img-card">
               <img
                 src="/images/manpower/manpower_hero.png"
-                alt="Industrial Manpower Solutions"
+                alt="Manpower Solutions"
                 loading="eager"
               />
             </div>
@@ -355,19 +355,21 @@ export default function ManpowerSupply() {
             </div>
           </section>
 
-          {/* CTA Box */}
-          <div className="mp-cta-section">
-            <div className="mp-cta-box">
-              <h2>{t('mp_cta_title')}</h2>
-              <p>{t('mp_cta_desc')}</p>
-              <div className="mp-cta-actions">
-                <Link to="/contact" className="mp-cta-btn">
-                  <span>{t('mp_cta_btn')}</span>
-                  <span className="material-icons">arrow_forward</span>
-                </Link>
-                <a href="tel:+966543188882" className="mp-cta-phone-btn">
-                  <span className="material-icons">phone_in_talk</span>
-                  <span>+966 54 318 8882</span>
+          {/* Contact CTA */}
+          <div className="blog-cta-card" style={{ marginTop: '4rem' }}>
+            <div className="blog-cta-inner">
+              <div className="blog-cta-text">
+                <h2>{t('mp_cta_title')}</h2>
+                <p>{t('mp_cta_desc')}</p>
+              </div>
+              <div className="blog-cta-actions">
+                <a href="tel:+966543188882" className="btn btn-primary">
+                  <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px' }}>phone</span>
+                  {t('global_cta_call')}
+                </a>
+                <a href="https://wa.me/966543188882" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                  <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px' }}>chat</span>
+                  {t('global_cta_whatsapp')}
                 </a>
               </div>
             </div>

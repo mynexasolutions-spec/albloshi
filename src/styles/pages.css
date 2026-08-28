@@ -913,7 +913,7 @@
 }
 
 .mp-hero-title span {
-    display: block;
+    display: inline;
     color: #1D4ED8;
 }
 

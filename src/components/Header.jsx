@@ -75,11 +75,21 @@ export default function Header() {
                   <Link
                     to="/intelligent-chemicals"
                     className="dropdown-item"
-                    onClick={(e) => toggleNestedSubmenu(e, 'chemicals')}
                   >
                     <span className="material-icons">science</span>
                     <span className="dropdown-text">{t('intelligent_chemicals')}</span>
                   </Link>
+                  <button
+                    className="mobile-submenu-toggle-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setOpenNestedSubmenu(prev => (prev === 'chemicals' ? null : 'chemicals'));
+                    }}
+                    aria-label="Toggle Submenu"
+                  >
+                    <span className="material-icons">expand_more</span>
+                  </button>
                   <ul className="submenu">
                     <li>
                       <Link to="/intelligent-chemicals#water-treatment" className="dropdown-item">
@@ -128,11 +138,21 @@ export default function Header() {
                   <Link
                     to="/industrial-services"
                     className="dropdown-item"
-                    onClick={(e) => toggleNestedSubmenu(e, 'industrial')}
                   >
                     <span className="material-icons">precision_manufacturing</span>
                     <span className="dropdown-text">{t('industrial_materials')}</span>
                   </Link>
+                  <button
+                    className="mobile-submenu-toggle-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setOpenNestedSubmenu(prev => (prev === 'industrial' ? null : 'industrial'));
+                    }}
+                    aria-label="Toggle Submenu"
+                  >
+                    <span className="material-icons">expand_more</span>
+                  </button>
                   <ul className="submenu industrial-submenu-grid">
                     <li>
                       <Link to="/industrial-services#steel-pipes" className="dropdown-item">
@@ -286,11 +306,21 @@ export default function Header() {
                   <Link
                     to="/food-services"
                     className="dropdown-item"
-                    onClick={(e) => toggleNestedSubmenu(e, 'food')}
                   >
                     <span className="material-icons">restaurant</span>
                     <span className="dropdown-text">{t('food_distribution')}</span>
                   </Link>
+                  <button
+                    className="mobile-submenu-toggle-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setOpenNestedSubmenu(prev => (prev === 'food' ? null : 'food'));
+                    }}
+                    aria-label="Toggle Submenu"
+                  >
+                    <span className="material-icons">expand_more</span>
+                  </button>
                   <ul className="submenu food-submenu-grid">
                     <li>
                       <Link to="/food-services#basmati-rice" className="dropdown-item">
@@ -384,11 +414,21 @@ export default function Header() {
                   <Link
                     to="/manpower-supply"
                     className="dropdown-item"
-                    onClick={(e) => toggleNestedSubmenu(e, 'manpower')}
                   >
                     <span className="material-icons">groups</span>
                     <span className="dropdown-text">{t('manpower_supply')}</span>
                   </Link>
+                  <button
+                    className="mobile-submenu-toggle-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setOpenNestedSubmenu(prev => (prev === 'manpower' ? null : 'manpower'));
+                    }}
+                    aria-label="Toggle Submenu"
+                  >
+                    <span className="material-icons">expand_more</span>
+                  </button>
                   <ul className="submenu manpower-submenu-grid">
                     <li>
                       <Link to="/manpower-supply#engineers-supervisors-foremen" className="dropdown-item">

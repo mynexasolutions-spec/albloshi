@@ -26,10 +26,10 @@
     border: 1px solid rgba(255, 255, 255, 0.9);
 }
 
-.contact-form-container h3 {
+.contact-form-container h2 {
     font-family: var(--font-sans);
     font-size: 1.6rem;
-    font-weight: 800;
+    font-weight: 500;
     margin-bottom: 0.5rem;
     color: var(--color-dark);
 }
@@ -102,7 +102,7 @@
 
 .contact-info-panel h2 {
     margin-bottom: 1.5rem;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--color-dark);
 }
 

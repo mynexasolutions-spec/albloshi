@@ -32,12 +32,12 @@ const PRODUCTS = [
     specKeys: ['food_prod7_spec1', 'food_prod7_spec2', 'food_prod7_spec3', 'food_prod7_spec4']
   },
   {
-    id: 'basmati-rice-new',
-    img: '/images/food_services/Basmati_Rice.webp',
+    id: 'general-rice',
+    img: '/images/food_services/Rices.png',
     tagKey: 'food_prod8_tag',
-    titleKey: 'food_prod8_title',
+    titleKey: 'food_prod_general_rice_title',
     descKey: 'food_prod8_desc',
-    specKeys: ['food_prod8_spec1', 'food_prod8_spec2', 'food_prod8_spec3', 'food_prod8_spec4']
+    isGeneralRice: true,
   },
   {
     id: 'food-supply',
@@ -48,44 +48,12 @@ const PRODUCTS = [
     specKeys: ['food_prod9_spec1', 'food_prod9_spec2', 'food_prod9_spec3', 'food_prod9_spec4']
   },
   {
-    id: 'custom-basmati',
-    img: '/images/food_services/rice.webp',
-    tagKey: 'food_prod10_tag',
-    titleKey: 'food_prod10_title',
-    descKey: 'food_prod10_desc',
-    specKeys: ['food_prod10_spec1', 'food_prod10_spec2', 'food_prod10_spec3', 'food_prod10_spec4']
-  },
-  {
-    id: 'palm-olein',
+    id: 'general-oil',
     img: '/images/food_services/Palm_Olein_Oil.webp',
     tagKey: 'food_prod11_tag',
     titleKey: 'food_prod11_title',
     descKey: 'food_prod11_desc',
     specKeys: ['food_prod11_spec1', 'food_prod11_spec2', 'food_prod11_spec3', 'food_prod11_spec4']
-  },
-  {
-    id: 'steam-basmati',
-    img: '/images/food_services/Steam_Basmati_Ric.webp',
-    tagKey: 'food_prod12_tag',
-    titleKey: 'food_prod12_title',
-    descKey: 'food_prod12_desc',
-    specKeys: ['food_prod12_spec1', 'food_prod12_spec2', 'food_prod12_spec3', 'food_prod12_spec4']
-  },
-  {
-    id: 'golden-sella',
-    img: '/images/food_services/Golden_Sell_Basmati_Rice.webp',
-    tagKey: 'food_prod13_tag',
-    titleKey: 'food_prod13_title',
-    descKey: 'food_prod13_desc',
-    specKeys: ['food_prod13_spec1', 'food_prod13_spec2', 'food_prod13_spec3', 'food_prod13_spec4']
-  },
-  {
-    id: 'premium-1121',
-    img: '/images/food_services/Premium_Basmati_Rice.webp',
-    tagKey: 'food_prod14_tag',
-    titleKey: 'food_prod14_title',
-    descKey: 'food_prod14_desc',
-    specKeys: ['food_prod14_spec1', 'food_prod14_spec2', 'food_prod14_spec3', 'food_prod14_spec4']
   },
   {
     id: 'honey',
@@ -149,9 +117,10 @@ const STRENGTHS = [
 const STANDARD_KEYS = ['food_standard1', 'food_standard2', 'food_standard3', 'food_standard4', 'food_standard5', 'food_standard6'];
 
 const FOOD_TEAM = [
-  { id: 11, name: 'Mohammed Abdulla Al Balushi', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio' },
-  { id: 12, name: 'Raj Kumar Soni', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio' },
-  { id: 13, name: 'I Akhter', roleKey: 'team_food_akhter_role', bioKey: 'team_food_akhter_bio' },
+  { id: 11, nameKey: 'team_mab_name', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio' },
+  { id: 12, nameKey: 'team_soni_name', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio' },
+  { id: 13, nameKey: 'team_akhter_name', roleKey: 'team_food_akhter_role', bioKey: 'team_food_akhter_bio' },
+  { id: 14, nameKey: 'team_aqeel_name', roleKey: 'team_food_aqeel_role', bioKey: 'team_food_aqeel_bio' },
 ];
 
 export default function FoodServices() {
@@ -192,13 +161,14 @@ export default function FoodServices() {
       {/* Products */}
       <section id="products" className="products-section">
         <div className="container">
-          <div className="text-center">
+          <div className="text-center" style={{ marginBottom: '2.5rem' }}>
             <h2 className="section-title center">Our Food Product Range</h2>
-            <p className="large-para" style={{ maxWidth: '700px', margin: '0 auto' }}>{t('food_products_desc')}</p>
+            <p className="large-para" style={{ maxWidth: '700px', margin: '0 auto 2.5rem' }}>{t('food_products_desc')}</p>
           </div>
+
           <div className="products-grid">
             {PRODUCTS.map(p => (
-              <div key={p.titleKey} className="product-block" id={p.id} style={p.comingSoon ? { opacity: 0.85 } : {}}>
+              <div key={p.id} className="product-block" id={p.id} style={p.comingSoon ? { opacity: 0.85 } : {}}>
                 <div style={{ position: 'relative' }}>
                   <img src={p.img} alt={t(p.titleKey)} className="product-block-img" style={{ aspectRatio: '1/1', ...(p.comingSoon ? { filter: 'brightness(0.75)' } : {}) }} />
                   {p.comingSoon && (
@@ -212,22 +182,35 @@ export default function FoodServices() {
                   <h3>{t(p.titleKey)}</h3>
                   {!p.comingSoon && (
                     <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto', paddingTop: '1rem', flexDirection: 'row' }}>
-                      <button 
-                        onClick={() => setSelectedProduct({
-                          title: t(p.titleKey),
-                          desc: t(p.descKey),
-                          tag: t(p.tagKey),
-                          img: p.img,
-                          specs: p.specKeys.map(sk => t(sk))
-                        })}
-                        className="product-block-btn" 
-                        style={{ background: 'transparent', color: 'var(--color-primary)', border: '1.5px solid var(--color-primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0.5rem', fontSize: '0.85rem' }}>
-                        Read More
-                      </button>
-                      <a href="/contact" className="product-block-btn" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0.5rem', fontSize: '0.85rem' }}>
-                        <span className="material-icons" style={{ fontSize: '1rem', marginRight: '4px' }}>mail_outline</span>
-                        {t('food_get_quote')}
-                      </a>
+                      {p.isGeneralRice ? (
+                        <Link
+                          to="/rice-products"
+                          className="product-block-btn"
+                          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0.5rem', fontSize: '0.85rem', textDecoration: 'none', background: 'var(--color-primary)', color: 'white' }}
+                        >
+                          <span className="material-icons" style={{ fontSize: '1.15rem', marginRight: '4px' }}>visibility</span>
+                          View Rice Varieties
+                        </Link>
+                      ) : (
+                        <>
+                          <button 
+                            onClick={() => setSelectedProduct({
+                              title: t(p.titleKey),
+                              desc: t(p.descKey),
+                              tag: t(p.tagKey),
+                              img: p.img,
+                              specs: p.specKeys.map(sk => t(sk))
+                            })}
+                            className="product-block-btn" 
+                            style={{ background: 'transparent', color: 'var(--color-primary)', border: '1.5px solid var(--color-primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0.5rem', fontSize: '0.85rem' }}>
+                            Read More
+                          </button>
+                          <a href="/contact" className="product-block-btn" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0.5rem', fontSize: '0.85rem' }}>
+                            <span className="material-icons" style={{ fontSize: '1rem', marginRight: '4px' }}>mail_outline</span>
+                            {t('food_get_quote')}
+                          </a>
+                        </>
+                      )}
                     </div>
                   )}
                 </div>
@@ -303,7 +286,7 @@ export default function FoodServices() {
               <div key={m.id} className="team-card">
                 <div className="team-img-wrapper">
                   {m.img ? (
-                    <img src={m.img} alt={m.name} className="team-img" style={{ objectFit: 'cover' }} />
+                    <img src={m.img} alt={m.nameKey ? t(m.nameKey) : m.name} className="team-img" style={{ objectFit: 'cover' }} />
                   ) : (
                     <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                       <defs>
@@ -323,7 +306,7 @@ export default function FoodServices() {
                   )}
                 </div>
                 <div className="team-info">
-                  <h3>{m.name}</h3>
+                  <h3>{m.nameKey ? t(m.nameKey) : m.name}</h3>
                   <div className="team-role">{t(m.roleKey)}</div>
                   <p className="team-bio">{t(m.bioKey)}</p>
                 </div>

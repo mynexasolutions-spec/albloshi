@@ -67,7 +67,7 @@ export default function Contact() {
         <div className="container">
           <div className="contact-grid">
             <div className="contact-form-container">
-              <h3>{t('contact_form_title')}</h3>
+              <h2 className="section-title text-left" style={{ fontSize: '1.6rem', paddingBottom: '1rem', marginBottom: '1.5rem' }}>{t('contact_form_title')}</h2>
               <p className="large-para" style={{ fontSize: '0.95rem', marginBottom: '2rem' }}>{t('contact_form_desc')}</p>
               <form id="companyInquiryForm" onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -104,7 +104,7 @@ export default function Contact() {
             </div>
 
             <div className="contact-info-panel">
-              <h2 className="section-title">{t('contact_info_title')}</h2>
+              <h2 className="section-title text-left">{t('contact_info_title')}</h2>
               <p className="large-para">{t('contact_info_desc')}</p>
               <div className="contact-card-list">
                 <div className="contact-card-item">
@@ -119,7 +119,8 @@ export default function Contact() {
                   <span className="contact-card-icon material-icons">mail_outline</span>
                   <div className="contact-card-details">
                     <h4>{t('contact_card_sales_title')}</h4>
-                    <p>{t('contact_label_email')} <a href="mailto:sales@albloshi.co">sales@albloshi.co</a></p>
+                    <p>{t('contact_label_email')} <a href="mailto:admin@albloshi.co">admin@albloshi.co</a></p>
+                    <p style={{ marginTop: '-0.25rem', marginBottom: '0.5rem' }}><a href="mailto:sales@albloshi.co">sales@albloshi.co</a></p>
                     <p>{t('contact_label_website')} <a href="https://albloshi.co" target="_blank" rel="noopener noreferrer">https://albloshi.co</a></p>
                   </div>
                 </div>

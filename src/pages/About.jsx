@@ -25,25 +25,27 @@ const VALUES = [
 
 const TEAM = [
   // Chemical
-  { id: 1, name: 'Jetu Lalwani', category: 'chemical', roleKey: 'team_chemical_jetu_role', bioKey: 'team_chemical_jetu_bio' },
-  { id: 2, name: 'Sajid Pachhapure', category: 'chemical', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
-  { id: 3, name: 'Ajay Adnala', category: 'chemical', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/ajay_adnala.jpeg' },
-  { id: 4, name: 'Mohammed Abdul Balushi', category: 'chemical', roleKey: 'team_chemical_mab_role', bioKey: 'team_chemical_mab_bio' },
-  { id: 5, name: 'Arbaz Shaikh', category: 'chemical', roleKey: 'team_chemical_arbaz_role', bioKey: 'team_chemical_arbaz_bio' },
-  { id: 6, name: 'I Akhter', category: 'chemical', roleKey: 'team_chemical_akhter_role', bioKey: 'team_chemical_akhter_bio' },
+  { id: 1, nameKey: 'team_jetu_name', category: 'chemical', roleKey: 'team_chemical_jetu_role', bioKey: 'team_chemical_jetu_bio' },
+  { id: 2, nameKey: 'team_sajid_name', category: 'chemical', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
+  { id: 3, nameKey: 'team_ajay_name', category: 'chemical', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/ajay_adnala.jpeg' },
+  { id: 4, nameKey: 'team_mab_name', category: 'chemical', roleKey: 'team_chemical_mab_role', bioKey: 'team_chemical_mab_bio' },
+  { id: 5, nameKey: 'team_arbaz_name', category: 'chemical', roleKey: 'team_chemical_arbaz_role', bioKey: 'team_chemical_arbaz_bio' },
+  { id: 15, nameKey: 'team_amreen_name', category: 'chemical', roleKey: 'team_chemical_amreen_role', bioKey: 'team_chemical_amreen_bio' },
+  { id: 6, nameKey: 'team_akhter_name', category: 'chemical', roleKey: 'team_chemical_akhter_role', bioKey: 'team_chemical_akhter_bio' },
 
   // Industrial
-  { id: 7, name: 'Mohammed Riaz', category: 'industrial', roleKey: 'about_team_2_role', bioKey: 'about_team_2_bio' },
-  { id: 8, name: 'Mr. T.A. Khan', category: 'industrial', roleKey: 'team_industrial_khan_role', bioKey: 'team_industrial_khan_bio' },
+  { id: 7, nameKey: 'team_riaz_name', category: 'industrial', roleKey: 'about_team_2_role', bioKey: 'about_team_2_bio' },
+  { id: 8, nameKey: 'team_khan_name', category: 'industrial', roleKey: 'team_industrial_khan_role', bioKey: 'team_industrial_khan_bio' },
 
   // Manpower
-  { id: 9, name: 'Ahsan Jafri', category: 'manpower', roleKey: 'team_manpower_ahsan_role', bioKey: 'team_manpower_ahsan_bio' },
-  { id: 10, name: 'Iqbal Jafri', category: 'manpower', roleKey: 'team_manpower_iqbal_role', bioKey: 'team_manpower_iqbal_bio' },
+  { id: 9, nameKey: 'team_ahsan_name', category: 'manpower', roleKey: 'team_manpower_ahsan_role', bioKey: 'team_manpower_ahsan_bio' },
+  { id: 10, nameKey: 'team_iqbal_name', category: 'manpower', roleKey: 'team_manpower_iqbal_role', bioKey: 'team_manpower_iqbal_bio' },
 
   // Food
-  { id: 11, name: 'Mohammed Abdulla Al Balushi', category: 'food', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio' },
-  { id: 12, name: 'Raj Kumar Soni', category: 'food', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio' },
-  { id: 13, name: 'I Akhter', category: 'food', roleKey: 'team_food_akhter_role', bioKey: 'team_food_akhter_bio' },
+  { id: 11, nameKey: 'team_mab_name', category: 'food', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio' },
+  { id: 12, nameKey: 'team_soni_name', category: 'food', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio' },
+  { id: 13, nameKey: 'team_akhter_name', category: 'food', roleKey: 'team_food_akhter_role', bioKey: 'team_food_akhter_bio' },
+  { id: 14, nameKey: 'team_aqeel_name', category: 'food', roleKey: 'team_food_aqeel_role', bioKey: 'team_food_aqeel_bio' },
 ];
 
 const NETWORK_CARDS = [
@@ -240,7 +242,7 @@ export default function About() {
               <div key={m.id} className="team-card">
                 <div className="team-img-wrapper">
                   {m.img ? (
-                    <img src={m.img} alt={m.name} className="team-img" style={{ objectFit: 'cover' }} />
+                    <img src={m.img} alt={m.nameKey ? t(m.nameKey) : m.name} className="team-img" style={{ objectFit: 'cover' }} />
                   ) : (
                     <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                       <defs>
@@ -260,7 +262,7 @@ export default function About() {
                   )}
                 </div>
                 <div className="team-info">
-                  <h3>{m.name}</h3>
+                  <h3>{m.nameKey ? t(m.nameKey) : m.name}</h3>
                   <div className="team-role">{t(m.roleKey)}</div>
                   <p className="team-bio">{t(m.bioKey)}</p>
                 </div>
