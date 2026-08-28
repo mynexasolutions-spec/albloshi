@@ -104,6 +104,7 @@
     margin-bottom: 1.5rem;
     font-weight: 500;
     color: var(--color-dark);
+    font-size: clamp(1.6rem, 2.5vw, 2.1rem);
 }
 
 .contact-card-list {
