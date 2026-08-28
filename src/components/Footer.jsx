@@ -45,7 +45,9 @@ export default function Footer() {
               <h4>{t('corporate_offices')}</h4>
               <div className="footer-contact-item">
                 <span className="material-icons footer-contact-icon">phone_in_talk</span>
-                <p className="footer-contact-text">+966 54 958 1547</p>
+                <p className="footer-contact-text">
+                  <a href="tel:+966543188882" style={{ color: 'inherit', textDecoration: 'none' }}>+966 54 318 8882</a>
+                </p>
               </div>
               <div className="footer-contact-item">
                 <span className="material-icons footer-contact-icon">mail_outline</span>

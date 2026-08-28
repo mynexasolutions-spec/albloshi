@@ -47,7 +47,7 @@ export const translations = {
     compliance_certs: "Compliance and Certifications",
     privacy_policy: "Privacy Policy",
     all_rights_reserved:
-      "Mohammed Abdulla Al Bloshi Co. All rights reserved.",
+      "Mohammed Abdullah Al Bloshi Co. All rights reserved.",
     global_cta_whatsapp: "WhatsApp Us",
     global_cta_call: "Call: +966 54 318 8882",
 
@@ -85,9 +85,9 @@ export const translations = {
     mfb_manpower: "Manpower",
 
     // Contact Page
-    contact_meta_title: "Contact Us | Mohammed Abdulla Al Bloshi Co",
+    contact_meta_title: "Contact Us | Mohammed Abdullah Al Bloshi Co",
     contact_meta_desc:
-      "Get in touch with Mohammed Abdulla Al Bloshi Co — reach our business development team for industrial materials, food distribution, TELLABS chemicals, and manpower supply inquiries across Saudi Arabia.",
+      "Get in touch with Mohammed Abdullah Al Bloshi Co — reach our business development team for industrial materials, food distribution, TELLABS chemicals, and manpower supply inquiries across Saudi Arabia.",
     contact_hero_title: "Get in Touch",
     contact_hero_desc:
       "Connect with our team for inquiries, quotes, and partnership opportunities. We're here to support your business across all our divisions.",
@@ -136,10 +136,10 @@ export const translations = {
     contact_cta_email_btn: "Email sales@albloshi.co",
  
     // About Page
-    about_meta_title: "About Us | Mohammed Abdulla Al Bloshi Co",
+    about_meta_title: "About Us | Mohammed Abdullah Al Bloshi Co",
     about_meta_desc:
-      "Learn about Mohammed Abdulla Al Bloshi Co — a Dammam-based multi-industry enterprise supplying industrial materials, food commodities, TELLABS specialty chemicals, and skilled manpower across Saudi Arabia since 2008.",
-    about_hero_title_l1: "Mohammed Abdulla",
+      "Learn about Mohammed Abdullah Al Bloshi Co — a Dammam-based multi-industry enterprise supplying industrial materials, food commodities, TELLABS specialty chemicals, and skilled manpower across Saudi Arabia since 2008.",
+    about_hero_title_l1: "Mohammed Abdullah",
     about_hero_title_l2: "Al Bloshi Co.",
     about_hero_desc:
       "A premier multi-industry enterprise supplying industrial materials, specialty chemicals, food commodities, and skilled manpower to businesses across the Kingdom of Saudi Arabia.",
@@ -198,7 +198,7 @@ export const translations = {
     about_team_title: "Executive Management Team",
     about_team_desc:
       "Our leadership team steers Albloshi toward sustainable industrial innovation and robust supply chain solutions across Saudi Arabia.",
-    team_mab_name: "MOHAMMED ABDULLAH AL-BLOSHI",
+    team_mab_name: "Mohammed Abdullah Al-Bloshi",
     team_jetu_name: "Jetu Lalwani",
     team_sajid_name: "Sajid Pachhapure",
     team_ajay_name: "Ajay Adnala",
@@ -282,7 +282,7 @@ export const translations = {
     home_meta_title:
       "ALBLOSHI – Supplying Strength Every Industry | Industrial, Chemicals, Food, and Manpower Solutions Saudi Arabia",
     home_meta_desc:
-      "Mohammed Abdulla Al Bloshi Co is a premium multi-industry Saudi enterprise based in Dammam. Leading suppliers of industrial materials, food products, TELLABS specialty chemicals, and manpower across the GCC.",
+      "Mohammed Abdullah Al Bloshi Co is a premium multi-industry Saudi enterprise based in Dammam. Leading suppliers of industrial materials, food products, TELLABS specialty chemicals, and manpower across the GCC.",
     home_slide1_subtitle: "Industrial Supplies",
     home_slide1_title: "Industrial Materials and Building Solutions",
     home_slide1_cta: "Explore Industrial Vertical",
@@ -393,7 +393,7 @@ export const translations = {
     home_faq3_q:
       "Is Albloshi an official and authorized distributor of TELLABS chemicals?",
     home_faq3_a:
-      "Yes. Mohammed Abdulla Al Bloshi Co is the designated, official regional distribution partner for TELLABS Intelligent Specialty Chemicals across Saudi Arabia and the broader GCC markets, offering local inventory stocking and direct technical support.",
+      "Yes. Mohammed Abdullah Al Bloshi Co is the designated, official regional distribution partner for TELLABS Intelligent Specialty Chemicals across Saudi Arabia and the broader GCC markets, offering local inventory stocking and direct technical support.",
     home_faq4_q:
       "What regions of Saudi Arabia do your warehousing and logistics operations support?",
     home_faq4_a:
@@ -754,7 +754,7 @@ export const translations = {
     // Tellabs Chemicals Page
     tc_meta_title: "TELLABS Chemicals Partnership | ALBLOSHI",
     tc_meta_desc:
-      "Mohammed Abdulla Al Bloshi Co is the official regional partner and distributor for TELLABS specialty chemicals across Saudi Arabia and the GCC.",
+      "Mohammed Abdullah Al Bloshi Co is the official regional partner and distributor for TELLABS specialty chemicals across Saudi Arabia and the GCC.",
     tc_hero_title: "TELLABS Chemicals Alliance",
     tc_hero_desc:
       "Official regional distribution partnership delivering advanced, European-technology chemical formulations across Saudi Arabia & the GCC.",
@@ -822,7 +822,7 @@ export const translations = {
     tc_clients_label: "GLOBAL CLIENT FOOTPRINT",
     tc_clients_title: "Trusted in Primary Sectors",
     tc_clients_footer_text:
-      "Through Mohammed Abdulla Al Bloshi Co, regional Saudi and GCC enterprises access this global supplier network and technical engineering resources locally.",
+      "Through Mohammed Abdullah Al Bloshi Co, regional Saudi and GCC enterprises access this global supplier network and technical engineering resources locally.",
     tc_cta_title: "Ready to Elevate Your Operations?",
     tc_cta_desc:
       "Partner with TELLABS Chemicals for industry-leading specialty solutions, sustainable technologies, and exceptional technical support.",
@@ -833,7 +833,7 @@ export const translations = {
     blog_meta_title:
       "Corporate Insights & Sourcing News | ALBLOSHI Trading Co.",
     blog_meta_desc:
-      "Read the latest news, supply chain insights, SASO compliance updates, and specialty chemicals research from Mohammed Abdulla Al Bloshi Co.",
+      "Read the latest news, supply chain insights, SASO compliance updates, and specialty chemicals research from Mohammed Abdullah Al Bloshi Co.",
     blog_banner_title_before: "Corporate Insights",
     blog_banner_title_after: "Sourcing News",
     blog_banner_desc:
