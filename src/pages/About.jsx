@@ -45,7 +45,7 @@ const TEAM = [
   { id: 13, nameKey: 'team_akhter_name', category: 'food', roleKey: 'team_food_akhter_role', bioKey: 'team_food_akhter_bio' },
   { id: 10, nameKey: 'team_iqbal_name', category: 'food', roleKey: 'team_food_iqbal_role', bioKey: 'team_food_iqbal_bio', img: '/images/team/Iqbal Jafri.jpg' },
   { id: 12, nameKey: 'team_soni_name', category: 'food', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio' },
-  { id: 14, nameKey: 'team_aqeel_name', category: 'food', roleKey: 'team_food_aqeel_role', bioKey: 'team_food_aqeel_bio' },
+  { id: 14, nameKey: 'team_aqeel_name', category: 'food', roleKey: 'team_food_aqeel_role', bioKey: 'team_food_aqeel_bio', img: '/images/team/Aqueel Ahmad.jpg' },
 ];
 
 const NETWORK_CARDS = [
