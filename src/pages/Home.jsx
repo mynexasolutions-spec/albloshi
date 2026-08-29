@@ -9,11 +9,11 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 const SLIDE_KEYS = [
   {
-    bg: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80',
-    subtitleKey: 'home_slide1_subtitle',
-    titleKey: 'home_slide1_title',
-    ctaKey: 'home_slide1_cta',
-    href: '/industrial-services',
+    bg: 'https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=1920&q=80',
+    subtitleKey: 'home_slide3_subtitle',
+    titleKey: 'home_slide3_title',
+    ctaKey: 'home_slide3_cta',
+    href: '/intelligent-chemicals',
   },
   {
     bg: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80',
@@ -23,11 +23,11 @@ const SLIDE_KEYS = [
     href: '/food-services',
   },
   {
-    bg: 'https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=1920&q=80',
-    subtitleKey: 'home_slide3_subtitle',
-    titleKey: 'home_slide3_title',
-    ctaKey: 'home_slide3_cta',
-    href: '/intelligent-chemicals',
+    bg: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80',
+    subtitleKey: 'home_slide1_subtitle',
+    titleKey: 'home_slide1_title',
+    ctaKey: 'home_slide1_cta',
+    href: '/industrial-services',
   },
 ];
 

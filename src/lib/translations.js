@@ -119,7 +119,7 @@ export const translations = {
     contact_info_desc:
       "Connect directly with our headquarters or division directors to arrange technical consultation or obtain direct credit accounts.",
     contact_card_bd_title: "Business Development Office",
-    contact_card_bd_name: "Mohammed Riaz — Business Development Manager",
+    contact_card_bd_name: "Mohammed Abdullah Al-Bloshi — Business Development Manager",
     contact_label_mobile_whatsapp: "Mobile / WhatsApp:",
     contact_card_sales_title: "General Sales Desk",
     contact_label_email: "Email:",
@@ -132,9 +132,9 @@ export const translations = {
     contact_cta_title: "Visit Our Dammam Headquarters",
     contact_cta_desc:
       "Located in the heart of the Eastern Province's industrial corridor — easily accessible for site visits, inspections, and meetings.",
-    contact_cta_call_btn: "Call +966 54 958 1547",
-    contact_cta_email_btn: "Email sales@albloshi.co",
- 
+    contact_cta_call_btn: "Call +966 54 318 8882",
+    contact_cta_email_btn: "Email admin@albloshi.co",
+
     // About Page
     about_meta_title: "About Us | Mohammed Abdullah Al Bloshi Co",
     about_meta_desc:
@@ -210,7 +210,7 @@ export const translations = {
     team_ahsan_name: "Ahsan Jafri",
     team_iqbal_name: "Iqbal Jafri",
     team_soni_name: "Raj Kumar Soni",
-    team_aqeel_name: "Aqeel Ahmed",
+    team_aqeel_name: "Aqueel Ahmad",
     about_team_1_role: "Chairman & Founder",
     about_team_1_bio:
       "Steering the strategic vision and long-term growth of the company across KSA's key industrial sectors.",
@@ -237,7 +237,7 @@ export const translations = {
     team_chemical_mab_bio: "Managing distribution pathways and safety compliance for specialty and bulk chemicals.",
     team_chemical_arbaz_role: "Sales Engineer",
     team_chemical_arbaz_bio: "Overseeing corporate accounts, client relationships, and sales pipelines in the chemical division.",
-    team_chemical_amreen_role: "Sales Engineer",
+    team_chemical_amreen_role: "Accounts Manager",
     team_chemical_amreen_bio: "Overseeing corporate accounts, client relationships, and sales pipelines in the chemical division.",
     team_chemical_akhter_role: "Operations Manager",
     team_chemical_akhter_bio: "Coordinating chemical shipping, storage safety, and prompt terminal dispatch operations.",
@@ -251,7 +251,7 @@ export const translations = {
     team_food_soni_bio: "Managing food import channels, quality compliance (SFDA), and warehousing networks.",
     team_food_akhter_role: "Operations Manager",
     team_food_akhter_bio: "Ensuring safe and fast temperature-controlled dispatch for wholesale food shipments.",
-    team_food_aqeel_role: "Sales Executive",
+    team_food_aqeel_role: "Sales Manager",
     team_food_aqeel_bio: "Driving wholesale food distribution accounts and corporate client sales.",
     chem_team_title: "Specialty Chemicals Experts",
     chem_team_desc: "Our dedicated chemical technical consultants and managers supporting industrial water and TELLABS supplies across Saudi Arabia.",
@@ -828,7 +828,7 @@ export const translations = {
       "Partner with TELLABS Chemicals for industry-leading specialty solutions, sustainable technologies, and exceptional technical support.",
     tc_cta_btn1: "Contact Our Experts",
     tc_cta_btn2: "Explore Our Verticals",
- 
+
     // Blog Page
     blog_meta_title:
       "Corporate Insights & Sourcing News | ALBLOSHI Trading Co.",
@@ -847,7 +847,7 @@ export const translations = {
       "From industrial piping to specialty chemicals and qualified manpower — our team is ready to deliver. Reach out today and get a tailored sourcing proposal for your next project.",
     blog_cta_btn1: "Request a Quote",
     blog_cta_btn2: "Explore Our Verticals",
- 
+
     // Blog Post Page
     bp_loading: "Loading…",
     bp_not_found: "Post not found",
@@ -856,7 +856,7 @@ export const translations = {
     bp_default_category: "Article",
     bp_default_author: "Albloshi Team",
     bp_back_to_blog: "Back to Blog",
- 
+
     // Chatbot UI chrome
     chat_title: "Albloshi Assistant",
     chat_online: "Online",
@@ -865,7 +865,7 @@ export const translations = {
     chat_aria_send: "Send Message",
     chat_input_placeholder: "Type a question or click a topic...",
     chat_whatsapp_intro:
-      "Connect directly with our Business Development Manager <strong>Mohammed Riaz</strong> for corporate procurement and technical pricing:",
+      "Connect directly with our Business Development Manager <strong>Mohammed Abdullah Al-Bloshi</strong> for corporate procurement and technical pricing:",
     chat_redirecting: "Taking you to our contact & inquiry form...",
     chat_fallback:
       "I couldn't find an exact match. Our sales team is ready to help directly!",
@@ -1022,7 +1022,7 @@ export const translations = {
     contact_info_desc:
       "تواصل مباشرة مع مقرنا الرئيسي أو مديري الأقسام لترتيب استشارة فنية أو الحصول على حسابات ائتمانية مباشرة.",
     contact_card_bd_title: "مكتب تطوير الأعمال",
-    contact_card_bd_name: "محمد رياض — مدير تطوير الأعمال",
+    contact_card_bd_name: "محمد بن عبد الله بن عبد القادر الجمالي البلوشي — مدير تطوير الأعمال",
     contact_label_mobile_whatsapp: "الجوال / واتساب:",
     contact_card_sales_title: "مكتب المبيعات العام",
     contact_label_email: "البريد الإلكتروني:",
@@ -1035,8 +1035,8 @@ export const translations = {
     contact_cta_title: "زر مقرنا الرئيسي في الدمام",
     contact_cta_desc:
       "يقع في قلب الممر الصناعي بالمنطقة الشرقية — يسهل الوصول إليه لزيارات المواقع والفحوصات والاجتماعات.",
-    contact_cta_call_btn: "اتصل +966 54 958 1547",
-    contact_cta_email_btn: "راسلنا sales@albloshi.co",
+    contact_cta_call_btn: "اتصل +966 54 318 8882",
+    contact_cta_email_btn: "راسلنا admin@albloshi.co",
 
     // About Page
     about_meta_title: "من نحن | شركة محمد عبدالله البلوشي التجارية",
@@ -1139,7 +1139,7 @@ export const translations = {
     team_chemical_mab_bio: "إدارة مسارات التوزيع والامتثال والسلامة للكيميائيات المتخصصة والسائبة.",
     team_chemical_arbaz_role: "مهندس مبيعات",
     team_chemical_arbaz_bio: "الإشراف على حسابات الشركات وعلاقات العملاء وقنوات المبيعات في قسم الكيميائيات.",
-    team_chemical_amreen_role: "مهندس مبيعات",
+    team_chemical_amreen_role: "مدير الحسابات",
     team_chemical_amreen_bio: "الإشراف على حسابات الشركات وعلاقات العملاء وقنوات المبيعات في قسم الكيميائيات.",
     team_chemical_akhter_role: "مدير العمليات",
     team_chemical_akhter_bio: "تنسيق شحن المواد الكيميائية وسلامة التخزين وعمليات الإرسال الفوري من المحطة.",
@@ -1153,7 +1153,7 @@ export const translations = {
     team_food_soni_bio: "إدارة قنوات استيراد الأغذية والامتثال للجودة (الهيئة العامة للغذاء والدواء) شبكات المستودعات.",
     team_food_akhter_role: "مدير العمليات",
     team_food_akhter_bio: "ضمان إرسال آمن وسريع للمواد الغذائية بالجملة مع التحكم في درجة الحرارة.",
-    team_food_aqeel_role: "تنفيذي مبيعات",
+    team_food_aqeel_role: "مدير المبيعات",
     team_food_aqeel_bio: "إدارة حسابات توزيع المواد الغذائية بالجملة ومبيعات عملاء الشركات.",
     chem_team_title: "خبراء الكيميائيات المتخصصة",
     chem_team_desc: "مستشارونا ومديرونا الفنيون المخصصون لدعم كيميائيات المياه الصناعية وتوريدات تيلابس في السعودية.",
@@ -1761,7 +1761,7 @@ export const translations = {
     chat_aria_send: "إرسال الرسالة",
     chat_input_placeholder: "اكتب سؤالاً أو اضغط على أحد المواضيع...",
     chat_whatsapp_intro:
-      "تواصل مباشرة مع مدير تطوير الأعمال لدينا <strong>محمد رياض</strong> للمشتريات المؤسسية والتسعير الفني:",
+      "تواصل مباشرة مع مدير تطوير الأعمال لدينا <strong>محمد بن عبد الله بن عبد القادر الجمالي البلوشي</strong> للمشتريات المؤسسية والتسعير الفني:",
     chat_redirecting: "جارٍ نقلك إلى نموذج التواصل والاستفسار...",
     chat_fallback:
       "لم أتمكن من العثور على تطابق دقيق. فريق المبيعات لدينا جاهز لمساعدتك مباشرة!",

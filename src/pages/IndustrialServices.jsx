@@ -362,7 +362,7 @@ const CAPABILITIES = [
 
 
 const INDUSTRIAL_TEAM = [
-  { id: 7, name: 'Mohammed Riaz', roleKey: 'about_team_2_role', bioKey: 'about_team_2_bio' },
+  { id: 7, name: 'Mohammed Riaz', roleKey: 'about_team_2_role', bioKey: 'about_team_2_bio', img: '/images/team/MOHAMMED Riaz.jpg' },
   { id: 8, name: 'Mr. T.A. Khan', roleKey: 'team_industrial_khan_role', bioKey: 'team_industrial_khan_bio' },
 ];
 

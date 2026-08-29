@@ -25,8 +25,8 @@ const KB_EN = {
     text: 'Welcome to <strong>Albloshi Assistant</strong>! I can help you explore our business verticals, products, and services. What would you like to know about?',
     chips: [
       chip('business',               'About Albloshi',        'about_albloshi'),
-      chip('restaurant',             'Food Distribution',     'food_main'),
       chip('science',                'Intelligent Chemicals', 'chemicals_main'),
+      chip('restaurant',             'Food Distribution',     'food_main'),
       chip('precision_manufacturing','Industrial Materials',  'industrial_main'),
       chip('engineering',            'Manpower Supply',       'manpower_main'),
       chip('support_agent',          'Contact Us',            'contact_main'),
@@ -34,10 +34,10 @@ const KB_EN = {
   },
 
   about_albloshi: {
-    text: '<strong>Mohammed Abdulla Al Bloshi Co</strong> was established in <strong>2017</strong> in Dammam, Eastern Province, Saudi Arabia.<br/><br/>We are a multi-division enterprise specializing in:<br/>• Food Distribution (rice, palm oil, restaurant supplies)<br/>• Intelligent Chemicals (exclusive TELLABS distributor for KSA & UAE)<br/>• Industrial Materials (pipes, valves, cable trays, safety gear)<br/>• Manpower Supply (certified industrial workforce)<br/><br/>Operating across <strong>Dammam, Al Khobar, Qatif, Jubail & Al Hassa</strong> — with 100+ containers imported and ambitious expansion plans across the Kingdom.',
+    text: '<strong>Mohammed Abdulla Al Bloshi Co</strong> was established in <strong>2017</strong> in Dammam, Eastern Province, Saudi Arabia.<br/><br/>We are a multi-division enterprise specializing in:<br/>• Intelligent Chemicals (exclusive TELLABS distributor for KSA & UAE)<br/>• Food Distribution (rice, palm oil, restaurant supplies)<br/>• Industrial Materials (pipes, valves, cable trays, safety gear)<br/>• Manpower Supply (certified industrial workforce)<br/><br/>Operating across <strong>Dammam, Al Khobar, Qatif, Jubail & Al Hassa</strong> — with 100+ containers imported and ambitious expansion plans across the Kingdom.',
     chips: [
-      chip('restaurant',             'Food Distribution',     'food_main'),
       chip('science',                'Intelligent Chemicals', 'chemicals_main'),
+      chip('restaurant',             'Food Distribution',     'food_main'),
       chip('precision_manufacturing','Industrial Materials',  'industrial_main'),
       chip('engineering',            'Manpower Supply',       'manpower_main'),
       CONTACT_EN, BACK_MAIN_EN,
@@ -259,8 +259,8 @@ const KB_AR = {
     text: 'مرحبًا بك في <strong>مساعد البلوشي</strong>! يمكنني مساعدتك في استكشاف قطاعات أعمالنا ومنتجاتنا وخدماتنا. عن ماذا تود أن تعرف؟',
     chips: [
       chip('business',               'عن البلوشي',           'about_albloshi'),
-      chip('restaurant',             'توزيع الأغذية',        'food_main'),
       chip('science',                'الكيميائيات الذكية',   'chemicals_main'),
+      chip('restaurant',             'توزيع الأغذية',        'food_main'),
       chip('precision_manufacturing','المواد الصناعية',      'industrial_main'),
       chip('engineering',            'توفير العمالة',        'manpower_main'),
       chip('support_agent',          'اتصل بنا',             'contact_main'),
@@ -268,10 +268,10 @@ const KB_AR = {
   },
 
   about_albloshi: {
-    text: '<strong>شركة محمد عبد الله البلوشي Co</strong> تأسست عام <strong>2017</strong> في الدمام، المنطقة الشرقية، المملكة العربية السعودية.<br/><br/>نحن مؤسسة متعددة الأقسام متخصصة في:<br/>• توزيع الأغذية (الأرز، زيت النخيل، مستلزمات المطاعم)<br/>• الكيميائيات الذكية (الموزع الحصري لتيلابس في السعودية والإمارات)<br/>• المواد الصناعية (الأنابيب، الصمامات، حوامل الكابلات، معدات السلامة)<br/>• توفير العمالة (قوى عاملة صناعية معتمدة)<br/><br/>نعمل في <strong>الدمام والخبر والقطيف والجبيل والأحساء</strong> — مع أكثر من 100 حاوية مستوردة وخطط توسع طموحة في جميع أنحاء المملكة.',
+    text: '<strong>شركة محمد عبد الله البلوشي Co</strong> تأسست عام <strong>2017</strong> في الدمام، المنطقة الشرقية، المملكة العربية السعودية.<br/><br/>نحن مؤسسة متعددة الأقسام متخصصة في:<br/>• الكيميائيات الذكية (الموزع الحصري لتيلابس في السعودية والإمارات)<br/>• توزيع الأغذية (الأرز، زيت النخيل، مستلزمات المطاعم)<br/>• المواد الصناعية (الأنابيب، الصمامات، حوامل الكابلات، معدات السلامة)<br/>• توفير العمالة (قوى عاملة صناعية معتمدة)<br/><br/>نعمل في <strong>الدمام والخبر والقطيف والجبيل والأحساء</strong> — مع أكثر من 100 حاوية مستوردة وخطط توسع طموحة في جميع أنحاء المملكة.',
     chips: [
-      chip('restaurant',             'توزيع الأغذية',      'food_main'),
       chip('science',                'الكيميائيات الذكية', 'chemicals_main'),
+      chip('restaurant',             'توزيع الأغذية',      'food_main'),
       chip('precision_manufacturing','المواد الصناعية',    'industrial_main'),
       chip('engineering',            'توفير العمالة',      'manpower_main'),
       CONTACT_AR, BACK_MAIN_AR,

@@ -8,8 +8,8 @@ import WhatsAppFloat from '../components/WhatsAppFloat';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const MANPOWER_TEAM = [
-  { id: 9, name: 'Ahsan Jafri', roleKey: 'team_manpower_ahsan_role', bioKey: 'team_manpower_ahsan_bio' },
-  { id: 10, name: 'Iqbal Jafri', roleKey: 'team_manpower_iqbal_role', bioKey: 'team_manpower_iqbal_bio' },
+  { id: 9, name: 'Ahsan Jafri', roleKey: 'team_manpower_ahsan_role', bioKey: 'team_manpower_ahsan_bio', img: '/images/team/Ahsan Jafri.jpg' },
+  { id: 10, name: 'Iqbal Jafri', roleKey: 'team_manpower_iqbal_role', bioKey: 'team_manpower_iqbal_bio', img: '/images/team/Iqbal Jafri.jpg' },
 ];
 
 export default function ManpowerSupply() {

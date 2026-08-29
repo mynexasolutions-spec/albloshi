@@ -117,7 +117,7 @@ const STRENGTHS = [
 const STANDARD_KEYS = ['food_standard1', 'food_standard2', 'food_standard3', 'food_standard4', 'food_standard5', 'food_standard6'];
 
 const FOOD_TEAM = [
-  { id: 11, nameKey: 'team_mab_name', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio' },
+  { id: 11, nameKey: 'team_mab_name', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio', img: '/images/team/Mohammed Abdullah Albloshi.jpg' },
   { id: 12, nameKey: 'team_soni_name', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio' },
   { id: 13, nameKey: 'team_akhter_name', roleKey: 'team_food_akhter_role', bioKey: 'team_food_akhter_bio' },
   { id: 14, nameKey: 'team_aqeel_name', roleKey: 'team_food_aqeel_role', bioKey: 'team_food_aqeel_bio' },
