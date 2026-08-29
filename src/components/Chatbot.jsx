@@ -640,7 +640,7 @@ export default function Chatbot() {
                 return (
                   <div key={msg.id} className="chatbot-whatsapp-card">
                     <p>{t('chat_whatsapp_card_text')}</p>
-                    <a href="https://wa.me/966549581547" target="_blank" rel="noopener noreferrer" className="chatbot-whatsapp-btn">
+                    <a href="https://wa.me/966543188882" target="_blank" rel="noopener noreferrer" className="chatbot-whatsapp-btn">
                       <span className="material-icons">chat</span> {language === 'ar' ? WHATSAPP_AR.label : WHATSAPP_EN.label}
                     </a>
                   </div>

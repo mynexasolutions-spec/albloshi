@@ -26,12 +26,12 @@ const VALUES = [
 const TEAM = [
   // Chemical
   { id: 1, nameKey: 'team_jetu_name', category: 'chemical', roleKey: 'team_chemical_jetu_role', bioKey: 'team_chemical_jetu_bio', img: '/images/team/Jetu Lalwani.jpg' },
-  { id: 2, nameKey: 'team_sajid_name', category: 'chemical', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
-  { id: 3, nameKey: 'team_ajay_name', category: 'chemical', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/ajay_adnala.jpeg' },
+  { id: 2, nameKey: 'team_sajid_name', category: 'chemical', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/ajay_adnala.jpeg' },
+  { id: 3, nameKey: 'team_ajay_name', category: 'chemical', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
   { id: 4, nameKey: 'team_mab_name', category: 'chemical', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio', img: '/images/team/Mohammed Abdullah Albloshi.jpg' },
+  { id: 6, nameKey: 'team_akhter_name', category: 'chemical', roleKey: 'team_chemical_akhter_role', bioKey: 'team_chemical_akhter_bio' },
   { id: 5, nameKey: 'team_arbaz_name', category: 'chemical', roleKey: 'team_chemical_arbaz_role', bioKey: 'team_chemical_arbaz_bio', img: '/images/team/Arbaz Shaikh.jpg' },
   { id: 15, nameKey: 'team_amreen_name', category: 'chemical', roleKey: 'team_chemical_amreen_role', bioKey: 'team_chemical_amreen_bio', img: '/images/team/Amreen Khan.jpg' },
-  { id: 6, nameKey: 'team_akhter_name', category: 'chemical', roleKey: 'team_chemical_akhter_role', bioKey: 'team_chemical_akhter_bio' },
 
   // Industrial
   { id: 7, nameKey: 'team_riaz_name', category: 'industrial', roleKey: 'about_team_2_role', bioKey: 'about_team_2_bio', img: '/images/team/MOHAMMED Riaz.jpg' },
@@ -39,12 +39,12 @@ const TEAM = [
 
   // Manpower
   { id: 9, nameKey: 'team_ahsan_name', category: 'manpower', roleKey: 'team_manpower_ahsan_role', bioKey: 'team_manpower_ahsan_bio', img: '/images/team/Ahsan Jafri.jpg' },
-  { id: 10, nameKey: 'team_iqbal_name', category: 'manpower', roleKey: 'team_manpower_iqbal_role', bioKey: 'team_manpower_iqbal_bio', img: '/images/team/Iqbal Jafri.jpg' },
 
   // Food
   { id: 11, nameKey: 'team_mab_name', category: 'food', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio', img: '/images/team/Mohammed Abdullah Albloshi.jpg' },
-  { id: 12, nameKey: 'team_soni_name', category: 'food', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio' },
   { id: 13, nameKey: 'team_akhter_name', category: 'food', roleKey: 'team_food_akhter_role', bioKey: 'team_food_akhter_bio' },
+  { id: 10, nameKey: 'team_iqbal_name', category: 'food', roleKey: 'team_food_iqbal_role', bioKey: 'team_food_iqbal_bio', img: '/images/team/Iqbal Jafri.jpg' },
+  { id: 12, nameKey: 'team_soni_name', category: 'food', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio' },
   { id: 14, nameKey: 'team_aqeel_name', category: 'food', roleKey: 'team_food_aqeel_role', bioKey: 'team_food_aqeel_bio' },
 ];
 

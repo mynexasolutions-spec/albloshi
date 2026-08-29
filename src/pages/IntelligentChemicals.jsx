@@ -186,12 +186,12 @@ const COMMITMENT_KEYS = ['ic_commitment_item1', 'ic_commitment_item2', 'ic_commi
 
 const CHEMICAL_TEAM = [
   { id: 1, nameKey: 'team_jetu_name', roleKey: 'team_chemical_jetu_role', bioKey: 'team_chemical_jetu_bio', img: '/images/team/Jetu Lalwani.jpg' },
-  { id: 2, nameKey: 'team_sajid_name', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
-  { id: 3, nameKey: 'team_ajay_name', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/ajay_adnala.jpeg' },
+  { id: 2, nameKey: 'team_sajid_name', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/ajay_adnala.jpeg' },
+  { id: 3, nameKey: 'team_ajay_name', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
   { id: 4, nameKey: 'team_mab_name', roleKey: 'team_chemical_mab_role', bioKey: 'team_chemical_mab_bio', img: '/images/team/Mohammed Abdullah Albloshi.jpg' },
+  { id: 6, nameKey: 'team_akhter_name', roleKey: 'team_chemical_akhter_role', bioKey: 'team_chemical_akhter_bio' },
   { id: 5, nameKey: 'team_arbaz_name', roleKey: 'team_chemical_arbaz_role', bioKey: 'team_chemical_arbaz_bio', img: '/images/team/Arbaz Shaikh.jpg' },
   { id: 15, nameKey: 'team_amreen_name', roleKey: 'team_chemical_amreen_role', bioKey: 'team_chemical_amreen_bio', img: '/images/team/Amreen Khan.jpg' },
-  { id: 6, nameKey: 'team_akhter_name', roleKey: 'team_chemical_akhter_role', bioKey: 'team_chemical_akhter_bio' },
 ];
 
 export default function IntelligentChemicals() {
