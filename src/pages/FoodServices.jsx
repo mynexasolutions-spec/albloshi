@@ -118,9 +118,9 @@ const STANDARD_KEYS = ['food_standard1', 'food_standard2', 'food_standard3', 'fo
 
 const FOOD_TEAM = [
   { id: 11, nameKey: 'team_mab_name', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio', img: '/images/team/Mohammed Abdullah Albloshi.jpg' },
+  { id: 12, nameKey: 'team_soni_name', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio', img: '/images/team/RAJ SONI.jpg' },
   { id: 13, nameKey: 'team_akhter_name', roleKey: 'team_food_akhter_role', bioKey: 'team_food_akhter_bio' },
   { id: 10, nameKey: 'team_iqbal_name', roleKey: 'team_food_iqbal_role', bioKey: 'team_food_iqbal_bio', img: '/images/team/Iqbal Jafri.jpg' },
-  { id: 12, nameKey: 'team_soni_name', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio' },
   { id: 14, nameKey: 'team_aqeel_name', roleKey: 'team_food_aqeel_role', bioKey: 'team_food_aqeel_bio', img: '/images/team/Aqueel Ahmad.jpg' },
 ];
 
