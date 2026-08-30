@@ -31,11 +31,11 @@
 
 .blog-banner-content h1 {
     font-family: var(--font-heading);
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+    font-weight: 700;
+    margin: 1rem 0;
     color: var(--color-white);
-    line-height: 1.2;
+    line-height: 1.15;
 }
 
 .blog-banner-content p {
@@ -75,18 +75,21 @@
 
 .blog-filter-row {
     display: flex;
+    justify-content: center;
     gap: 0.5rem;
     flex-wrap: wrap;
     overflow-x: auto;
+    width: 100%;
+    margin: 0.85rem 0 1rem;
 }
 .blog-filter-pill {
     background: var(--color-white);
     border: 1.5px solid var(--color-border);
     color: var(--color-body);
     font-family: var(--font-sans);
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    padding: 0.5rem 1.1rem;
+    padding: 0.6rem 1.35rem;
     border-radius: 50px;
     cursor: pointer;
     white-space: nowrap;

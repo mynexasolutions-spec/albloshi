@@ -23,6 +23,12 @@ const QUILL_MODULES = {
 const slugify = (text) =>
   text.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
 
+// Estimated reading time in minutes, stored so the blog list needn't fetch full bodies
+const readMinutes = (html) => {
+  const words = (html || '').replace(/<[^>]*>/g, ' ').trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / 200));
+};
+
 const EMPTY = {
   title: '', slug: '', excerpt: '', content: '', cover_image: '', cover_image_alt: '',
   category: '', tags: '', author: 'Albloshi Team', status: 'draft',
@@ -212,6 +218,7 @@ export default function AdminBlogEditor() {
       ...form,
       tags: form.tags ? form.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
       status: publishNow ? 'published' : form.status,
+      read_minutes: readMinutes(form.content),
     };
     if (publishNow && !payload.published_at) payload.published_at = new Date().toISOString();
     payload.updated_at = new Date().toISOString();
