@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -6,115 +6,9 @@ import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { useLanguage } from '../contexts/LanguageContext';
-
-const STATS = [
-  { num: '100+', labelKey: 'food_stat1_label' },
-  { num: '5', labelKey: 'food_stat2_label' },
-  { num: 'SFDA', labelKey: 'food_stat3_label' },
-  { num: '2017', labelKey: 'food_stat4_label' },
-];
-
-const PRODUCTS = [
-  {
-    id: 'white-sugar',
-    img: '/images/food_services/sugar.webp',
-    tagKey: 'food_prod6_tag',
-    titleKey: 'food_prod6_title',
-    descKey: 'food_prod6_desc',
-    specKeys: ['food_prod6_spec1', 'food_prod6_spec2', 'food_prod6_spec3', 'food_prod6_spec4']
-  },
-  {
-    id: 'spices',
-    img: '/images/food_services/spices.webp',
-    tagKey: 'food_prod7_tag',
-    titleKey: 'food_prod7_title',
-    descKey: 'food_prod7_desc',
-    specKeys: ['food_prod7_spec1', 'food_prod7_spec2', 'food_prod7_spec3', 'food_prod7_spec4']
-  },
-  {
-    id: 'general-rice',
-    img: '/images/food_services/Rices.png',
-    tagKey: 'food_prod8_tag',
-    titleKey: 'food_prod_general_rice_title',
-    descKey: 'food_prod8_desc',
-    isGeneralRice: true,
-  },
-  {
-    id: 'food-supply',
-    img: '/images/food_services/FOOD_SUPPLY.webp',
-    tagKey: 'food_prod9_tag',
-    titleKey: 'food_prod9_title',
-    descKey: 'food_prod9_desc',
-    specKeys: ['food_prod9_spec1', 'food_prod9_spec2', 'food_prod9_spec3', 'food_prod9_spec4']
-  },
-  {
-    id: 'general-oil',
-    img: '/images/food_services/Palm_Olein_Oil.webp',
-    tagKey: 'food_prod11_tag',
-    titleKey: 'food_prod11_title',
-    descKey: 'food_prod11_desc',
-    specKeys: ['food_prod11_spec1', 'food_prod11_spec2', 'food_prod11_spec3', 'food_prod11_spec4']
-  },
-  {
-    id: 'honey',
-    img: '/images/food_services/Pure_Natural_Honey.webp',
-    tagKey: 'food_prod15_tag',
-    titleKey: 'food_prod15_title',
-    descKey: 'food_prod15_desc',
-    specKeys: ['food_prod15_spec1', 'food_prod15_spec2', 'food_prod15_spec3', 'food_prod15_spec4']
-  },
-  {
-    id: 'grains-pulses',
-    img: '/images/food_services/Premium_Grains_&_Pulses.webp',
-    tagKey: 'food_prod16_tag',
-    titleKey: 'food_prod16_title',
-    descKey: 'food_prod16_desc',
-    specKeys: ['food_prod16_spec1', 'food_prod16_spec2', 'food_prod16_spec3', 'food_prod16_spec4']
-  },
-  {
-    id: 'chicken',
-    img: '/images/food_services/Fresh_&_Frozen_Chicken.webp',
-    tagKey: 'food_prod17_tag',
-    titleKey: 'food_prod17_title',
-    descKey: 'food_prod17_desc',
-    specKeys: ['food_prod17_spec1', 'food_prod17_spec2', 'food_prod17_spec3', 'food_prod17_spec4']
-  },
-  {
-    id: 'eggs',
-    img: '/images/food_services/Farm_Fresh_Table_Eggs.webp',
-    tagKey: 'food_prod18_tag',
-    titleKey: 'food_prod18_title',
-    descKey: 'food_prod18_desc',
-    specKeys: ['food_prod18_spec1', 'food_prod18_spec2', 'food_prod18_spec3', 'food_prod18_spec4']
-  },
-  {
-    id: 'coffee',
-    img: '/images/food_services/Premium_Coffee_Beans.webp',
-    tagKey: 'food_prod19_tag',
-    titleKey: 'food_prod19_title',
-    descKey: 'food_prod19_desc',
-    specKeys: ['food_prod19_spec1', 'food_prod19_spec2', 'food_prod19_spec3', 'food_prod19_spec4']
-  }
-];
-
-const CAPABILITIES = [
-  { icon: 'verified', titleKey: 'food_cap1_title', descKey: 'food_cap1_desc' },
-  { icon: 'ac_unit', titleKey: 'food_cap2_title', descKey: 'food_cap2_desc' },
-  { icon: 'local_shipping', titleKey: 'food_cap3_title', descKey: 'food_cap3_desc' },
-  { icon: 'trending_down', titleKey: 'food_cap4_title', descKey: 'food_cap4_desc' },
-  { icon: 'mosque', titleKey: 'food_cap5_title', descKey: 'food_cap5_desc' },
-  { icon: 'support_agent', titleKey: 'food_cap6_title', descKey: 'food_cap6_desc' },
-];
-
-const STRENGTHS = [
-  { icon: 'location_on', titleKey: 'food_partner1_title', descKey: 'food_partner1_desc' },
-  { icon: 'groups', titleKey: 'food_partner2_title', descKey: 'food_partner2_desc' },
-  { icon: 'inventory_2', titleKey: 'food_partner3_title', descKey: 'food_partner3_desc' },
-  { icon: 'emoji_events', titleKey: 'food_partner4_title', descKey: 'food_partner4_desc' },
-  { icon: 'handshake', titleKey: 'food_partner5_title', descKey: 'food_partner5_desc' },
-];
-
-const STANDARD_KEYS = ['food_standard1', 'food_standard2', 'food_standard3', 'food_standard4', 'food_standard5', 'food_standard6'];
+import { supabase } from '../lib/supabase';
+import { fetchVerticalContent } from '../lib/verticalContent';
+import { DEFAULTS, SECTIONS } from '../lib/verticalDefaults/food';
 
 const FOOD_TEAM = [
   { id: 11, nameKey: 'team_mab_name', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio', img: '/images/team/Mohammed Abdullah Albloshi.jpg' },
@@ -125,8 +19,18 @@ const FOOD_TEAM = [
 ];
 
 export default function FoodServices() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const L = (obj, base) => obj[`${base}_${language}`];
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const [content, setContent] = useState(DEFAULTS);
+  useEffect(() => {
+    let cancelled = false;
+    fetchVerticalContent(supabase, 'food', DEFAULTS, SECTIONS).then(merged => {
+      if (!cancelled) setContent(merged);
+    });
+    return () => { cancelled = true; };
+  }, []);
 
   return (
     <>
@@ -138,10 +42,10 @@ export default function FoodServices() {
       <Header />
 
       {/* Hero */}
-      <section className="page-hero" style={{ backgroundImage: 'linear-gradient(135deg, rgba(9, 20, 45, 0.85) 0%, rgba(5, 80, 50, 0.70) 100%), url(https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1920&q=80)' }}>
+      <section className="page-hero" style={{ backgroundImage: `linear-gradient(135deg, rgba(9, 20, 45, 0.85) 0%, rgba(5, 80, 50, 0.70) 100%), url(${content.hero.image})` }}>
         <div className="container">
-          <h1>{t('food_hero_title_l1')}<br />{t('food_hero_title_l2')}</h1>
-          <p>{t('food_hero_desc')}</p>
+          <h1>{L(content.hero, 'title_l1')}<br />{L(content.hero, 'title_l2')}</h1>
+          <p>{L(content.hero, 'desc')}</p>
         </div>
       </section>
 
@@ -149,10 +53,10 @@ export default function FoodServices() {
       <div className="stat-strip">
         <div className="container">
           <div className="stat-strip-grid">
-            {STATS.map(s => (
-              <div key={s.labelKey} className="stat-strip-item">
+            {content.stats.map((s, i) => (
+              <div key={i} className="stat-strip-item">
                 <span className="stat-strip-num">{s.num}</span>
-                <span className="stat-strip-label">{t(s.labelKey)}</span>
+                <span className="stat-strip-label">{L(s, 'label')}</span>
               </div>
             ))}
           </div>
@@ -168,10 +72,10 @@ export default function FoodServices() {
           </div>
 
           <div className="products-grid">
-            {PRODUCTS.map(p => (
+            {content.products.map(p => (
               <div key={p.id} className="product-block" id={p.id} style={p.comingSoon ? { opacity: 0.85 } : {}}>
                 <div style={{ position: 'relative' }}>
-                  <img src={p.img} alt={t(p.titleKey)} className="product-block-img" style={{ aspectRatio: '1/1', ...(p.comingSoon ? { filter: 'brightness(0.75)' } : {}) }} />
+                  <img src={p.image} alt={L(p, 'title')} className="product-block-img" style={{ aspectRatio: '1/1', ...(p.comingSoon ? { filter: 'brightness(0.75)' } : {}) }} />
                   {p.comingSoon && (
                     <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'var(--color-primary)', color: 'white', fontSize: '0.78rem', fontWeight: '700', padding: '0.35rem 0.9rem', borderRadius: '50px', letterSpacing: '0.5px' }}>
                       {t('food_coming_soon_badge')}
@@ -179,8 +83,8 @@ export default function FoodServices() {
                   )}
                 </div>
                 <div className="product-block-body" style={{ padding: '1.25rem' }}>
-                  <span className="product-block-tag">{t(p.tagKey)}</span>
-                  <h3>{t(p.titleKey)}</h3>
+                  <span className="product-block-tag">{L(p, 'tag')}</span>
+                  <h3>{L(p, 'title')}</h3>
                   {!p.comingSoon && (
                     <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto', paddingTop: '1rem', flexDirection: 'row' }}>
                       {p.isGeneralRice ? (
@@ -194,15 +98,15 @@ export default function FoodServices() {
                         </Link>
                       ) : (
                         <>
-                          <button 
+                          <button
                             onClick={() => setSelectedProduct({
-                              title: t(p.titleKey),
-                              desc: t(p.descKey),
-                              tag: t(p.tagKey),
-                              img: p.img,
-                              specs: p.specKeys.map(sk => t(sk))
+                              title: L(p, 'title'),
+                              desc: L(p, 'desc'),
+                              tag: L(p, 'tag'),
+                              img: p.image,
+                              specs: p[`specs_${language}`] ?? [],
                             })}
-                            className="product-block-btn" 
+                            className="product-block-btn"
                             style={{ background: 'transparent', color: 'var(--color-primary)', border: '1.5px solid var(--color-primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0.5rem', fontSize: '0.85rem' }}>
                             Read More
                           </button>
@@ -225,15 +129,15 @@ export default function FoodServices() {
       <section className="capabilities-section">
         <div className="container">
           <div className="text-center">
-            <h2 className="section-title center">{t('food_cap_title')}</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto' }}>{t('food_cap_desc')}</p>
+            <h2 className="section-title center">{L(content.capabilities, 'title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto' }}>{L(content.capabilities, 'desc')}</p>
           </div>
           <div className="capabilities-grid">
-            {CAPABILITIES.map(c => (
-              <div key={c.titleKey} className="capability-card">
+            {content.capabilities.items.map((c, i) => (
+              <div key={i} className="capability-card">
                 <div className="capability-icon"><span className="material-icons">{c.icon}</span></div>
-                <h3>{t(c.titleKey)}</h3>
-                <p>{t(c.descKey)}</p>
+                <h3>{L(c, 'title')}</h3>
+                <p>{L(c, 'desc')}</p>
               </div>
             ))}
           </div>
@@ -244,18 +148,18 @@ export default function FoodServices() {
       <section style={{ background: 'white', padding: '5rem 0' }}>
         <div className="container">
           <div className="text-center">
-            <span className="focus-label">{t('food_strengths_label')}</span>
-            <h2 className="section-title center" style={{ marginTop: '1rem' }}>{t('food_partner_title')}</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 3.5rem' }}>{t('food_partner_desc')}</p>
+            <span className="focus-label">{L(content.strengths, 'label')}</span>
+            <h2 className="section-title center" style={{ marginTop: '1rem' }}>{L(content.strengths, 'title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 3.5rem' }}>{L(content.strengths, 'desc')}</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '1.5rem' }}>
-            {STRENGTHS.map(c => (
-              <div key={c.titleKey} style={{ background: 'var(--color-light)', borderRadius: '16px', padding: '2rem', border: '1px solid var(--color-border)' }}>
+            {content.strengths.items.map((c, i) => (
+              <div key={i} style={{ background: 'var(--color-light)', borderRadius: '16px', padding: '2rem', border: '1px solid var(--color-border)' }}>
                 <div style={{ width: '52px', height: '52px', background: 'rgba(27,95,175,0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
                   <span className="material-icons" style={{ color: 'var(--color-primary)', fontSize: '1.75rem' }}>{c.icon}</span>
                 </div>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--color-dark)', marginBottom: '0.65rem' }}>{t(c.titleKey)}</h3>
-                <p style={{ fontSize: '0.92rem', color: 'var(--color-body)', lineHeight: '1.65', margin: 0 }}>{t(c.descKey)}</p>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--color-dark)', marginBottom: '0.65rem' }}>{L(c, 'title')}</h3>
+                <p style={{ fontSize: '0.92rem', color: 'var(--color-body)', lineHeight: '1.65', margin: 0 }}>{L(c, 'desc')}</p>
               </div>
             ))}
           </div>
@@ -265,10 +169,10 @@ export default function FoodServices() {
       {/* Quality Strip */}
       <section className="quality-section">
         <div className="container">
-          <p className="standards-label" style={{ color: 'white' }}>{t('food_quality_label')}</p>
+          <p className="standards-label" style={{ color: 'white' }}>{L(content.standards, 'label')}</p>
           <div className="standards-grid">
-            {STANDARD_KEYS.map(k => (
-              <span key={k} className="standard-badge">{t(k)}</span>
+            {content.standards.items.map((s, i) => (
+              <span key={i} className="standard-badge">{s[language]}</span>
             ))}
           </div>
         </div>
@@ -323,12 +227,12 @@ export default function FoodServices() {
           <div className="blog-cta-card">
             <div className="blog-cta-inner">
               <div className="blog-cta-text">
-                <h2>{t('food_cta_title')}</h2>
-                <p>{t('food_cta_desc')}</p>
+                <h2>{L(content.cta, 'title')}</h2>
+                <p>{L(content.cta, 'desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <Link to="/contact" className="btn btn-primary">{t('food_cta_btn1')}</Link>
-                <Link to="/#segments" className="btn btn-outline">{t('food_cta_btn2')}</Link>
+                <Link to={content.cta.btn1_href} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
+                <Link to={content.cta.btn2_href} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
               </div>
             </div>
           </div>

@@ -1,11 +1,21 @@
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { supabase } from '../lib/supabase';
+import { DEFAULTS, fetchSiteSettings } from '../lib/siteSettingsDefaults';
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const location = useLocation();
   const isHome = location.pathname === '/';
   const hashLink = (hash) => isHome ? hash : `/${hash}`;
+
+  const [settings, setSettings] = useState(DEFAULTS);
+  useEffect(() => {
+    let cancelled = false;
+    fetchSiteSettings(supabase).then(s => { if (!cancelled) setSettings(s); });
+    return () => { cancelled = true; };
+  }, []);
 
   return (
     <footer className="bg-dark-section" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
@@ -17,7 +27,7 @@ export default function Footer() {
                 <img src="/logo-png.png" alt="ALBLOSHI" className="footer-logo" style={{ filter: 'brightness(0) invert(1)' }} />
               </Link>
               <p>{t('footer_desc')}</p>
-              <span style={{ fontSize: '0.8rem', color: '#64748B' }}>{t('cr_number')}: 7049763092</span>
+              <span style={{ fontSize: '0.8rem', color: '#64748B' }}>{t('cr_number')}: {settings.cr_number}</span>
             </div>
 
             <div className="footer-col">
@@ -46,19 +56,23 @@ export default function Footer() {
               <div className="footer-contact-item">
                 <span className="material-icons footer-contact-icon">phone_in_talk</span>
                 <p className="footer-contact-text">
-                  <a href="tel:+966543188882" style={{ color: 'inherit', textDecoration: 'none' }}>+966 54 318 8882</a>
+                  <a href={`tel:${settings.phone}`} style={{ color: 'inherit', textDecoration: 'none' }}>{settings.phone_display}</a>
                 </p>
               </div>
               <div className="footer-contact-item">
                 <span className="material-icons footer-contact-icon">mail_outline</span>
                 <p className="footer-contact-text">
-                  <a href="mailto:admin@albloshi.co">admin@albloshi.co</a><br />
-                  <a href="mailto:sales@albloshi.co">sales@albloshi.co</a>
+                  <a href={`mailto:${settings.email_admin}`}>{settings.email_admin}</a><br />
+                  <a href={`mailto:${settings.email_sales}`}>{settings.email_sales}</a>
                 </p>
               </div>
               <div className="footer-contact-item">
                 <span className="material-icons footer-contact-icon">location_on</span>
-                <p className="footer-contact-text">{t('contact') === 'Contact' ? '5250, Al Nidal 7372, Ash Shulah Dist., Dammam 34261, KSA' : '٥٢٥٠، النضال ٧٣٧٢، حي الشعلة، الدمام ٣٤٢٦١، المملكة العربية السعودية'}</p>
+                <p className="footer-contact-text">
+                  {language === 'ar'
+                    ? `${settings.address_line1_ar} ${settings.address_line2_ar}`
+                    : `${settings.address_line1_en} ${settings.address_line2_en}`}
+                </p>
               </div>
             </div>
           </div>

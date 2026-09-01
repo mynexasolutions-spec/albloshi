@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -6,53 +6,27 @@ import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { useLanguage } from '../contexts/LanguageContext';
+import { supabase } from '../lib/supabase';
+import { fetchVerticalContent } from '../lib/verticalContent';
+import { DEFAULTS } from '../lib/verticalDefaults/food';
 
-const RICE_PRODUCTS = [
-  {
-    id: 'basmati-rice-new',
-    img: '/images/food_services/Basmati_Rice.webp',
-    tagKey: 'food_prod8_tag',
-    titleKey: 'food_prod8_title',
-    descKey: 'food_prod8_desc',
-    specKeys: ['food_prod8_spec1', 'food_prod8_spec2', 'food_prod8_spec3', 'food_prod8_spec4']
-  },
-  {
-    id: 'custom-basmati',
-    img: '/images/food_services/rice.webp',
-    tagKey: 'food_prod10_tag',
-    titleKey: 'food_prod10_title',
-    descKey: 'food_prod10_desc',
-    specKeys: ['food_prod10_spec1', 'food_prod10_spec2', 'food_prod10_spec3', 'food_prod10_spec4']
-  },
-  {
-    id: 'steam-basmati',
-    img: '/images/food_services/Steam_Basmati_Ric.webp',
-    tagKey: 'food_prod12_tag',
-    titleKey: 'food_prod12_title',
-    descKey: 'food_prod12_desc',
-    specKeys: ['food_prod12_spec1', 'food_prod12_spec2', 'food_prod12_spec3', 'food_prod12_spec4']
-  },
-  {
-    id: 'golden-sella',
-    img: '/images/food_services/Golden_Sell_Basmati_Rice.webp',
-    tagKey: 'food_prod13_tag',
-    titleKey: 'food_prod13_title',
-    descKey: 'food_prod13_desc',
-    specKeys: ['food_prod13_spec1', 'food_prod13_spec2', 'food_prod13_spec3', 'food_prod13_spec4']
-  },
-  {
-    id: 'premium-1121',
-    img: '/images/food_services/Premium_Basmati_Rice.webp',
-    tagKey: 'food_prod14_tag',
-    titleKey: 'food_prod14_title',
-    descKey: 'food_prod14_desc',
-    specKeys: ['food_prod14_spec1', 'food_prod14_spec2', 'food_prod14_spec3', 'food_prod14_spec4']
-  }
-];
+const PAGE_SECTIONS = ['rice_products'];
 
 export default function RiceProducts() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const L = (obj, base) => obj[`${base}_${language}`];
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const [content, setContent] = useState(DEFAULTS);
+  useEffect(() => {
+    let cancelled = false;
+    fetchVerticalContent(supabase, 'food', DEFAULTS, PAGE_SECTIONS).then(merged => {
+      if (!cancelled) setContent(merged);
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  const riceProducts = content.rice_products;
 
   return (
     <>
@@ -66,8 +40,8 @@ export default function RiceProducts() {
       {/* Hero */}
       <section className="page-hero" style={{ backgroundImage: 'linear-gradient(135deg, rgba(9, 20, 45, 0.85) 0%, rgba(5, 80, 50, 0.70) 100%), url(https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1920&q=80)' }}>
         <div className="container">
-          <h1>{t('food_prod_general_rice_title')}</h1>
-          <p>Carefully sourced extra long-grain Basmati rice with rich aroma and fluffy texture, packed under strict SFDA standards.</p>
+          <h1>{L(riceProducts, 'title')}</h1>
+          <p>{L(riceProducts, 'desc')}</p>
         </div>
       </section>
 
@@ -82,24 +56,24 @@ export default function RiceProducts() {
             <h2 className="section-title center">Our Rice Selection</h2>
           </div>
           <div className="products-grid">
-            {RICE_PRODUCTS.map(p => (
+            {riceProducts.items.map(p => (
               <div key={p.id} className="product-block" id={p.id}>
                 <div style={{ position: 'relative' }}>
-                  <img src={p.img} alt={t(p.titleKey)} className="product-block-img" style={{ aspectRatio: '1/1' }} />
+                  <img src={p.image} alt={L(p, 'title')} className="product-block-img" style={{ aspectRatio: '1/1' }} />
                 </div>
                 <div className="product-block-body" style={{ padding: '1.25rem' }}>
-                  <span className="product-block-tag">{t(p.tagKey)}</span>
-                  <h3>{t(p.titleKey)}</h3>
+                  <span className="product-block-tag">{L(p, 'tag')}</span>
+                  <h3>{L(p, 'title')}</h3>
                   <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto', paddingTop: '1rem', flexDirection: 'row' }}>
-                    <button 
+                    <button
                       onClick={() => setSelectedProduct({
-                        title: t(p.titleKey),
-                        desc: t(p.descKey),
-                        tag: t(p.tagKey),
-                        img: p.img,
-                        specs: p.specKeys.map(sk => t(sk))
+                        title: L(p, 'title'),
+                        desc: L(p, 'desc'),
+                        tag: L(p, 'tag'),
+                        img: p.image,
+                        specs: p[`specs_${language}`] ?? [],
                       })}
-                      className="product-block-btn" 
+                      className="product-block-btn"
                       style={{ background: 'transparent', color: 'var(--color-primary)', border: '1.5px solid var(--color-primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0.5rem', fontSize: '0.85rem' }}>
                       Read More
                     </button>

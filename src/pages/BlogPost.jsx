@@ -71,7 +71,7 @@ export default function BlogPost() {
         if (data.category) {
           supabase
             .from('blogs')
-            .select('id, title, title_ar, slug, excerpt, excerpt_ar, read_minutes, cover_image, cover_image_ar, cover_image_alt, cover_image_alt_ar, category, published_at, created_at')
+            .select('id, title, title_ar, slug, excerpt, excerpt_ar, content, content_ar, cover_image, cover_image_ar, cover_image_alt, cover_image_alt_ar, category, published_at, created_at')
             .eq('status', 'published')
             .eq('category', data.category)
             .neq('slug', slug)
@@ -186,19 +186,18 @@ export default function BlogPost() {
       <article className="bp-article">
         <div className="bp-card">
 
-          {/* Cover image — shown in full, never cropped — with category + author tags overlaid */}
-          {coverImage ? (
+          {/* Cover image — shown in full, never cropped */}
+          {coverImage && (
             <div className="bp-card-img-wrap">
               <img src={optimizeImgUrl(coverImage)} alt={coverAlt} />
-              {post.category && <span className="bp-img-badge">{post.category}</span>}
-              <span className="bp-img-author">{post.author || t('bp_default_author')}</span>
-            </div>
-          ) : (
-            <div className="bp-card-meta-row">
-              {post.category && <span className="bp-badge">{post.category}</span>}
-              <span className="bp-card-author">{post.author || t('bp_default_author')}</span>
             </div>
           )}
+
+          {/* Category + author */}
+          <div className="bp-card-meta-row">
+            {post.category && <span className="bp-badge">{post.category}</span>}
+            <span className="bp-card-author">{post.author || t('bp_default_author')}</span>
+          </div>
 
           {/* Share row */}
           <div className="bp-share-row">
@@ -253,7 +252,7 @@ export default function BlogPost() {
                     <div className="blog-card-meta">
                       <span>{fmt(r.published_at || r.created_at, language)}</span>
                       <span className="meta-divider">•</span>
-                      <span>{r.read_minutes || 1} {t('bp_read_time')}</span>
+                      <span>{readTime(L(r, 'content', language))} {t('bp_read_time')}</span>
                     </div>
                     <h3><Link to={`/blog/${r.slug}`}>{L(r, 'title', language)}</Link></h3>
                     {L(r, 'excerpt', language) && <p>{L(r, 'excerpt', language)}</p>}

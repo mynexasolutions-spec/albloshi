@@ -6,115 +6,39 @@ import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { useLanguage } from '../contexts/LanguageContext';
+import { supabase } from '../lib/supabase';
+import { fetchVerticalContent } from '../lib/verticalContent';
+import { DEFAULTS, SECTIONS } from '../lib/verticalDefaults/manpower';
+import { DEFAULTS as SETTINGS_DEFAULTS, fetchSiteSettings } from '../lib/siteSettingsDefaults';
 
 const MANPOWER_TEAM = [
   { id: 9, name: 'Ahsan Jafri', roleKey: 'team_manpower_ahsan_role', bioKey: 'team_manpower_ahsan_bio', img: '/images/team/Ahsan Jafri.jpg' },
 ];
 
 export default function ManpowerSupply() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const L = (obj, base) => obj[`${base}_${language}`];
   const location = useLocation();
   const [activeTab, setActiveTab] = useState('all');
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const manpowerItems = [
-    {
-      id: 'engineers-supervisors-foremen',
-      titleKey: 'mp_skilled_item1',
-      image: '/images/manpower/Engineers, supervisors and foremen.webp',
-      category: 'skilled',
-      desc: 'Highly qualified civil, mechanical, electrical, and instrument engineers, site supervisors, and foremen with extensive field experience across major Saudi industrial and construction projects.',
-      specs: ['Certified Engineers', 'Site Supervision', 'QA/QC Supervision', 'Project Leadership']
-    },
-    {
-      id: 'electricians-instrument-technicians',
-      titleKey: 'mp_skilled_item2',
-      image: '/images/manpower/electrician (1).webp',
-      category: 'skilled',
-      desc: 'Certified industrial electricians, instrument technicians, and PLC calibrators trained for power plants, oil & gas facilities, and manufacturing plants.',
-      specs: ['Industrial Wiring', 'PLC & Instrument Calibration', 'High Voltage Certified', 'Troubleshooting']
-    },
-    {
-      id: 'welders-fabricators-pipefitters',
-      titleKey: 'mp_skilled_item3',
-      image: '/images/manpower/welding (1).webp',
-      category: 'skilled',
-      desc: '6G certified welders (TIG, MIG, ARC), experienced structural fabricators, and precision pipefitters for plant piping and heavy steel structures.',
-      specs: ['6G Certified Welders', 'Pipe Fabricators', 'Structural Assembly', 'ASME & API Standards']
-    },
-    {
-      id: 'plumbers-hvac-technicians',
-      titleKey: 'mp_skilled_item4',
-      image: '/images/manpower/plumber.webp',
-      category: 'skilled',
-      desc: 'Reliable HVAC specialists delivering central cooling, duct installation, chilled water piping, and industrial plumbing services.',
-      specs: ['Chilled Water Systems', 'Plumbing Maintenance', 'HVAC Diagnostics']
-    },
-    {
-      id: 'riggers-scaffolders-operators',
-      titleKey: 'mp_skilled_item5',
-      image: '/images/manpower/riggers.webp',
-      category: 'skilled',
-      desc: 'TUV & Aramco certified riggers, certified scaffolders for heavy plant structures, and licensed operators for cranes, forklifts, and excavators.',
-      specs: ['Aramco / TUV Certified', 'Heavy Lifting Operations', 'Certified Scaffold Erection', 'Equipment Safety']
-    },
-    {
-      id: 'safety-storekeepers-timekeepers',
-      titleKey: 'mp_skilled_item6',
-      image: '/images/manpower/safety_officers.webp',
-      category: 'skilled',
-      desc: 'NEBOSH/OSHA certified safety officers, warehouse storekeepers, material managers, and digital timekeepers for workforce attendance tracking.',
-      specs: ['NEBOSH / OSHA Certified', 'Site HSE Audit', 'Store & Material Management', 'Automated Timekeeping']
-    },
-    {
-      id: 'general-labour-helpers',
-      titleKey: 'mp_unskilled_item1',
-      image: '/images/manpower/general labors and helpers.webp',
-      category: 'unskilled',
-      desc: 'Energetic and safety-trained general labourers and site helpers for daily construction, industrial plant support, and routine site duties.',
-      specs: ['Physically Fit', 'Safety Induction Done', 'Daily Site Helper', 'Rapid Deployment']
-    },
-    {
-      id: 'loading-unloading-material-handling',
-      titleKey: 'mp_unskilled_item2',
-      image: '/images/manpower/loading unloading material handling.webp',
-      category: 'unskilled',
-      desc: 'Experienced material handling teams for heavy cargo loading, unloading container shipments, and internal factory logistics.',
-      specs: ['Heavy Cargo Handling', 'Container Stacking', 'Warehouse Logistics', 'Safe Handling Protocols']
-    },
-    {
-      id: 'site-cleaning-housekeeping',
-      titleKey: 'mp_unskilled_item3',
-      image: '/images/manpower/site cleaning and housekeeping.webp',
-      category: 'unskilled',
-      desc: 'Professional housekeeping crews for post-construction site cleaning, industrial debris removal, and ongoing site sanitation.',
-      specs: ['Post-Construction Cleanup', 'Industrial Debris Removal', 'Environmental Sanitation', 'Daily Upkeep']
-    },
-    {
-      id: 'packing-sorting-warehouse',
-      titleKey: 'mp_unskilled_item4',
-      image: '/images/manpower/packing sorting and warehouse support.webp',
-      category: 'unskilled',
-      desc: 'Reliable warehouse assistants for goods sorting, order packing, labeling, palletization, and dispatch management.',
-      specs: ['Goods Sorting & Packing', 'Palletization', 'Barcode Labeling', 'Dispatch Support']
-    },
-    {
-      id: 'construction-support-civil-helpers',
-      titleKey: 'mp_unskilled_item5',
-      image: '/images/manpower/construction.webp',
-      category: 'unskilled',
-      desc: 'Dedicated civil helpers for concrete works, masonry assistance, trench digging, formwork support, and foundation preparation.',
-      specs: ['Civil Works Helper', 'Concrete Pour Support', 'Formwork Assistance', 'Trenching & Prep']
-    },
-    {
-      id: 'shutdown-mobilization-crews',
-      titleKey: 'mp_unskilled_item6',
-      image: '/images/manpower/shutdown and project mobilization.webp',
-      category: 'unskilled',
-      desc: 'Turnaround and shutdown mobilization teams capable of 24/7 rotational shifts for urgent refinery, petrochemical, and industrial plant maintenance.',
-      specs: ['24/7 Rotational Shift', 'Rapid Plant Mobilization', 'Shutdown Specialist', 'Turnaround Support']
-    },
-  ];
+  const [content, setContent] = useState(DEFAULTS);
+  useEffect(() => {
+    let cancelled = false;
+    fetchVerticalContent(supabase, 'manpower', DEFAULTS, SECTIONS).then(merged => {
+      if (!cancelled) setContent(merged);
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  const [settings, setSettings] = useState(SETTINGS_DEFAULTS);
+  useEffect(() => {
+    let cancelled = false;
+    fetchSiteSettings(supabase).then(s => { if (!cancelled) setSettings(s); });
+    return () => { cancelled = true; };
+  }, []);
+
+  const manpowerItems = content.items;
 
   useEffect(() => {
     if (location.hash) {
@@ -134,28 +58,7 @@ export default function ManpowerSupply() {
     ? manpowerItems
     : manpowerItems.filter(item => item.category === activeTab);
 
-  const features = [
-    {
-      icon: 'local_shipping',
-      titleKey: 'mp_feat1_title',
-      descKey: 'mp_feat1_desc',
-    },
-    {
-      icon: 'assignment',
-      titleKey: 'mp_feat2_title',
-      descKey: 'mp_feat2_desc',
-    },
-    {
-      icon: 'verified_user',
-      titleKey: 'mp_feat3_title',
-      descKey: 'mp_feat3_desc',
-    },
-    {
-      icon: 'support_agent',
-      titleKey: 'mp_feat4_title',
-      descKey: 'mp_feat4_desc',
-    },
-  ];
+  const features = content.features.items;
 
   return (
     <div className="manpower-page">
@@ -176,26 +79,26 @@ export default function ManpowerSupply() {
             <div className="mp-hero-text">
               <div className="mp-subtitle-badge">
                 <span className="mp-subtitle-dash"></span>
-                <span>{t('mp_badge')}</span>
+                <span>{L(content.hero, 'badge')}</span>
               </div>
               <h1 className="mp-hero-title">
-                {t('mp_hero_title1')}{' '}
-                <span>{t('mp_hero_title2')}</span>
+                {L(content.hero, 'title1')}{' '}
+                <span>{L(content.hero, 'title2')}</span>
               </h1>
               <p className="mp-hero-desc">
-                {t('mp_hero_desc')}
+                {L(content.hero, 'desc')}
               </p>
               <div className="mp-hero-actions">
-                <a href="tel:+966543188882" className="mp-phone-pill">
+                <a href={`tel:${settings.phone}`} className="mp-phone-pill">
                   <span className="material-icons">phone_in_talk</span>
-                  <span>+966 54 318 8882</span>
+                  <span>{settings.phone_display}</span>
                 </a>
               </div>
             </div>
 
             <div className="mp-hero-img-card">
               <img
-                src="/images/manpower/manpower_hero.png"
+                src={content.hero.image}
                 alt="Manpower Solutions"
                 loading="eager"
               />
@@ -221,14 +124,14 @@ export default function ManpowerSupply() {
               onClick={() => setActiveTab('skilled')}
             >
               <span className="material-icons">construction</span>
-              <span>{t('mp_skilled_title')}</span>
+              <span>{L(content.hero, 'skilled_label')}</span>
             </button>
             <button
               className={`mp-tab-btn ${activeTab === 'unskilled' ? 'active' : ''}`}
               onClick={() => setActiveTab('unskilled')}
             >
               <span className="material-icons">groups</span>
-              <span>{t('mp_unskilled_title')}</span>
+              <span>{L(content.hero, 'unskilled_label')}</span>
             </button>
           </div>
 
@@ -239,24 +142,24 @@ export default function ManpowerSupply() {
                 <div style={{ position: 'relative' }}>
                   <img
                     src={item.image}
-                    alt={t(item.titleKey)}
+                    alt={L(item, 'title')}
                     className="product-block-img"
                     loading="lazy"
                   />
                 </div>
                 <div className="product-block-body" style={{ padding: '1.25rem' }}>
                   <span className="product-block-tag">
-                    {item.category === 'skilled' ? t('mp_skilled_title') : t('mp_unskilled_title')}
+                    {item.category === 'skilled' ? L(content.hero, 'skilled_label') : L(content.hero, 'unskilled_label')}
                   </span>
-                  <h3>{t(item.titleKey)}</h3>
+                  <h3>{L(item, 'title')}</h3>
                   <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto', paddingTop: '1rem', flexDirection: 'row' }}>
                     <button
                       onClick={() => setSelectedProduct({
-                        title: t(item.titleKey),
-                        desc: item.desc,
-                        tag: item.category === 'skilled' ? t('mp_skilled_title') : t('mp_unskilled_title'),
+                        title: L(item, 'title'),
+                        desc: L(item, 'desc'),
+                        tag: item.category === 'skilled' ? L(content.hero, 'skilled_label') : L(content.hero, 'unskilled_label'),
                         img: item.image,
-                        specs: item.specs
+                        specs: item[`specs_${language}`] ?? [],
                       })}
                       className="product-block-btn"
                       style={{
@@ -304,9 +207,9 @@ export default function ManpowerSupply() {
                 <div className="mp-feature-icon-badge">
                   <span className="material-icons">{feat.icon}</span>
                 </div>
-                <h3 className="mp-feature-title">{t(feat.titleKey)}</h3>
+                <h3 className="mp-feature-title">{L(feat, 'title')}</h3>
                 <div className="mp-feature-line"></div>
-                <p className="mp-feature-desc">{t(feat.descKey)}</p>
+                <p className="mp-feature-desc">{L(feat, 'desc')}</p>
               </div>
             ))}
           </div>
@@ -358,15 +261,15 @@ export default function ManpowerSupply() {
           <div className="blog-cta-card" style={{ marginTop: '4rem' }}>
             <div className="blog-cta-inner">
               <div className="blog-cta-text">
-                <h2>{t('mp_cta_title')}</h2>
-                <p>{t('mp_cta_desc')}</p>
+                <h2>{L(content.cta, 'title')}</h2>
+                <p>{L(content.cta, 'desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <a href="tel:+966543188882" className="btn btn-primary">
+                <a href={content.cta.btn1_href} className="btn btn-primary">
                   <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px' }}>phone</span>
                   {t('global_cta_call')}
                 </a>
-                <a href="https://wa.me/966543188882" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                <a href={content.cta.btn2_href} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
                   <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px' }}>chat</span>
                   {t('global_cta_whatsapp')}
                 </a>

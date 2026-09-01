@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import Header from '../components/Header';
@@ -7,11 +7,19 @@ import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { supabase } from '../lib/supabase';
 import { useLanguage } from '../contexts/LanguageContext';
+import { DEFAULTS as SETTINGS_DEFAULTS, fetchSiteSettings } from '../lib/siteSettingsDefaults';
 
 export default function Contact() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [form, setForm] = useState({ name: '', email: '', phone: '', service: 'TELLABS Chemicals', message: '' });
   const [submitting, setSubmitting] = useState(false);
+
+  const [settings, setSettings] = useState(SETTINGS_DEFAULTS);
+  useEffect(() => {
+    let cancelled = false;
+    fetchSiteSettings(supabase).then(s => { if (!cancelled) setSettings(s); });
+    return () => { cancelled = true; };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -112,35 +120,35 @@ export default function Contact() {
                   <div className="contact-card-details">
                     <h4>{t('contact_card_bd_title')}</h4>
                     <p>{t('contact_card_bd_name')}</p>
-                    <p>{t('contact_label_mobile_whatsapp')} <a href="https://wa.me/966543188882" target="_blank" rel="noopener noreferrer" style={{ fontWeight: '700' }}>+966 54 318 8882</a></p>
+                    <p>{t('contact_label_mobile_whatsapp')} <a href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" style={{ fontWeight: '700' }}>{settings.phone_display}</a></p>
                   </div>
                 </div>
                 <div className="contact-card-item">
                   <span className="contact-card-icon material-icons">mail_outline</span>
                   <div className="contact-card-details">
                     <h4>{t('contact_card_sales_title')}</h4>
-                    <p>{t('contact_label_email')} <a href="mailto:admin@albloshi.co">admin@albloshi.co</a></p>
-                    <p style={{ marginTop: '-0.25rem', marginBottom: '0.5rem' }}><a href="mailto:sales@albloshi.co">sales@albloshi.co</a></p>
-                    <p>{t('contact_label_website')} <a href="https://albloshi.co" target="_blank" rel="noopener noreferrer">https://albloshi.co</a></p>
+                    <p>{t('contact_label_email')} <a href={`mailto:${settings.email_admin}`}>{settings.email_admin}</a></p>
+                    <p style={{ marginTop: '-0.25rem', marginBottom: '0.5rem' }}><a href={`mailto:${settings.email_sales}`}>{settings.email_sales}</a></p>
+                    <p>{t('contact_label_website')} <a href={settings.website} target="_blank" rel="noopener noreferrer">{settings.website.replace(/^https?:\/\//, '')}</a></p>
                   </div>
                 </div>
                 <div className="contact-card-item">
                   <span className="contact-card-icon material-icons">location_on</span>
                   <div className="contact-card-details">
                     <h4>{t('contact_card_address_title')}</h4>
-                    <p>{t('contact_address_line1')}</p>
-                    <p>{t('contact_address_line2')}</p>
+                    <p>{language === 'ar' ? settings.address_line1_ar : settings.address_line1_en}</p>
+                    <p>{language === 'ar' ? settings.address_line2_ar : settings.address_line2_en}</p>
                   </div>
                 </div>
               </div>
               <div className="contact-meta-grid">
                 <div className="meta-item">
                   <span className="meta-label">{t('contact_meta_cr')}</span>
-                  <span className="meta-value">7049763092</span>
+                  <span className="meta-value">{settings.cr_number}</span>
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">{t('contact_meta_national_address')}</span>
-                  <span className="meta-value">EAPB5250</span>
+                  <span className="meta-value">{settings.national_address}</span>
                 </div>
               </div>
             </div>
@@ -154,11 +162,11 @@ export default function Contact() {
           <h2 className="section-title center" style={{ color: 'white' }}>{t('contact_cta_title')}</h2>
           <p>{t('contact_cta_desc')}</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="tel:+966543188882" className="btn btn-primary" style={{ background: 'white', color: 'var(--color-primary)', boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }}>
+            <a href={`tel:${settings.phone}`} className="btn btn-primary" style={{ background: 'white', color: 'var(--color-primary)', boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }}>
               {t('contact_cta_call_btn')}
             </a>
-            <a href="mailto:admin@albloshi.co" className="btn" style={{ background: 'transparent', color: 'white', border: '2px solid rgba(255,255,255,0.5)' }}>
-              {t('contact_cta_email_btn')}
+            <a href={`mailto:${settings.email_admin}`} className="btn" style={{ background: 'transparent', color: 'white', border: '2px solid rgba(255,255,255,0.5)' }}>
+              {t('contact_cta_email_btn').replace('admin@albloshi.co', settings.email_admin)}
             </a>
           </div>
         </div>

@@ -108,7 +108,7 @@ export default function AdminLeads() {
           )}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 380px' : '1fr', gap: '1.25rem', alignItems: 'start' }}>
+        <div className="admin-grid-2col" style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 380px' : '1fr', gap: '1.25rem', alignItems: 'start' }}>
 
           {/* Leads table */}
           <div style={{ background: 'white', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9', overflow: 'hidden' }}>
@@ -120,6 +120,7 @@ export default function AdminLeads() {
                 <p style={{ color: '#94a3b8', fontSize: '0.875rem', margin: 0 }}>No leads found.</p>
               </div>
             ) : (
+              <div className="admin-table-scroll">
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
                 <thead>
                   <tr style={{ background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
@@ -156,12 +157,13 @@ export default function AdminLeads() {
                   ))}
                 </tbody>
               </table>
+              </div>
             )}
           </div>
 
           {/* Lead detail panel */}
           {selected && (
-            <div style={{ background: 'white', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9', overflow: 'hidden', position: 'sticky', top: 76 }}>
+            <div className="admin-sticky-panel" style={{ background: 'white', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9', overflow: 'hidden', position: 'sticky', top: 76 }}>
               <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#0f172a' }}>Lead Details</h3>
                 <button onClick={() => setSelected(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', display: 'flex', padding: 4 }}>

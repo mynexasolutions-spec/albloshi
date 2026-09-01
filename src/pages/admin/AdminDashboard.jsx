@@ -76,7 +76,7 @@ export default function AdminDashboard() {
               <StatCard icon="edit_note" label="Draft Posts"    value={stats.draftBlogs}     sub="Pending review"        color="#8b5cf6" />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '1.25rem', alignItems: 'start' }}>
+            <div className="admin-grid-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '1.25rem', alignItems: 'start' }}>
 
               {/* Recent leads */}
               <div style={{ background: 'white', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9', overflow: 'hidden' }}>
@@ -87,6 +87,7 @@ export default function AdminDashboard() {
                 {recentLeads.length === 0 ? (
                   <div style={{ padding: '2.5rem', textAlign: 'center', color: '#94a3b8', fontSize: '0.875rem' }}>No leads yet.</div>
                 ) : (
+                  <div className="admin-table-scroll">
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
                     <thead>
                       <tr style={{ background: '#f8fafc' }}>
@@ -114,6 +115,7 @@ export default function AdminDashboard() {
                       ))}
                     </tbody>
                   </table>
+                  </div>
                 )}
               </div>
 

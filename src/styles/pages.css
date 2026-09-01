@@ -15,7 +15,7 @@
     text-align: center;
 }
 .ic-page-hero .container { position: relative; z-index: 2; max-width: 800px; }
-.ic-page-hero h1 { font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 700; margin-bottom: 1.5rem; line-height: 1.15; color: white; }
+.ic-page-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 1.5rem; line-height: 1.1; color: white; }
 .ic-page-hero p { font-size: 1.2rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 2rem; }
 
 .trust-section { background-color: var(--color-light); padding: 5rem 0; }
@@ -87,7 +87,7 @@
     backdrop-filter: blur(8px);
     margin-bottom: 1.75rem;
 }
-.page-hero h1 { font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 700; color: white; line-height: 1.15; margin: 1rem 0 1.25rem; }
+.page-hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; color: white; line-height: 1.15; margin-bottom: 1.25rem; }
 .page-hero p { font-size: 1.15rem; line-height: 1.75; color: rgba(255,255,255,0.85); max-width: 680px; margin: 0 auto; }
 .page-hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 .btn-outline-white { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; font-family: var(--font-sans); font-size: 0.95rem; font-weight: 600; border-radius: 4px; border: 2px solid rgba(255,255,255,0.6); color: white; background: transparent; transition: var(--transition-smooth); }
@@ -138,6 +138,7 @@
     .capabilities-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
+    .page-hero { padding: 7rem 0 4rem; }
     .stat-strip-grid { grid-template-columns: repeat(2, 1fr); }
     .stat-strip-item:nth-child(2) { border-right: none; }
     .stat-strip-item:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.06); }
@@ -739,6 +740,7 @@
     .about-team-grid { grid-template-columns: 1fr; }
     .about-values-grid { grid-template-columns: 1fr; }
     .about-divisions-grid { grid-template-columns: 1fr; }
+    .about-page-hero { padding: 7rem 0 4rem; min-height: auto; }
     .about-hero-actions { flex-direction: column; }
 }
 
@@ -764,13 +766,8 @@
 .blog-post-content h6 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; color: #475569; }
 .blog-post-content p  { margin: 0 0 1.25rem; }
 .blog-post-content ul,
-.blog-post-content ol { margin: 0 0 1.25rem; padding-inline-start: 1.75rem; }
-.blog-post-content ul { list-style: disc outside; }
-.blog-post-content ol { list-style: decimal outside; }
-.blog-post-content ul ul { list-style-type: circle; }
-.blog-post-content ol ol { list-style-type: lower-alpha; }
+.blog-post-content ol { margin: 0 0 1.25rem 1.5rem; }
 .blog-post-content li { margin-bottom: 0.4rem; }
-.blog-post-content li::marker { color: var(--color-primary); }
 .blog-post-content blockquote { border-left: 4px solid #1B5FAF; margin: 1.5rem 0; padding: 0.75rem 1.25rem; background: #eff6ff; color: #1e40af; border-radius: 0 8px 8px 0; }
 .blog-post-content code { background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
 .blog-post-content pre  { background: #0f172a; color: #e2e8f0; padding: 1.25rem; border-radius: 10px; overflow-x: auto; margin: 1.5rem 0; }
@@ -867,57 +864,12 @@
     padding: 2.5rem;
 }
 .bp-card-img-wrap {
-    position: relative;
     margin: 0 0 2rem;
     border-radius: 14px;
     overflow: hidden;
     background: var(--color-light);
 }
 .bp-card-img-wrap img { width: 100%; height: auto; display: block; }
-
-/* Top scrim so overlaid tags stay legible on light images */
-.bp-card-img-wrap::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 96px;
-    background: linear-gradient(to bottom, rgba(9, 20, 45, 0.38), rgba(9, 20, 45, 0));
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* Category tag — top left on the cover image */
-.bp-img-badge {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    z-index: 2;
-    background: var(--color-accent-light);
-    color: var(--color-primary);
-    font-weight: 700;
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 50px;
-    box-shadow: 0 4px 14px rgba(9, 20, 45, 0.22);
-}
-
-/* Author tag — top right on the cover image */
-.bp-img-author {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 2;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(6px);
-    color: #0f172a;
-    font-weight: 600;
-    font-size: 0.8rem;
-    padding: 6px 14px;
-    border-radius: 50px;
-    box-shadow: 0 4px 14px rgba(9, 20, 45, 0.22);
-}
 
 .bp-card-meta-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; }
 .bp-card-author { font-size: 0.85rem; font-weight: 600; color: #64748b; }
@@ -959,12 +911,10 @@
     .bp-related-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
+    .bp-hero-solid { padding: 2.5rem 0 5.5rem; }
     .bp-article { margin-top: 1.75rem; }
     .bp-card { padding: 1.5rem; border-radius: 16px; }
     .bp-card-img-wrap { margin: 0 0 1.5rem; border-radius: 12px; }
-    .bp-img-badge, .bp-img-author { top: 0.7rem; font-size: 0.7rem; padding: 5px 11px; }
-    .bp-img-badge { left: 0.7rem; }
-    .bp-img-author { right: 0.7rem; }
     .bp-breadcrumb-current { max-width: 160px; }
     .bp-related-grid { grid-template-columns: 1fr; }
     .bp-share-row { flex-wrap: wrap; }
@@ -1570,73 +1520,6 @@
     .mp-12-cards-grid .product-block-img {
         aspect-ratio: 16 / 12.5;
         object-position: top center;
-    }
-}
-
-/* ── UNIFIED PAGE BANNER HEIGHT ─────────────────────────────────
-   Every top-of-page hero banner (Blog, About, Contact, service
-   pages, Intelligent Chemicals, individual blog posts) shares one
-   height and vertical rhythm so they line up across the site.
-   Loaded last so it wins over the per-page hero rules above and
-   in css/blog.css.                                               */
-.blog-banner,
-.about-page-hero,
-.page-hero,
-.ic-page-hero,
-.bp-hero-solid {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: auto;
-    padding: 4rem 0;
-}
-
-.blog-banner,
-.about-page-hero,
-.page-hero,
-.ic-page-hero {
-    min-height: 460px;
-}
-
-/* Individual blog post banner sits a bit shorter than the rest */
-.bp-hero-solid {
-    min-height: 400px;
-}
-
-.blog-banner > .container,
-.about-page-hero > .container,
-.page-hero > .container,
-.ic-page-hero > .container,
-.bp-hero-solid > .container {
-    width: 100%;
-}
-
-/* Individual blog post hero title — same weight/family as the Contact page
-   title, but a smaller size + wider wrap so long article headlines stay
-   within 2–3 lines. */
-.bp-title {
-    font-size: clamp(1.5rem, 3.2vw, 2.25rem);
-    font-weight: 700;
-    line-height: 1.2;
-    max-width: 860px;
-}
-
-@media (max-width: 768px) {
-    .blog-banner,
-    .about-page-hero,
-    .page-hero,
-    .ic-page-hero,
-    .bp-hero-solid {
-        padding: 3rem 0;
-    }
-    .blog-banner,
-    .about-page-hero,
-    .page-hero,
-    .ic-page-hero {
-        min-height: 360px;
-    }
-    .bp-hero-solid {
-        min-height: 310px;
     }
 }
 

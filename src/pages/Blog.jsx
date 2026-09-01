@@ -11,6 +11,11 @@ import { useLanguage } from '../contexts/LanguageContext';
 const fmt = (iso, language) =>
   new Date(iso).toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 
+const readTime = (html) => {
+  const words = (html || '').replace(/<[^>]*>/g, ' ').trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / 200));
+};
+
 export default function Blog() {
   const { t, language } = useLanguage();
   const [posts,    setPosts]    = useState([]);
@@ -23,7 +28,7 @@ export default function Blog() {
     if (!supabase) { setLoading(false); return; }
     supabase
       .from('blogs')
-      .select('id, title, title_ar, slug, excerpt, excerpt_ar, read_minutes, cover_image, cover_image_ar, cover_image_alt, cover_image_alt_ar, category, published_at, created_at, author')
+      .select('id, title, title_ar, slug, excerpt, excerpt_ar, content, content_ar, cover_image, cover_image_ar, cover_image_alt, cover_image_alt_ar, category, published_at, created_at, author')
       .eq('status', 'published')
       .order('published_at', { ascending: false })
       .then(({ data }) => {
@@ -105,7 +110,7 @@ export default function Blog() {
                       <div className="blog-card-meta">
                         <span>{fmt(post.published_at || post.created_at, language)}</span>
                         <span className="meta-divider">•</span>
-                        <span>{post.read_minutes || 1} {t('bp_read_time')}</span>
+                        <span>{readTime(L(post, 'content'))} {t('bp_read_time')}</span>
                       </div>
                       <h3><Link to={`/blog/${post.slug}`}>{L(post, 'title')}</Link></h3>
                       {L(post, 'excerpt') && <p>{L(post, 'excerpt')}</p>}

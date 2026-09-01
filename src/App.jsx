@@ -21,9 +21,24 @@ import { AuthProvider } from './contexts/AuthContext';
 import AdminGuard from './components/admin/AdminGuard';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminHomeContent from './pages/admin/AdminHomeContent';
+import AdminTeam from './pages/admin/AdminTeam';
+import AdminIndustrialContent from './pages/admin/AdminIndustrialContent';
+import AdminFoodContent from './pages/admin/AdminFoodContent';
+import AdminChemicalsContent from './pages/admin/AdminChemicalsContent';
+import AdminManpowerContent from './pages/admin/AdminManpowerContent';
+import AdminContactSettings from './pages/admin/AdminContactSettings';
+import AdminTellabsContent from './pages/admin/AdminTellabsContent';
+import AdminAboutContent from './pages/admin/AdminAboutContent';
 import AdminLeads from './pages/admin/AdminLeads';
 import AdminBlogs from './pages/admin/AdminBlogs';
 import AdminBlogEditor from './pages/admin/AdminBlogEditor';
+
+function ChatbotGate() {
+  const { pathname } = useLocation();
+  if (pathname.startsWith('/admin')) return null;
+  return <Chatbot />;
+}
 
 function ScrollToHash() {
   const { pathname, hash } = useLocation();
@@ -76,12 +91,21 @@ export default function App() {
               {/* Admin */}
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminGuard><AdminDashboard /></AdminGuard>} />
+              <Route path="/admin/home" element={<AdminGuard><AdminHomeContent /></AdminGuard>} />
+              <Route path="/admin/team" element={<AdminGuard><AdminTeam /></AdminGuard>} />
+              <Route path="/admin/verticals/industrial" element={<AdminGuard><AdminIndustrialContent /></AdminGuard>} />
+              <Route path="/admin/verticals/food" element={<AdminGuard><AdminFoodContent /></AdminGuard>} />
+              <Route path="/admin/verticals/chemicals" element={<AdminGuard><AdminChemicalsContent /></AdminGuard>} />
+              <Route path="/admin/verticals/manpower" element={<AdminGuard><AdminManpowerContent /></AdminGuard>} />
+              <Route path="/admin/settings" element={<AdminGuard><AdminContactSettings /></AdminGuard>} />
+              <Route path="/admin/verticals/tellabs" element={<AdminGuard><AdminTellabsContent /></AdminGuard>} />
+              <Route path="/admin/verticals/about" element={<AdminGuard><AdminAboutContent /></AdminGuard>} />
               <Route path="/admin/leads" element={<AdminGuard><AdminLeads /></AdminGuard>} />
               <Route path="/admin/blogs" element={<AdminGuard><AdminBlogs /></AdminGuard>} />
               <Route path="/admin/blogs/new" element={<AdminGuard><AdminBlogEditor /></AdminGuard>} />
               <Route path="/admin/blogs/:id" element={<AdminGuard><AdminBlogEditor /></AdminGuard>} />
             </Routes>
-            <Chatbot />
+            <ChatbotGate />
           </AuthProvider>
         </BrowserRouter>
       </LanguageProvider>

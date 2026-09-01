@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -6,21 +6,27 @@ import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { useLanguage } from '../contexts/LanguageContext';
+import { supabase } from '../lib/supabase';
+import { fetchVerticalContent } from '../lib/verticalContent';
+import { DEFAULTS } from '../lib/verticalDefaults/food';
 
-const OIL_PRODUCTS = [
-  {
-    id: 'palm-olein',
-    img: '/images/food_services/Palm_Olein_Oil.webp',
-    tagKey: 'food_prod11_tag',
-    titleKey: 'food_prod11_title',
-    descKey: 'food_prod11_desc',
-    specKeys: ['food_prod11_spec1', 'food_prod11_spec2', 'food_prod11_spec3', 'food_prod11_spec4']
-  }
-];
+const PAGE_SECTIONS = ['oil_products'];
 
 export default function OilProducts() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const L = (obj, base) => obj[`${base}_${language}`];
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const [content, setContent] = useState(DEFAULTS);
+  useEffect(() => {
+    let cancelled = false;
+    fetchVerticalContent(supabase, 'food', DEFAULTS, PAGE_SECTIONS).then(merged => {
+      if (!cancelled) setContent(merged);
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  const oilProducts = content.oil_products;
 
   return (
     <>
@@ -34,8 +40,8 @@ export default function OilProducts() {
       {/* Hero */}
       <section className="page-hero" style={{ backgroundImage: 'linear-gradient(135deg, rgba(9, 20, 45, 0.85) 0%, rgba(5, 80, 50, 0.70) 100%), url(https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=1920&q=80)' }}>
         <div className="container">
-          <h1>Premium Refined<br />Cooking Oils</h1>
-          <p>High-grade refined vegetable oils with excellent stability, high smoke point, and neutral taste for all industrial and catering cooking needs.</p>
+          <h1>{L(oilProducts, 'title')}</h1>
+          <p>{L(oilProducts, 'desc')}</p>
         </div>
       </section>
 
@@ -50,24 +56,24 @@ export default function OilProducts() {
             <h2 className="section-title center">Our Cooking Oil Selection</h2>
           </div>
           <div className="products-grid">
-            {OIL_PRODUCTS.map(p => (
+            {oilProducts.items.map(p => (
               <div key={p.id} className="product-block" id={p.id}>
                 <div style={{ position: 'relative' }}>
-                  <img src={p.img} alt={t(p.titleKey)} className="product-block-img" style={{ aspectRatio: '1/1' }} />
+                  <img src={p.image} alt={L(p, 'title')} className="product-block-img" style={{ aspectRatio: '1/1' }} />
                 </div>
                 <div className="product-block-body" style={{ padding: '1.25rem' }}>
-                  <span className="product-block-tag">{t(p.tagKey)}</span>
-                  <h3>{t(p.titleKey)}</h3>
+                  <span className="product-block-tag">{L(p, 'tag')}</span>
+                  <h3>{L(p, 'title')}</h3>
                   <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto', paddingTop: '1rem', flexDirection: 'row' }}>
-                    <button 
+                    <button
                       onClick={() => setSelectedProduct({
-                        title: t(p.titleKey),
-                        desc: t(p.descKey),
-                        tag: t(p.tagKey),
-                        img: p.img,
-                        specs: p.specKeys.map(sk => t(sk))
+                        title: L(p, 'title'),
+                        desc: L(p, 'desc'),
+                        tag: L(p, 'tag'),
+                        img: p.image,
+                        specs: p[`specs_${language}`] ?? [],
                       })}
-                      className="product-block-btn" 
+                      className="product-block-btn"
                       style={{ background: 'transparent', color: 'var(--color-primary)', border: '1.5px solid var(--color-primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0.5rem', fontSize: '0.85rem' }}>
                       Read More
                     </button>

@@ -6,59 +6,38 @@ import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { useLanguage } from '../contexts/LanguageContext';
-
-const STATS = [
-  { value: '8+', labelKey: 'about_stat_years_label' },
-  { value: '100+', labelKey: 'about_stat_containers_label' },
-  { value: '5+', labelKey: 'about_stat_cities_label' },
-  { value: '4', labelKey: 'about_stat_divisions_label' },
-];
-
-const VALUES = [
-  { icon: 'verified', titleKey: 'about_value_quality_title', descKey: 'about_value_quality_desc' },
-  { icon: 'handshake', titleKey: 'about_value_partnerships_title', descKey: 'about_value_partnerships_desc' },
-  { icon: 'local_shipping', titleKey: 'about_value_excellence_title', descKey: 'about_value_excellence_desc' },
-  { icon: 'groups', titleKey: 'about_value_people_title', descKey: 'about_value_people_desc' },
-  { icon: 'eco', titleKey: 'about_value_sustainability_title', descKey: 'about_value_sustainability_desc' },
-  { icon: 'emoji_events', titleKey: 'about_value_trackrecord_title', descKey: 'about_value_trackrecord_desc' },
-];
-
-const TEAM = [
-  // Chemical
-  { id: 1, nameKey: 'team_jetu_name', category: 'chemical', roleKey: 'team_chemical_jetu_role', bioKey: 'team_chemical_jetu_bio', img: '/images/team/Jetu Lalwani.jpg' },
-  { id: 2, nameKey: 'team_sajid_name', category: 'chemical', roleKey: 'about_team_4_role', bioKey: 'about_team_4_bio', img: '/images/team/ajay_adnala.jpeg' },
-  { id: 3, nameKey: 'team_ajay_name', category: 'chemical', roleKey: 'about_team_5_role', bioKey: 'about_team_5_bio', img: '/images/team/sajid_pachhapure.jpg.jpeg' },
-  { id: 4, nameKey: 'team_mab_name', category: 'chemical', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio', img: '/images/team/Mohammed Abdullah Albloshi.jpg' },
-  { id: 6, nameKey: 'team_akhter_name', category: 'chemical', roleKey: 'team_chemical_akhter_role', bioKey: 'team_chemical_akhter_bio' },
-  { id: 5, nameKey: 'team_arbaz_name', category: 'chemical', roleKey: 'team_chemical_arbaz_role', bioKey: 'team_chemical_arbaz_bio', img: '/images/team/Arbaz Shaikh.jpg' },
-  { id: 15, nameKey: 'team_amreen_name', category: 'chemical', roleKey: 'team_chemical_amreen_role', bioKey: 'team_chemical_amreen_bio', img: '/images/team/Amreen Khan.jpg' },
-
-  // Industrial
-  { id: 7, nameKey: 'team_riaz_name', category: 'industrial', roleKey: 'about_team_2_role', bioKey: 'about_team_2_bio', img: '/images/team/MOHAMMED Riaz.jpg' },
-  { id: 8, nameKey: 'team_khan_name', category: 'industrial', roleKey: 'team_industrial_khan_role', bioKey: 'team_industrial_khan_bio' },
-
-  // Manpower
-  { id: 9, nameKey: 'team_ahsan_name', category: 'manpower', roleKey: 'team_manpower_ahsan_role', bioKey: 'team_manpower_ahsan_bio', img: '/images/team/Ahsan Jafri.jpg' },
-
-  // Food
-  { id: 11, nameKey: 'team_mab_name', category: 'food', roleKey: 'about_team_1_role', bioKey: 'about_team_1_bio', img: '/images/team/Mohammed Abdullah Albloshi.jpg' },
-  { id: 12, nameKey: 'team_soni_name', category: 'food', roleKey: 'team_food_soni_role', bioKey: 'team_food_soni_bio', img: '/images/team/RAJ SONI.jpg' },
-  { id: 13, nameKey: 'team_akhter_name', category: 'food', roleKey: 'team_food_akhter_role', bioKey: 'team_food_akhter_bio' },
-  { id: 10, nameKey: 'team_iqbal_name', category: 'food', roleKey: 'team_food_iqbal_role', bioKey: 'team_food_iqbal_bio', img: '/images/team/Iqbal Jafri.jpg' },
-  { id: 14, nameKey: 'team_aqeel_name', category: 'food', roleKey: 'team_food_aqeel_role', bioKey: 'team_food_aqeel_bio', img: '/images/team/Aqueel Ahmad.jpg' },
-];
-
-const NETWORK_CARDS = [
-  { cls: 'card-dammam', titleKey: 'about_network_dammam_title', subKey: 'about_network_dammam_sub' },
-  { cls: 'card-khobar', titleKey: 'about_network_khobar_title', subKey: 'about_network_khobar_sub' },
-  { cls: 'card-jubail', titleKey: 'about_network_jubail_title', subKey: 'about_network_jubail_sub' },
-  { cls: 'card-other', titleKey: 'about_network_other_title', subKey: 'about_network_other_sub' },
-];
-
-const HIGHLIGHT_KEYS = ['about_story_highlight_1', 'about_story_highlight_2', 'about_story_highlight_3', 'about_story_highlight_4'];
+import { supabase } from '../lib/supabase';
+import { fetchTeamMembers, DEFAULT_TEAM } from '../lib/teamDefaults';
+import { fetchVerticalContent } from '../lib/verticalContent';
+import { DEFAULTS, SECTIONS } from '../lib/verticalDefaults/about';
+import { DEFAULTS as SETTINGS_DEFAULTS, fetchSiteSettings } from '../lib/siteSettingsDefaults';
 
 export default function About() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const L = (obj, base) => obj[`${base}_${language}`];
+
+  const [team, setTeam] = useState(DEFAULT_TEAM);
+  useEffect(() => {
+    let cancelled = false;
+    fetchTeamMembers(supabase).then(data => { if (!cancelled) setTeam(data); });
+    return () => { cancelled = true; };
+  }, []);
+
+  const [content, setContent] = useState(DEFAULTS);
+  useEffect(() => {
+    let cancelled = false;
+    fetchVerticalContent(supabase, 'about', DEFAULTS, SECTIONS).then(merged => {
+      if (!cancelled) setContent(merged);
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  const [settings, setSettings] = useState(SETTINGS_DEFAULTS);
+  useEffect(() => {
+    let cancelled = false;
+    fetchSiteSettings(supabase).then(s => { if (!cancelled) setSettings(s); });
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     const els = document.querySelectorAll('.about-reveal');
@@ -76,8 +55,8 @@ export default function About() {
 
   const [activeVertical, setActiveVertical] = useState('all');
   const filteredTeam = activeVertical === 'all'
-    ? TEAM.filter((m, idx, self) => self.findIndex(t => t.nameKey === m.nameKey) === idx)
-    : TEAM.filter(m => m.category === activeVertical);
+    ? team
+    : team.filter(m => m.categories?.includes(activeVertical));
 
   return (
     <>
@@ -89,12 +68,12 @@ export default function About() {
       <Header />
 
       {/* Hero */}
-      <section className="about-page-hero">
+      <section className="about-page-hero" style={{ backgroundImage: `url('${content.hero.image}')` }}>
         <div className="about-page-hero-overlay"></div>
         <div className="container">
           <div className="about-page-hero-content">
-            <h1>{t('about_hero_title_l1')}<br />{t('about_hero_title_l2')}</h1>
-            <p>{t('about_hero_desc')}</p>
+            <h1>{L(content.hero, 'title_l1')}<br />{L(content.hero, 'title_l2')}</h1>
+            <p>{L(content.hero, 'desc')}</p>
           </div>
         </div>
       </section>
@@ -103,10 +82,10 @@ export default function About() {
       <div className="about-stats-strip">
         <div className="container">
           <div className="about-stats-grid">
-            {STATS.map(s => (
-              <div key={s.labelKey} className="about-stat-item">
+            {content.stats.map((s, i) => (
+              <div key={i} className="about-stat-item">
                 <span className="about-stat-value">{s.value}</span>
-                <span className="about-stat-label">{t(s.labelKey)}</span>
+                <span className="about-stat-label">{L(s, 'label')}</span>
               </div>
             ))}
           </div>
@@ -119,25 +98,25 @@ export default function About() {
           <div className="about-story-grid">
             <div className="about-story-img-col about-reveal">
               <div className="about-story-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=900&q=80" alt="Albloshi industrial supply" />
+                <img src={content.story.image} alt="Albloshi industrial supply" />
                 <div className="about-story-badge">
                   <span className="material-icons">verified</span>
                   <div>
-                    <strong>{t('about_story_cr_label')}</strong>
-                    <span>7049763092</span>
+                    <strong>{L(content.story, 'cr_label')}</strong>
+                    <span>{settings.cr_number}</span>
                   </div>
                 </div>
               </div>
             </div>
             <div className="about-story-text-col about-reveal">
-              <span className="focus-label">{t('about_story_label')}</span>
-              <p className="large-para">{t('about_story_p1')}</p>
-              <p className="large-para">{t('about_story_p2_before')} <strong>{t('about_story_p2_strong')}</strong> {t('about_story_p2_after')}</p>
+              <span className="focus-label">{L(content.story, 'label')}</span>
+              <p className="large-para">{L(content.story, 'p1')}</p>
+              <p className="large-para">{L(content.story, 'p2_before')} <strong>{L(content.story, 'p2_strong')}</strong> {L(content.story, 'p2_after')}</p>
               <div className="about-story-highlights">
-                {HIGHLIGHT_KEYS.map(k => (
-                  <div key={k} className="about-story-highlight-item">
+                {content.story.highlights.map((h, i) => (
+                  <div key={i} className="about-story-highlight-item">
                     <span className="material-icons" style={{ color: 'var(--color-primary)', fontSize: '1.1rem' }}>check_circle</span>
-                    <span>{t(k)}</span>
+                    <span>{h[language]}</span>
                   </div>
                 ))}
               </div>
@@ -152,18 +131,18 @@ export default function About() {
           <div className="about-mv-grid">
             <div className="about-mv-card about-reveal">
               <div className="about-mv-icon"><span className="material-icons">flag</span></div>
-              <h3>{t('about_mv_mission_title')}</h3>
-              <p>{t('about_mv_mission_desc')}</p>
+              <h3>{L(content.mv, 'mission_title')}</h3>
+              <p>{L(content.mv, 'mission_desc')}</p>
             </div>
             <div className="about-mv-card about-mv-card--vision about-reveal">
               <div className="about-mv-icon"><span className="material-icons">visibility</span></div>
-              <h3>{t('about_mv_vision_title')}</h3>
-              <p>{t('about_mv_vision_desc')}</p>
+              <h3>{L(content.mv, 'vision_title')}</h3>
+              <p>{L(content.mv, 'vision_desc')}</p>
             </div>
             <div className="about-mv-card about-reveal">
               <div className="about-mv-icon"><span className="material-icons">star</span></div>
-              <h3>{t('about_mv_promise_title')}</h3>
-              <p>{t('about_mv_promise_desc')}</p>
+              <h3>{L(content.mv, 'promise_title')}</h3>
+              <p>{L(content.mv, 'promise_desc')}</p>
             </div>
           </div>
         </div>
@@ -173,16 +152,16 @@ export default function About() {
       <section className="section-padding" style={{ background: 'var(--color-light)' }}>
         <div className="container">
           <div className="text-center">
-            <span className="focus-label">{t('about_values_label')}</span>
-            <h2 className="section-title center" style={{ marginTop: '1rem' }}>{t('about_values_title')}</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 3.5rem' }}>{t('about_values_desc')}</p>
+            <span className="focus-label">{L(content.values, 'label')}</span>
+            <h2 className="section-title center" style={{ marginTop: '1rem' }}>{L(content.values, 'title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 3.5rem' }}>{L(content.values, 'desc')}</p>
           </div>
           <div className="about-values-grid">
-            {VALUES.map(v => (
-              <div key={v.titleKey} className="about-value-card about-reveal">
+            {content.values.items.map((v, i) => (
+              <div key={i} className="about-value-card about-reveal">
                 <div className="about-value-icon"><span className="material-icons">{v.icon}</span></div>
-                <h4>{t(v.titleKey)}</h4>
-                <p>{t(v.descKey)}</p>
+                <h4>{L(v, 'title')}</h4>
+                <p>{L(v, 'desc')}</p>
               </div>
             ))}
           </div>
@@ -241,8 +220,8 @@ export default function About() {
             {filteredTeam.map(m => (
               <div key={m.id} className="team-card">
                 <div className="team-img-wrapper">
-                  {m.img ? (
-                    <img src={m.img} alt={m.nameKey ? t(m.nameKey) : m.name} className="team-img" style={{ objectFit: 'cover' }} />
+                  {m.image ? (
+                    <img src={m.image} alt={L(m, 'name')} className="team-img" style={{ objectFit: 'cover' }} />
                   ) : (
                     <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                       <defs>
@@ -262,9 +241,9 @@ export default function About() {
                   )}
                 </div>
                 <div className="team-info">
-                  <h3>{m.nameKey ? t(m.nameKey) : m.name}</h3>
-                  <div className="team-role">{t(m.roleKey)}</div>
-                  <p className="team-bio">{t(m.bioKey)}</p>
+                  <h3>{L(m, 'name')}</h3>
+                  <div className="team-role">{L(m, 'role')}</div>
+                  <p className="team-bio">{L(m, 'bio')}</p>
                 </div>
               </div>
             ))}
@@ -275,17 +254,17 @@ export default function About() {
       {/* Distribution Network — same as Home page */}
       <section id="network" className="network-hero bg-dark-section">
         <div className="container relative z-10 text-center">
-          <h2 className="section-title center text-white" style={{ marginBottom: '1rem' }}>{t('about_network_title')}</h2>
-          <p className="large-para text-white-80" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>{t('about_network_desc')}</p>
+          <h2 className="section-title center text-white" style={{ marginBottom: '1rem' }}>{L(content.network, 'title')}</h2>
+          <p className="large-para text-white-80" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>{L(content.network, 'desc')}</p>
           <div className="network-interactive-map">
-            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80" alt="Distribution Map" className="network-map-bg" />
+            <img src={content.network.map_image} alt="Distribution Map" className="network-map-bg" />
             <div className="map-overlay-dark"></div>
-            {NETWORK_CARDS.map(c => (
-              <div key={c.cls} className={`map-floating-card ${c.cls}`}>
+            {content.network.cards.map((c, i) => (
+              <div key={c.position_class ?? i} className={`map-floating-card ${c.position_class}`}>
                 <div className="pulse-dot"></div>
                 <div className="card-content glass-card-dark">
-                  <h4>{t(c.titleKey)}</h4>
-                  <span>{t(c.subKey)}</span>
+                  <h4>{L(c, 'title')}</h4>
+                  <span>{L(c, 'sub')}</span>
                 </div>
               </div>
             ))}
@@ -299,12 +278,12 @@ export default function About() {
           <div className="blog-cta-card">
             <div className="blog-cta-inner">
               <div className="blog-cta-text">
-                <h2>{t('about_cta_title')}</h2>
-                <p>{t('about_cta_desc')}</p>
+                <h2>{L(content.cta, 'title')}</h2>
+                <p>{L(content.cta, 'desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <Link to="/contact" className="btn btn-primary">{t('about_cta_btn1')}</Link>
-                <Link to="/#segments" className="btn btn-outline">{t('about_cta_btn2')}</Link>
+                <Link to={content.cta.btn1_href} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
+                <Link to={content.cta.btn2_href} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
               </div>
             </div>
           </div>

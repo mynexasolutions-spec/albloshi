@@ -6,63 +6,31 @@ import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { useLanguage } from '../contexts/LanguageContext';
-
-const SLIDE_KEYS = [
-  {
-    bg: 'https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=1920&q=80',
-    subtitleKey: 'home_slide3_subtitle',
-    titleKey: 'home_slide3_title',
-    ctaKey: 'home_slide3_cta',
-    href: '/intelligent-chemicals',
-  },
-  {
-    bg: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80',
-    subtitleKey: 'home_slide2_subtitle',
-    titleKey: 'home_slide2_title',
-    ctaKey: 'home_slide2_cta',
-    href: '/food-services',
-  },
-  {
-    bg: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80',
-    subtitleKey: 'home_slide1_subtitle',
-    titleKey: 'home_slide1_title',
-    ctaKey: 'home_slide1_cta',
-    href: '/industrial-services',
-  },
-];
-
-const FAQ_KEYS = ['home_faq1', 'home_faq2', 'home_faq3', 'home_faq4', 'home_faq5'];
-
-const CLIENTS = [
-  // Saudi Arabia
-  { id: 1, path: '/images/Saudi Clients/Screenshot 2026-05-10 101106.png', country: 'saudi', name: 'Saudi Client 1' },
-  { id: 2, path: '/images/Saudi Clients/Screenshot 2026-05-18 011150.png', country: 'saudi', name: 'Saudi Client 2' },
-  { id: 3, path: '/images/Saudi Clients/Screenshot 2026-05-31 164025.png', country: 'saudi', name: 'Saudi Client 3' },
-  { id: 4, path: '/images/Saudi Clients/Screenshot 2026-06-18 142924.png', country: 'saudi', name: 'Saudi Client 4' },
-  { id: 5, path: '/images/Saudi Clients/Screenshot 2026-06-24 125035.png', country: 'saudi', name: 'Saudi Client 5' },
-  { id: 6, path: '/images/Saudi Clients/Screenshot 2026-06-24 130332.png', country: 'saudi', name: 'Saudi Client 6' },
-  { id: 7, path: '/images/Saudi Clients/Screenshot 2026-06-24 130613.png', country: 'saudi', name: 'Saudi Client 7' },
-
-  // India
-  { id: 8, path: '/images/Indian Clients/Screenshot 2026-07-06 133939.png', country: 'india', name: 'Indian Client 1' },
-  { id: 9, path: '/images/Indian Clients/Screenshot 2026-07-06 134032.png', country: 'india', name: 'Indian Client 2' },
-  { id: 10, path: '/images/Indian Clients/Screenshot 2026-07-06 134131.png', country: 'india', name: 'Indian Client 3' },
-  { id: 11, path: '/images/Indian Clients/Screenshot 2026-07-06 134207.png', country: 'india', name: 'Indian Client 4' },
-  { id: 12, path: '/images/Indian Clients/Screenshot 2026-07-06 134453.png', country: 'india', name: 'Indian Client 5' },
-  { id: 13, path: '/images/Indian Clients/Screenshot 2026-07-06 134703.png', country: 'india', name: 'Indian Client 6' },
-  { id: 14, path: '/images/Indian Clients/Screenshot 2026-07-06 134831.png', country: 'india', name: 'Indian Client 7' },
-  { id: 15, path: '/images/Indian Clients/Screenshot 2026-07-06 134928.png', country: 'india', name: 'Indian Client 8' },
-  { id: 16, path: '/images/Indian Clients/Screenshot 2026-07-06 135348.png', country: 'india', name: 'Indian Client 9' },
-  { id: 17, path: '/images/Indian Clients/Screenshot 2026-07-06 135638.png', country: 'india', name: 'Indian Client 10' },
-  { id: 18, path: '/images/Indian Clients/Screenshot 2026-07-06 135812.png', country: 'india', name: 'Indian Client 11' },
-  { id: 19, path: '/images/Indian Clients/Screenshot 2026-07-06 135929.png', country: 'india', name: 'Indian Client 12' },
-
-  // Egypt
-  { id: 20, path: '/images/Egypt Clients/Screenshot 2026-07-06 140622.png', country: 'egypt', name: 'Egypt Client' }
-];
+import { supabase } from '../lib/supabase';
+import { DEFAULTS, fetchHomeContent } from '../lib/homeContentDefaults';
 
 export default function Home() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const L = (obj, base) => obj[`${base}_${language}`];
+
+  // Content is initialized to the hardcoded defaults so the first paint is
+  // identical to the pre-admin-panel page. Any Supabase overrides (per-section
+  // rows in `home_content`) are merged in once the async fetch resolves.
+  const [content, setContent] = useState(DEFAULTS);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchHomeContent(supabase).then(merged => {
+      if (!cancelled) setContent(merged);
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  const slides = content.hero_slides;
+  const faqItems = content.faq.items;
+  const clients = content.clients;
+  const reviews = content.testimonials.reviews;
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
@@ -158,14 +126,14 @@ export default function Home() {
   const startSlideshow = () => {
     clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
-      setCurrentSlide(prev => (prev + 1) % SLIDE_KEYS.length);
+      setCurrentSlide(prev => (prev + 1) % slides.length);
     }, 5500);
   };
 
   useEffect(() => {
     startSlideshow();
     return () => clearInterval(intervalRef.current);
-  }, []);
+  }, [slides.length]);
 
   useEffect(() => {
     const statNums = document.querySelectorAll('.stat-number');
@@ -200,11 +168,11 @@ export default function Home() {
   }, []);
 
   const prevSlide = () => {
-    setCurrentSlide(prev => (prev - 1 + SLIDE_KEYS.length) % SLIDE_KEYS.length);
+    setCurrentSlide(prev => (prev - 1 + slides.length) % slides.length);
     startSlideshow();
   };
   const nextSlide = () => {
-    setCurrentSlide(prev => (prev + 1) % SLIDE_KEYS.length);
+    setCurrentSlide(prev => (prev + 1) % slides.length);
     startSlideshow();
   };
 
@@ -236,24 +204,24 @@ export default function Home() {
           if (Math.abs(diff) > 60) { diff > 0 ? prevSlide() : nextSlide(); }
         }}
       >
-        {SLIDE_KEYS.map((slide, i) => (
-          <div key={i} className={`slide${currentSlide === i ? ' active' : ''}`}>
-            <div className="slide-bg" style={{ backgroundImage: `url('${slide.bg}')` }}></div>
+        {slides.map((slide, i) => (
+          <div key={slide.id ?? i} className={`slide${currentSlide === i ? ' active' : ''}`}>
+            <div className="slide-bg" style={{ backgroundImage: `url('${slide.image}')` }}></div>
             <div className="slide-overlay"></div>
             <div className="container">
               <div className="slide-content">
-                <h3>{t(slide.subtitleKey)}</h3>
-                <h1>{t(slide.titleKey)}</h1>
+                <h3>{L(slide, 'subtitle')}</h3>
+                <h1>{L(slide, 'title')}</h1>
                 <div className="slide-actions">
-                  <Link to={slide.href} className="btn btn-primary">{t(slide.ctaKey)}</Link>
+                  <Link to={slide.href} className="btn btn-primary">{L(slide, 'cta')}</Link>
                 </div>
               </div>
             </div>
           </div>
         ))}
         <div className="slider-dots">
-          {SLIDE_KEYS.map((_, i) => (
-            <div key={i} className={`dot${currentSlide === i ? ' active' : ''}`} onClick={() => { setCurrentSlide(i); startSlideshow(); }}></div>
+          {slides.map((slide, i) => (
+            <div key={slide.id ?? i} className={`dot${currentSlide === i ? ' active' : ''}`} onClick={() => { setCurrentSlide(i); startSlideshow(); }}></div>
           ))}
         </div>
         <button className="slider-arrow slider-arrow-left" aria-label={t('home_aria_prev_slide')} onClick={prevSlide}></button>
@@ -264,22 +232,17 @@ export default function Home() {
       <section id="who-we-are" className="who-we-are-section section-padding">
         <div className="container">
           <div className="who-header text-center">
-            <span className="focus-label">{t('home_who_label')}</span>
-            <h2 className="section-title center">{t('home_who_title')}</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>{t('home_who_desc')}</p>
+            <span className="focus-label">{L(content.who_we_are, 'label')}</span>
+            <h2 className="section-title center">{L(content.who_we_are, 'title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>{L(content.who_we_are, 'desc')}</p>
           </div>
           <div className="who-features-grid">
-            {[
-              { icon: 'public', labelKey: 'home_who_f1_label', descKey: 'home_who_f1_desc' },
-              { icon: 'verified_user', labelKey: 'home_who_f2_label', descKey: 'home_who_f2_desc' },
-              { icon: 'local_shipping', labelKey: 'home_who_f3_label', descKey: 'home_who_f3_desc' },
-              { icon: 'engineering', labelKey: 'home_who_f4_label', descKey: 'home_who_f4_desc' },
-            ].map(f => (
-              <div key={f.icon} className="who-f-item">
+            {content.who_we_are.features.map((f, i) => (
+              <div key={i} className="who-f-item">
                 <div className="who-f-icon"><span className="material-icons">{f.icon}</span></div>
                 <div className="who-f-text">
-                  <h4 className="f-label">{t(f.labelKey)}</h4>
-                  <p className="f-desc">{t(f.descKey)}</p>
+                  <h4 className="f-label">{L(f, 'label')}</h4>
+                  <p className="f-desc">{L(f, 'desc')}</p>
                 </div>
               </div>
             ))}
@@ -290,12 +253,12 @@ export default function Home() {
       {/* Trusted Section */}
       <section className="trusted-section section-padding" style={{ background: 'radial-gradient(circle at center, #f4f8ff 0%, #eaf1fa 100%)' }}>
         <div className="container text-center">
-          <h2 className="section-title center" style={{ marginBottom: '1rem', color: '#0b2246' }}>{t('home_trusted_title_l1')}<br />{t('home_trusted_title_l2')}</h2>
+          <h2 className="section-title center" style={{ marginBottom: '1rem', color: '#0b2246' }}>{L(content.trusted, 'title_l1')}<br />{L(content.trusted, 'title_l2')}</h2>
           <p
             className="large-para"
             style={{ maxWidth: '650px', margin: '0 auto 4rem' }}
             dangerouslySetInnerHTML={{
-              __html: t('home_trusted_desc')
+              __html: L(content.trusted, 'desc')
                 .replace(/(Saudi Arabia|India|Egypt|المملكة العربية السعودية|الهند|مصر|الخليج العربي|GCC)/g, '<strong style="color: var(--color-primary); font-weight: 700;">$1</strong>')
             }}
           />
@@ -303,9 +266,9 @@ export default function Home() {
         <div className="marquee-outer">
           <div className="marquee-track" ref={marqueeRef}>
             {[...Array(4)].flatMap((_, rep) =>
-              CLIENTS.map(c => (
+              clients.map(c => (
                 <div key={`${rep}-${c.id}`} className="marquee-card">
-                  <img src={c.path} alt={c.name} />
+                  <img src={c.image} alt={c.name} />
                 </div>
               ))
             )}
@@ -318,27 +281,20 @@ export default function Home() {
         <div className="container">
           <div className="bento-grid">
             <div className="bento-card bento-header-card">
-              <span className="focus-label on-dark">{t('our_intelligent_chemicals')}</span>
+              <span className="focus-label on-dark">{L(content.bento, 'label')}</span>
               <h2 className="section-title text-left" style={{ color: 'white' }}>
-                {t('smart_chemicals_real_impact').split('\n').map((line, i) => (
+                {L(content.bento, 'title').split('\n').map((line, i) => (
                   <span key={i}>{line}{i === 0 && <br />}</span>
                 ))}
               </h2>
-              <p className="large-para" style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '2rem' }}>{t('bento_subtitle')}</p>
+              <p className="large-para" style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '2rem' }}>{L(content.bento, 'subtitle')}</p>
               <Link to="/intelligent-chemicals" className="btn" style={{ padding: '1rem 3rem', fontSize: '1.05rem', borderRadius: '50px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-primary)', color: 'white', border: 'none', boxShadow: '0 10px 25px rgba(27,95,175,0.4)', fontWeight: '700', textDecoration: 'none', transition: 'transform 0.3s ease' }}>{t('know_more')}</Link>
             </div>
-            {[
-              { img: '/images/IWT.webp', icon: 'water', title: t('industrial_water_treatment'), desc: t('iwt_desc') },
-              { img: '/images/Polymers.webp', icon: 'bubble_chart', title: t('polymers_coagulants'), desc: t('polymers_desc') },
-              { img: '/images/activated_carbon.webp', icon: 'filter_alt', title: t('activated_carbon_solutions'), desc: t('activated_carbon_desc') },
-              { img: '/images/pulp_and_paper.webp', icon: 'waves', title: t('silicone_organic_defoamers'), desc: t('defoamers_desc') },
-              { img: '/images/cleaning_disinfection.webp', icon: 'cleaning_services', title: t('cleaning_disinfection'), desc: t('cleaning_desc') },
-              { img: '/images/Fuel_additives.webp', icon: 'local_gas_station', title: t('fuel_additives'), desc: t('fuel_desc') },
-            ].map(card => (
-              <div key={card.title} className="bento-card bento-feature-card img-bento" style={{ backgroundImage: `url('${card.img}')` }}>
+            {content.bento.cards.map((card, i) => (
+              <div key={i} className="bento-card bento-feature-card img-bento" style={{ backgroundImage: `url('${card.image}')` }}>
                 <div className="bento-icon-small"><span className="material-icons">{card.icon}</span></div>
-                <h4>{card.title}</h4>
-                <p>{card.desc}</p>
+                <h4>{L(card, 'title')}</h4>
+                <p>{L(card, 'desc')}</p>
               </div>
             ))}
           </div>
@@ -346,12 +302,12 @@ export default function Home() {
             <div className="intel-trust-left">
               <span className="material-icons trust-shield">security</span>
               <div className="trust-text">
-                <h5>{t('quality_trust_perf')}</h5>
-                <p>{t('trust_subtitle')}</p>
+                <h5>{L(content.bento, 'trust_title')}</h5>
+                <p>{L(content.bento, 'trust_subtitle')}</p>
               </div>
             </div>
             <div className="intel-trust-right">
-              <span>{t('strategic_partner')}</span>
+              <span>{L(content.bento, 'partner_label')}</span>
               <span className="partner-logo-text">TELLABS<br /><small>Intelligent Chemicals</small></span>
             </div>
           </div>
@@ -362,32 +318,20 @@ export default function Home() {
       <section id="segments" className="verticals-section section-padding">
         <div className="container">
           <div className="verticals-header text-center">
-            <span className="focus-label">{t('home_verticals_label')}</span>
-            <h2 className="section-title">{t('home_verticals_title')}</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>{t('home_verticals_desc')}</p>
+            <span className="focus-label">{L(content.verticals, 'label')}</span>
+            <h2 className="section-title">{L(content.verticals, 'title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto 4rem' }}>{L(content.verticals, 'desc')}</p>
           </div>
           <div className="verticals-bento-grid">
-            <div className="v-card img-bento dark-overlay" style={{ backgroundImage: "url('/right.png')" }}>
-              <div className="v-content">
-                <h3>{t('home_vert_chem_title')}</h3>
-                <p>{t('home_vert_chem_desc')}</p>
-                <Link to="/intelligent-chemicals" className="v-link">{t('home_vert_chem_link')}</Link>
+            {content.verticals.cards.map((card, i) => (
+              <div key={i} className={`v-card img-bento${i === 0 ? ' dark-overlay' : ''}`} style={{ backgroundImage: `url('${card.image}')` }}>
+                <div className="v-content">
+                  <h3>{L(card, 'title')}</h3>
+                  <p>{L(card, 'desc')}</p>
+                  <Link to={card.href} className="v-link">{L(card, 'link')}</Link>
+                </div>
               </div>
-            </div>
-            <div className="v-card img-bento" style={{ backgroundImage: "url('/images/products/food_distribution.webp')" }}>
-              <div className="v-content">
-                <h3>{t('home_vert_food_title')}</h3>
-                <p>{t('home_vert_food_desc')}</p>
-                <Link to="/food-services" className="v-link">{t('home_verticals_learn_more')}</Link>
-              </div>
-            </div>
-            <div className="v-card img-bento" style={{ backgroundImage: "url('/images/products/industrial_material_and_manpower.webp')" }}>
-              <div className="v-content">
-                <h3>{t('home_vert_ind_title')}</h3>
-                <p>{t('home_vert_ind_desc')}</p>
-                <Link to="/industrial-services" className="v-link">{t('home_verticals_learn_more')}</Link>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -396,24 +340,17 @@ export default function Home() {
       <section id="why-choose-us" className="section-padding">
         <div className="container">
           <div className="text-center">
-            <h2 className="section-title center">{t('home_why_title')}</h2>
-            <p className="large-para" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>{t('home_why_desc')}</p>
+            <h2 className="section-title center">{L(content.why_choose_us, 'title')}</h2>
+            <p className="large-para" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>{L(content.why_choose_us, 'desc')}</p>
           </div>
           <div className="reasons-bento-grid">
-            {[
-              { img: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80', titleKey: 'home_reason1_title', descKey: 'home_reason1_desc', large: true },
-              { img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=400&q=80', titleKey: 'home_reason2_title', descKey: 'home_reason2_desc' },
-              { img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80', titleKey: 'home_reason3_title', descKey: 'home_reason3_desc' },
-              { img: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80', titleKey: 'home_reason4_title', descKey: 'home_reason4_desc' },
-              { img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80', titleKey: 'home_reason5_title', descKey: 'home_reason5_desc' },
-              { img: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80', titleKey: 'home_reason6_title', descKey: 'home_reason6_desc', large: true },
-            ].map(r => (
-              <div key={r.titleKey} className={`r-card${r.large ? ' r-large' : ''}`}>
-                <div className="r-img-wrapper"><img src={r.img} alt={t(r.titleKey)} /></div>
+            {content.why_choose_us.reasons.map((r, i) => (
+              <div key={i} className={`r-card${r.large ? ' r-large' : ''}`}>
+                <div className="r-img-wrapper"><img src={r.image} alt={L(r, 'title')} /></div>
                 <div className="r-content-wrapper">
                   <div className="r-content">
-                    <h3>{t(r.titleKey)}</h3>
-                    <p className="large-para">{t(r.descKey)}</p>
+                    <h3>{L(r, 'title')}</h3>
+                    <p className="large-para">{L(r, 'desc')}</p>
                   </div>
                 </div>
               </div>
@@ -425,22 +362,17 @@ export default function Home() {
       {/* Distribution Network */}
       <section id="network" className="network-hero bg-dark-section">
         <div className="container relative z-10 text-center">
-          <h2 className="section-title center text-white" style={{ marginBottom: '1rem' }}>{t('home_network_title')}</h2>
-          <p className="large-para text-white-80" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>{t('home_network_desc')}</p>
+          <h2 className="section-title center text-white" style={{ marginBottom: '1rem' }}>{L(content.network, 'title')}</h2>
+          <p className="large-para text-white-80" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>{L(content.network, 'desc')}</p>
           <div className="network-interactive-map">
-            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80" alt="Distribution Map" className="network-map-bg" />
+            <img src={content.network.map_image} alt="Distribution Map" className="network-map-bg" />
             <div className="map-overlay-dark"></div>
-            {[
-              { cls: 'card-dammam', titleKey: 'home_network_dammam_title', subKey: 'home_network_dammam_sub' },
-              { cls: 'card-khobar', titleKey: 'home_network_khobar_title', subKey: 'home_network_khobar_sub' },
-              { cls: 'card-jubail', titleKey: 'home_network_jubail_title', subKey: 'home_network_jubail_sub' },
-              { cls: 'card-other', titleKey: 'home_network_other_title', subKey: 'home_network_other_sub' },
-            ].map(c => (
-              <div key={c.cls} className={`map-floating-card ${c.cls}`}>
+            {content.network.cards.map((c, i) => (
+              <div key={c.position_class ?? i} className={`map-floating-card ${c.position_class}`}>
                 <div className="pulse-dot"></div>
                 <div className="card-content glass-card-dark">
-                  <h4>{t(c.titleKey)}</h4>
-                  <span>{t(c.subKey)}</span>
+                  <h4>{L(c, 'title')}</h4>
+                  <span>{L(c, 'sub')}</span>
                 </div>
               </div>
             ))}
@@ -452,27 +384,21 @@ export default function Home() {
       <section id="testimonials" className="section-padding">
         <div className="container">
           <div className="text-center" style={{ marginBottom: '3.5rem' }}>
-            <h2 className="section-title center">{t('home_testimonials_title')}</h2>
-            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto' }}>{t('home_testimonials_desc')}</p>
+            <h2 className="section-title center">{L(content.testimonials, 'title')}</h2>
+            <p className="large-para" style={{ maxWidth: '650px', margin: '0 auto' }}>{L(content.testimonials, 'desc')}</p>
           </div>
           <div className="reviews-carousel-wrapper">
             <button className="reviews-arrow reviews-arrow-prev" aria-label={t('home_aria_prev_review')} onClick={() => handleReviewArrow(-1)}>&#8592;</button>
             <div className="reviews-viewport" ref={reviewsViewportRef}>
               <div className="reviews-track">
-                {[
-                  { quoteKey: 'home_review1_quote', name: 'Eng. Hameed Al-Subaie', titleKey: 'home_review1_title', img: '/images/testimonials/ChatGPT Image Aug 23, 2026, 09_27_26 PM.webp' },
-                  { quoteKey: 'home_review2_quote', name: 'Sarah Al-Ghamdi', titleKey: 'home_review2_title', img: '/images/testimonials/ChatGPT Image Aug 23, 2026, 09_31_16 PM.webp' },
-                  { quoteKey: 'home_review3_quote', name: 'Dr. Faisal Al-Qahtani', titleKey: 'home_review3_title', img: '/images/testimonials/ChatGPT Image Aug 23, 2026, 09_06_19 PM.webp' },
-                  { quoteKey: 'home_review4_quote', name: 'Omar Al-Rashid', titleKey: 'home_review4_title', img: '/images/testimonials/ChatGPT Image Aug 23, 2026, 09_06_15 PM.webp' },
-                  { quoteKey: 'home_review5_quote', name: 'Layla Al-Harbi', titleKey: 'home_review5_title', img: '/images/testimonials/ChatGPT Image Aug 23, 2026, 09_05_27 PM.webp' },
-                ].map(r => (
-                  <div key={r.name} className="review-card">
-                    <blockquote className="review-text">{t(r.quoteKey)}</blockquote>
+                {reviews.map((r, i) => (
+                  <div key={r.id ?? i} className="review-card">
+                    <blockquote className="review-text">{L(r, 'quote')}</blockquote>
                     <div className="review-author">
-                      <img src={r.img} alt={r.name} className="review-author-img" />
+                      <img src={r.image} alt={r.name} className="review-author-img" />
                       <div>
                         <div className="review-author-name">{r.name}</div>
-                        <div className="review-author-title">{t(r.titleKey)}</div>
+                        <div className="review-author-title">{L(r, 'title')}</div>
                       </div>
                     </div>
                   </div>
@@ -482,9 +408,9 @@ export default function Home() {
             <button className="reviews-arrow reviews-arrow-next" aria-label={t('home_aria_next_review')} onClick={() => handleReviewArrow(1)}>&#8594;</button>
           </div>
           <div className="reviews-dots">
-            {[0, 1, 2, 3, 4].map(idx => (
+            {reviews.map((r, idx) => (
               <div
-                key={idx}
+                key={r.id ?? idx}
                 className={`reviews-dot${currentReview === idx ? ' active' : ''}`}
                 onClick={() => {
                   setCurrentReview(idx);
@@ -506,18 +432,18 @@ export default function Home() {
       <section id="faq" className="section-padding">
         <div className="container">
           <div className="text-center">
-            <h2 className="section-title center">{t('home_faq_title')}</h2>
-            <p className="large-para" style={{ maxWidth: '800px', margin: '0 auto 3rem' }}>{t('home_faq_desc')}</p>
+            <h2 className="section-title center">{L(content.faq, 'title')}</h2>
+            <p className="large-para" style={{ maxWidth: '800px', margin: '0 auto 3rem' }}>{L(content.faq, 'desc')}</p>
           </div>
           <div className="faq-container">
-            {FAQ_KEYS.map((key, i) => (
-              <div key={i} className={`faq-item${openFaq === i ? ' active' : ''}`}>
+            {faqItems.map((item, i) => (
+              <div key={item.id ?? i} className={`faq-item${openFaq === i ? ' active' : ''}`}>
                 <button className="faq-header" onClick={() => setOpenFaq(openFaq === i ? -1 : i)}>
-                  <span className="faq-question">{t(`${key}_q`)}</span>
+                  <span className="faq-question">{L(item, 'q')}</span>
                   <span className="faq-arrow"></span>
                 </button>
                 <div className="faq-content">
-                  <div className="faq-body"><p>{t(`${key}_a`)}</p></div>
+                  <div className="faq-body"><p>{L(item, 'a')}</p></div>
                 </div>
               </div>
             ))}
@@ -531,12 +457,12 @@ export default function Home() {
           <div className="blog-cta-card">
             <div className="blog-cta-inner">
               <div className="blog-cta-text">
-                <h2>{t('home_cta_title')}</h2>
-                <p>{t('home_cta_desc')}</p>
+                <h2>{L(content.cta, 'title')}</h2>
+                <p>{L(content.cta, 'desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <Link to="/contact" className="btn btn-primary">{t('home_cta_btn1')}</Link>
-                <Link to="/#segments" className="btn btn-outline">{t('home_cta_btn2')}</Link>
+                <Link to={content.cta.btn1_href} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
+                <Link to={content.cta.btn2_href} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
               </div>
             </div>
           </div>

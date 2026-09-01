@@ -1,15 +1,36 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { supabase } from '../lib/supabase';
+import { fetchVerticalContent } from '../lib/verticalContent';
+import { DEFAULTS as INDUSTRIAL_DEFAULTS } from '../lib/verticalDefaults/industrial';
+import { DEFAULTS as FOOD_DEFAULTS } from '../lib/verticalDefaults/food';
+
+const INDUSTRIAL_MENU_SECTIONS = ['products'];
+const FOOD_MENU_SECTIONS = ['products'];
 
 export default function Header() {
   const { language, toggleLanguage, t } = useLanguage();
+  const L = (obj, base) => obj[`${base}_${language}`];
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
   const [openNestedSubmenu, setOpenNestedSubmenu] = useState(null);
   const location = useLocation();
   const menuRef = useRef(null);
+
+  const [industrialProducts, setIndustrialProducts] = useState(INDUSTRIAL_DEFAULTS.products);
+  const [foodProducts, setFoodProducts] = useState(FOOD_DEFAULTS.products);
+  useEffect(() => {
+    let cancelled = false;
+    fetchVerticalContent(supabase, 'industrial', INDUSTRIAL_DEFAULTS, INDUSTRIAL_MENU_SECTIONS).then(merged => {
+      if (!cancelled) setIndustrialProducts(merged.products);
+    });
+    fetchVerticalContent(supabase, 'food', FOOD_DEFAULTS, FOOD_MENU_SECTIONS).then(merged => {
+      if (!cancelled) setFoodProducts(merged.products);
+    });
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -154,151 +175,13 @@ export default function Header() {
                     <span className="material-icons">expand_more</span>
                   </button>
                   <ul className="submenu industrial-submenu-grid">
-                    <li>
-                      <Link to="/industrial-services#steel-pipes" className="dropdown-item">
-                        <span className="dropdown-text">{t('steel_pipes')}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#valves-flanges" className="dropdown-item">
-                        <span className="dropdown-text">{t('valves_flanges')}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#cable-trays" className="dropdown-item">
-                        <span className="dropdown-text">{t('cable_trays')}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#welding-safety" className="dropdown-item">
-                        <span className="dropdown-text">{t('welding_safety')}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#cs-flanges" className="dropdown-item">
-                        <span className="dropdown-text">CS Flanges</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#ss-flanges" className="dropdown-item">
-                        <span className="dropdown-text">SS Flanges</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#cs-buttweld-fittings" className="dropdown-item">
-                        <span className="dropdown-text">Carbon Steel Buttweld Fittings</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#ss-buttweld-fittings" className="dropdown-item">
-                        <span className="dropdown-text">Stainless Steel Buttweld Fittings</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#forged-cs-fittings" className="dropdown-item">
-                        <span className="dropdown-text">Forged Carbon Steel Fittings</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#forged-ss-fittings" className="dropdown-item">
-                        <span className="dropdown-text">Forged Stainless Steel Fittings</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#malleable-iron-fittings" className="dropdown-item">
-                        <span className="dropdown-text">Forged Malleable Iron Fittings</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#fire-hydrant-grooved-fittings" className="dropdown-item">
-                        <span className="dropdown-text">Fire Hydrant & Grooved Fittings</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#instrumentation-accessories-tube-fittings" className="dropdown-item">
-                        <span className="dropdown-text">Instrumentation Accessories & Tube Fittings</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#valves" className="dropdown-item">
-                        <span className="dropdown-text">Valves</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#fasteners-stud-bolts" className="dropdown-item">
-                        <span className="dropdown-text">Fasteners & Stud Bolts</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#gasket-insulation-kits" className="dropdown-item">
-                        <span className="dropdown-text">Gasket & Insulation Kits</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#industrial-electrical-materials" className="dropdown-item">
-                        <span className="dropdown-text">Industrial Electrical Materials</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#industrial-telecom" className="dropdown-item">
-                        <span className="dropdown-text">Industrial Telecom</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#cable-tray-ladder-support" className="dropdown-item">
-                        <span className="dropdown-text">Cable Tray & Ladder Support</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#earthing-support" className="dropdown-item">
-                        <span className="dropdown-text">Earthing Support</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#welding-materials-accessories" className="dropdown-item">
-                        <span className="dropdown-text">Welding Materials & Accessories</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#industrial-safety-materials-tools" className="dropdown-item">
-                        <span className="dropdown-text">Industrial Safety Materials & Tools</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#construction-chemicals" className="dropdown-item">
-                        <span className="dropdown-text">Construction Chemicals</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#sanitary-products" className="dropdown-item">
-                        <span className="dropdown-text">Sanitary Products</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#drains" className="dropdown-item">
-                        <span className="dropdown-text">Drains</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#pvc-cpvc-cement" className="dropdown-item">
-                        <span className="dropdown-text">PVC / CPVC Cement</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#pvc-cpvc-upvc-hdpe-pvdf-pipes" className="dropdown-item">
-                        <span className="dropdown-text">PVC / CPVC / uPVC / HDPE / PVDF Pipes</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#ppr-pipes-fittings" className="dropdown-item">
-                        <span className="dropdown-text">PPR Pipes & Fittings</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/industrial-services#electrical-coated-conduit-fittings" className="dropdown-item">
-                        <span className="dropdown-text">Electrical Coated Conduit & Fittings</span>
-                      </Link>
-                    </li>
+                    {industrialProducts.map(p => (
+                      <li key={p.id}>
+                        <Link to={`/industrial-services#${p.id}`} className="dropdown-item">
+                          <span className="dropdown-text">{L(p, 'title')}</span>
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 </li>
 
@@ -322,91 +205,13 @@ export default function Header() {
                     <span className="material-icons">expand_more</span>
                   </button>
                   <ul className="submenu food-submenu-grid">
-                    <li>
-                      <Link to="/food-services#basmati-rice" className="dropdown-item">
-                        <span className="dropdown-text">{t('premium_basmati_rice')}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#cooking-oil" className="dropdown-item">
-                        <span className="dropdown-text">{t('refined_palm_cooking_oil')}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#restaurant-essentials" className="dropdown-item">
-                        <span className="dropdown-text">{t('restaurant_essentials')}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#wholesale-grain" className="dropdown-item">
-                        <span className="dropdown-text">{t('wholesale_grain_sugar')}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#white-sugar" className="dropdown-item">
-                        <span className="dropdown-text">Premium Refined White Sugar</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#spices" className="dropdown-item">
-                        <span className="dropdown-text">Premium Whole & Ground Spices</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#food-supply" className="dropdown-item">
-                        <span className="dropdown-text">Premium Packaged Food Products</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#custom-basmati" className="dropdown-item">
-                        <span className="dropdown-text">Custom Branded Basmati Rice</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#palm-olein" className="dropdown-item">
-                        <span className="dropdown-text">Premium Refined Palm Olein Oil</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#steam-basmati" className="dropdown-item">
-                        <span className="dropdown-text">1121 XXXL Steam Basmati Rice</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#golden-sella" className="dropdown-item">
-                        <span className="dropdown-text">1121 XXXL Golden Sella Basmati Rice</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#premium-1121" className="dropdown-item">
-                        <span className="dropdown-text">Premium 1121 Basmati Rice</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#honey" className="dropdown-item">
-                        <span className="dropdown-text">Pure Natural Honey</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#grains-pulses" className="dropdown-item">
-                        <span className="dropdown-text">Premium Grains & Pulses</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#chicken" className="dropdown-item">
-                        <span className="dropdown-text">Fresh & Frozen Chicken</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#eggs" className="dropdown-item">
-                        <span className="dropdown-text">Farm Fresh Table Eggs</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/food-services#coffee" className="dropdown-item">
-                        <span className="dropdown-text">Premium Coffee Beans</span>
-                      </Link>
-                    </li>
+                    {foodProducts.map(p => (
+                      <li key={p.id}>
+                        <Link to={`/food-services#${p.id}`} className="dropdown-item">
+                          <span className="dropdown-text">{L(p, 'title')}</span>
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 </li>
 

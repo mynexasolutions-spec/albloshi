@@ -6,9 +6,21 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
     }
+    
+    .blog-banner-content h1 {
+        font-size: 2.5rem;
+    }
 }
 
 @media (max-width: 768px) {
+    .blog-banner {
+        height: 320px;
+    }
+    
+    .blog-banner-content h1 {
+        font-size: 2rem;
+    }
+    
     .blog-banner-content p {
         font-size: 1rem;
     }

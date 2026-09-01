@@ -1,7 +1,18 @@
+import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
+import { DEFAULTS, fetchSiteSettings } from '../lib/siteSettingsDefaults';
+
 export default function WhatsAppFloat() {
+  const [settings, setSettings] = useState(DEFAULTS);
+  useEffect(() => {
+    let cancelled = false;
+    fetchSiteSettings(supabase).then(s => { if (!cancelled) setSettings(s); });
+    return () => { cancelled = true; };
+  }, []);
+
   return (
     <a
-      href="https://wa.me/966543188882"
+      href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}`}
       className="whatsapp-float"
       target="_blank"
       rel="noopener noreferrer"

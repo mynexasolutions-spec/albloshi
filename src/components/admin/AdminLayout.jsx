@@ -1,9 +1,19 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import '../../styles/admin-responsive.css';
 
 const NAV = [
   { to: '/admin',        icon: 'dashboard',   label: 'Dashboard',   exact: true },
+  { to: '/admin/home',   icon: 'home',         label: 'Home Page'               },
+  { to: '/admin/team',   icon: 'groups',       label: 'Team'                    },
+  { to: '/admin/verticals/industrial', icon: 'construction', label: 'Industrial Services' },
+  { to: '/admin/verticals/food', icon: 'restaurant', label: 'Food Services' },
+  { to: '/admin/verticals/chemicals', icon: 'science', label: 'Intelligent Chemicals' },
+  { to: '/admin/verticals/manpower', icon: 'engineering', label: 'Manpower Supply' },
+  { to: '/admin/verticals/tellabs', icon: 'biotech', label: 'Tellabs Chemicals' },
+  { to: '/admin/verticals/about', icon: 'info', label: 'About Page' },
+  { to: '/admin/settings', icon: 'contact_phone', label: 'Contact & Settings' },
   { to: '/admin/leads',  icon: 'inbox',        label: 'Leads'                   },
   { to: '/admin/blogs',  icon: 'article',      label: 'Blog Posts'              },
 ];
@@ -65,7 +75,7 @@ export default function AdminLayout({ children, title }) {
   const initials = user?.email?.[0]?.toUpperCase() ?? 'A';
 
   const Sidebar = () => (
-    <aside style={S.sidebar}>
+    <aside className={`admin-sidebar${mobileOpen ? ' open' : ''}`} style={S.sidebar}>
       <div style={S.logo}>
         <div style={S.logoIcon}>
           <span className="material-icons" style={{ fontSize: '1.2rem', color: 'white' }}>storefront</span>
@@ -114,32 +124,33 @@ export default function AdminLayout({ children, title }) {
 
   return (
     <div style={{ display: 'flex', fontFamily: 'Inter, system-ui, sans-serif', minHeight: '100vh', background: '#f1f5f9' }}>
-      {/* Desktop sidebar */}
-      <div style={{ display: 'block' }}>
-        <Sidebar />
-      </div>
+      <Sidebar />
 
-      {/* Mobile overlay */}
+      {/* Mobile backdrop — closes the sidebar on tap-outside */}
       {mobileOpen && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 99 }} onClick={() => setMobileOpen(false)}>
-          <Sidebar />
-        </div>
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 99 }} onClick={() => setMobileOpen(false)} />
       )}
 
       {/* Main content */}
-      <main style={{ marginLeft: 240, flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh', minWidth: 0 }}>
+      <main className="admin-main" style={{ marginLeft: 240, flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh', minWidth: 0 }}>
         {/* Top bar */}
         <header style={{ background: 'white', borderBottom: '1px solid #e2e8f0', padding: '0 1.75rem', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 50 }}>
-          <h1 style={{ fontSize: '1rem', fontWeight: 600, color: '#0f172a', margin: 0 }}>{title}</h1>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
+            <button className="admin-hamburger" onClick={() => setMobileOpen(o => !o)} aria-label="Toggle menu"
+              style={{ display: 'none', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, border: '1px solid #e2e8f0', borderRadius: 8, background: 'white', cursor: 'pointer', marginRight: '0.75rem', flexShrink: 0 }}>
+              <span className="material-icons" style={{ fontSize: '1.25rem', color: '#0f172a' }}>menu</span>
+            </button>
+            <h1 style={{ fontSize: '1rem', fontWeight: 600, color: '#0f172a', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{title}</h1>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>
             <a href="/" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.85rem', border: '1px solid #e2e8f0', borderRadius: 6, color: '#64748b', fontSize: '0.8rem', textDecoration: 'none', fontWeight: 500 }}>
               <span className="material-icons" style={{ fontSize: '0.95rem' }}>open_in_new</span>
-              View Site
+              <span className="admin-view-site-label">View Site</span>
             </a>
           </div>
         </header>
 
-        <div style={{ flex: 1, padding: '1.75rem', maxWidth: 1280 }}>
+        <div className="admin-content-pad" style={{ flex: 1, padding: '1.75rem', maxWidth: 1280 }}>
           {children}
         </div>
       </main>

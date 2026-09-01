@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { supabase } from '../lib/supabase';
+import { DEFAULTS as SETTINGS_DEFAULTS, fetchSiteSettings } from '../lib/siteSettingsDefaults';
 
 /* ── Helper: chip object factory. `key` is the KB entry (or special
    token) this chip navigates to — navigation never depends on the
@@ -530,6 +532,13 @@ export default function Chatbot() {
   const prevLanguageRef = useRef(language);
   const navigate = useNavigate();
 
+  const [settings, setSettings] = useState(SETTINGS_DEFAULTS);
+  useEffect(() => {
+    let cancelled = false;
+    fetchSiteSettings(supabase).then(s => { if (!cancelled) setSettings(s); });
+    return () => { cancelled = true; };
+  }, []);
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
@@ -640,7 +649,7 @@ export default function Chatbot() {
                 return (
                   <div key={msg.id} className="chatbot-whatsapp-card">
                     <p>{t('chat_whatsapp_card_text')}</p>
-                    <a href="https://wa.me/966543188882" target="_blank" rel="noopener noreferrer" className="chatbot-whatsapp-btn">
+                    <a href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="chatbot-whatsapp-btn">
                       <span className="material-icons">chat</span> {language === 'ar' ? WHATSAPP_AR.label : WHATSAPP_EN.label}
                     </a>
                   </div>

@@ -23,12 +23,6 @@ const QUILL_MODULES = {
 const slugify = (text) =>
   text.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
 
-// Estimated reading time in minutes, stored so the blog list needn't fetch full bodies
-const readMinutes = (html) => {
-  const words = (html || '').replace(/<[^>]*>/g, ' ').trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / 200));
-};
-
 const EMPTY = {
   title: '', slug: '', excerpt: '', content: '', cover_image: '', cover_image_alt: '',
   category: '', tags: '', author: 'Albloshi Team', status: 'draft',
@@ -218,7 +212,6 @@ export default function AdminBlogEditor() {
       ...form,
       tags: form.tags ? form.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
       status: publishNow ? 'published' : form.status,
-      read_minutes: readMinutes(form.content),
     };
     if (publishNow && !payload.published_at) payload.published_at = new Date().toISOString();
     payload.updated_at = new Date().toISOString();
@@ -291,7 +284,7 @@ export default function AdminBlogEditor() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '1.25rem', alignItems: 'start' }}>
+        <div className="admin-grid-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '1.25rem', alignItems: 'start' }}>
 
           {/* Main content */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -433,7 +426,7 @@ export default function AdminBlogEditor() {
           </div>
 
           {/* Sidebar settings */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', position: 'sticky', top: 76 }}>
+          <div className="admin-sticky-panel" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', position: 'sticky', top: 76 }}>
 
             {/* Publish settings */}
             <div style={{ background: 'white', borderRadius: 12, padding: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9' }}>
