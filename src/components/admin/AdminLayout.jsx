@@ -25,7 +25,7 @@ const S = {
     boxShadow: '4px 0 20px rgba(0,0,0,0.15)',
   },
   logo: {
-    padding: '1.5rem 1.25rem 1.25rem', borderBottom: '1px solid rgba(255,255,255,0.07)',
+    flexShrink: 0, padding: '1.5rem 1.25rem 1.25rem', borderBottom: '1px solid rgba(255,255,255,0.07)',
     display: 'flex', alignItems: 'center', gap: '0.75rem',
   },
   logoIcon: {
@@ -34,7 +34,7 @@ const S = {
   },
   logoText: { color: 'white', fontWeight: 700, fontSize: '0.95rem', lineHeight: 1.2 },
   logoSub:  { color: 'rgba(255,255,255,0.45)', fontSize: '0.72rem', marginTop: 2 },
-  nav:      { flex: 1, padding: '1rem 0.75rem', display: 'flex', flexDirection: 'column', gap: 4 },
+  nav:      { flex: 1, minHeight: 0, overflowY: 'auto', padding: '1rem 0.75rem', display: 'flex', flexDirection: 'column', gap: 4 },
   navItem: (active) => ({
     display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.65rem 0.9rem',
     borderRadius: 8, textDecoration: 'none', fontSize: '0.875rem', fontWeight: 500,
@@ -43,7 +43,7 @@ const S = {
     color: active ? 'white' : 'rgba(255,255,255,0.6)',
   }),
   footer: {
-    padding: '1rem 0.75rem', borderTop: '1px solid rgba(255,255,255,0.07)',
+    flexShrink: 0, padding: '1rem 0.75rem', borderTop: '1px solid rgba(255,255,255,0.07)',
   },
   userBox: {
     display: 'flex', alignItems: 'center', gap: '0.65rem', padding: '0.6rem 0.9rem',
@@ -132,9 +132,9 @@ export default function AdminLayout({ children, title }) {
       )}
 
       {/* Main content */}
-      <main className="admin-main" style={{ marginLeft: 240, flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh', minWidth: 0 }}>
+      <main className="admin-main" style={{ marginLeft: 240, flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh', minWidth: 0, paddingTop: 60 }}>
         {/* Top bar */}
-        <header style={{ background: 'white', borderBottom: '1px solid #e2e8f0', padding: '0 1.75rem', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 50 }}>
+        <header className="admin-topbar" style={{ background: 'white', borderBottom: '1px solid #e2e8f0', padding: '0 1.75rem', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'fixed', top: 0, left: 240, right: 0, zIndex: 50 }}>
           <div style={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
             <button className="admin-hamburger" onClick={() => setMobileOpen(o => !o)} aria-label="Toggle menu"
               style={{ display: 'none', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, border: '1px solid #e2e8f0', borderRadius: 8, background: 'white', cursor: 'pointer', marginRight: '0.75rem', flexShrink: 0 }}>
@@ -147,6 +147,10 @@ export default function AdminLayout({ children, title }) {
               <span className="material-icons" style={{ fontSize: '0.95rem' }}>open_in_new</span>
               <span className="admin-view-site-label">View Site</span>
             </a>
+            <button onClick={handleLogout} aria-label="Sign out" title="Sign out"
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, border: '1px solid #fecaca', borderRadius: 6, background: '#fef2f2', cursor: 'pointer', color: '#dc2626', flexShrink: 0 }}>
+              <span className="material-icons" style={{ fontSize: '1.05rem' }}>logout</span>
+            </button>
           </div>
         </header>
 

@@ -69,7 +69,7 @@ export default function AdminDashboard() {
         ) : (
           <>
             {/* Stat cards */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.75rem' }}>
+            <div className="admin-stat-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.75rem' }}>
               <StatCard icon="inbox"   label="Total Leads"      value={stats.totalLeads}     sub="All time submissions"  color="#1B5FAF" />
               <StatCard icon="mark_email_unread" label="Unread Leads"  value={stats.newLeads}  sub="Need follow-up"    color="#f59e0b" />
               <StatCard icon="article" label="Published Posts"  value={stats.publishedBlogs} sub="Live on website"       color="#10b981" />
@@ -82,12 +82,13 @@ export default function AdminDashboard() {
               <div style={{ background: 'white', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9', overflow: 'hidden' }}>
                 <div style={{ padding: '1.1rem 1.5rem', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <h2 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f172a', margin: 0 }}>Recent Leads</h2>
-                  <Link to="/admin/leads" style={{ fontSize: '0.8rem', color: '#1B5FAF', textDecoration: 'none', fontWeight: 600 }}>View all →</Link>
+                  <Link to="/admin/leads" style={{ fontSize: '0.8rem', color: '#1B5FAF', textDecoration: 'none', fontWeight: 600 }}>View all</Link>
                 </div>
                 {recentLeads.length === 0 ? (
                   <div style={{ padding: '2.5rem', textAlign: 'center', color: '#94a3b8', fontSize: '0.875rem' }}>No leads yet.</div>
                 ) : (
-                  <div className="admin-table-scroll">
+                  <>
+                  <div className="admin-table-scroll admin-only-desktop">
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
                     <thead>
                       <tr style={{ background: '#f8fafc' }}>
@@ -97,7 +98,7 @@ export default function AdminDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {recentLeads.map((l, i) => (
+                      {recentLeads.map((l) => (
                         <tr key={l.id} style={{ borderTop: '1px solid #f1f5f9', background: !l.read ? '#fafbff' : 'white' }}>
                           <td style={{ padding: '0.75rem 1rem', fontWeight: l.read ? 400 : 600, color: '#0f172a', whiteSpace: 'nowrap' }}>
                             {!l.read && <span style={{ display: 'inline-block', width: 7, height: 7, background: '#1B5FAF', borderRadius: '50%', marginRight: 6, verticalAlign: 'middle' }} />}
@@ -116,6 +117,28 @@ export default function AdminDashboard() {
                     </tbody>
                   </table>
                   </div>
+
+                  <div className="admin-only-mobile">
+                    {recentLeads.map((l) => (
+                      <div key={l.id} style={{ padding: '0.85rem 1.25rem', borderTop: '1px solid #f1f5f9', background: !l.read ? '#fafbff' : 'white' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginBottom: 4 }}>
+                          <div style={{ fontWeight: l.read ? 400 : 600, color: '#0f172a', fontSize: '0.9rem' }}>
+                            {!l.read && <span style={{ display: 'inline-block', width: 7, height: 7, background: '#1B5FAF', borderRadius: '50%', marginRight: 6 }} />}
+                            {l.name}
+                          </div>
+                          <span style={{ ...STATUS_COLORS[l.status ?? 'new'], padding: '2px 8px', borderRadius: 50, fontSize: '0.73rem', fontWeight: 600, flexShrink: 0 }}>
+                            {(l.status ?? 'new').replace('_', ' ')}
+                          </span>
+                        </div>
+                        <div style={{ color: '#475569', fontSize: '0.82rem', wordBreak: 'break-all' }}>{l.email}</div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, color: '#94a3b8', fontSize: '0.78rem' }}>
+                          <span>{l.service ?? '—'}</span>
+                          <span>{fmt(l.created_at)}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  </>
                 )}
               </div>
 
@@ -143,7 +166,7 @@ export default function AdminDashboard() {
                 <div style={{ background: 'white', borderRadius: 12, padding: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.9rem' }}>
                     <h2 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f172a', margin: 0 }}>Recent Posts</h2>
-                    <Link to="/admin/blogs" style={{ fontSize: '0.8rem', color: '#1B5FAF', textDecoration: 'none', fontWeight: 600 }}>View all →</Link>
+                    <Link to="/admin/blogs" style={{ fontSize: '0.8rem', color: '#1B5FAF', textDecoration: 'none', fontWeight: 600 }}>View all</Link>
                   </div>
                   {recentBlogs.length === 0 ? (
                     <p style={{ color: '#94a3b8', fontSize: '0.875rem', margin: 0 }}>No blog posts yet.</p>

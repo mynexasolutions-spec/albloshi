@@ -3,10 +3,24 @@
    so breakpoint behavior lives here as class-based overrides — `!important` is needed
    wherever this has to beat a same-property inline style set for desktop. */
 
+html, body {
+  overflow-x: hidden;
+}
+
+/* Grid/flex items default to min-width:auto, which refuses to shrink below
+   the intrinsic content size (e.g. a long nowrap blog title) — that silently
+   stretches the whole track/row wider than the viewport instead of letting
+   the text-overflow:ellipsis inside it ever kick in. */
+.admin-grid-2col > *,
+.admin-stat-grid > * {
+  min-width: 0;
+}
+
 @media (max-width: 900px) {
   .admin-sidebar {
     transform: translateX(-100%);
     transition: transform 0.25s ease;
+    width: min(240px, 82vw) !important;
   }
   .admin-sidebar.open {
     transform: translateX(0);
@@ -14,14 +28,22 @@
 
   .admin-main {
     margin-left: 0 !important;
+    width: 100%;
   }
 
   .admin-hamburger {
     display: flex !important;
   }
 
+  .admin-topbar {
+    left: 0 !important;
+    padding: 0 1rem !important;
+  }
+
   .admin-content-pad {
     padding: 1rem !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
   }
 
   .admin-view-site-label {
@@ -64,13 +86,36 @@
   }
 }
 
+@media (max-width: 480px) {
+  .admin-topbar {
+    padding: 0 0.75rem !important;
+  }
+  .admin-content-pad {
+    padding: 0.75rem !important;
+  }
+  .admin-stat-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 .admin-table-scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
+.admin-only-mobile {
+  display: none;
+}
+
 @media (max-width: 640px) {
   .admin-table-scroll table {
     min-width: 640px;
+  }
+
+  .admin-only-desktop {
+    display: none !important;
+  }
+  .admin-only-mobile {
+    display: block;
   }
 }
