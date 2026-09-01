@@ -258,8 +258,16 @@ export default function Home() {
             className="large-para"
             style={{ maxWidth: '650px', margin: '0 auto 4rem' }}
             dangerouslySetInnerHTML={{
-              __html: L(content.trusted, 'desc')
-                .replace(/(Saudi Arabia|India|Egypt|المملكة العربية السعودية|الهند|مصر|الخليج العربي|GCC)/g, '<strong style="color: var(--color-primary); font-weight: 700;">$1</strong>')
+              __html: (() => {
+                const words = (content.trusted.highlight_words ?? [])
+                  .map(w => w[language])
+                  .filter(Boolean)
+                  .sort((a, b) => b.length - a.length)
+                  .map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+                const desc = L(content.trusted, 'desc');
+                if (!words.length) return desc;
+                return desc.replace(new RegExp(`(${words.join('|')})`, 'g'), '<strong style="color: var(--color-primary); font-weight: 700;">$1</strong>');
+              })()
             }}
           />
         </div>
@@ -308,7 +316,7 @@ export default function Home() {
             </div>
             <div className="intel-trust-right">
               <span>{L(content.bento, 'partner_label')}</span>
-              <span className="partner-logo-text">TELLABS<br /><small>Intelligent Chemicals</small></span>
+              <span className="partner-logo-text">{L(content.bento, 'partner_brand')}<br /><small>{L(content.bento, 'partner_tagline')}</small></span>
             </div>
           </div>
         </div>

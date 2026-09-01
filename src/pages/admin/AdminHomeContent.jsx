@@ -349,7 +349,7 @@ export default function AdminHomeContent() {
       <>
         <Field label={`Title Line 1 (${lang.toUpperCase()})`}><input dir={lang === 'ar' ? 'rtl' : 'ltr'} value={sec[`title_l1_${lang}`]} onChange={e => setField('trusted', `title_l1_${lang}`, e.target.value)} style={inp()} {...focusHandlers} /></Field>
         <Field label={`Title Line 2 (${lang.toUpperCase()})`}><input dir={lang === 'ar' ? 'rtl' : 'ltr'} value={sec[`title_l2_${lang}`]} onChange={e => setField('trusted', `title_l2_${lang}`, e.target.value)} style={inp()} {...focusHandlers} /></Field>
-        <Field label={`Description (${lang.toUpperCase()})`} hint='Country names (Saudi Arabia, India, Egypt, GCC / equivalents) are auto-bolded on the homepage — no markup needed here.'>
+        <Field label={`Description (${lang.toUpperCase()})`} hint='Any word listed below in "Auto-bold Words" gets highlighted automatically wherever it appears in this text — no markup needed here.'>
           <textarea dir={lang === 'ar' ? 'rtl' : 'ltr'} rows={3} value={sec[`desc_${lang}`]} onChange={e => setField('trusted', `desc_${lang}`, e.target.value)} style={inp({ resize: 'vertical', lineHeight: 1.6 })} {...focusHandlers} />
         </Field>
         <p style={{ fontSize: '0.75rem', color: '#94a3b8' }}>The scrolling client-logo marquee below this text is managed in the separate "Client Logos" section.</p>
@@ -379,9 +379,17 @@ export default function AdminHomeContent() {
         </div>
         <Field label={`Trust Banner Title (${lang.toUpperCase()})`}><input dir={lang === 'ar' ? 'rtl' : 'ltr'} value={sec[`trust_title_${lang}`]} onChange={e => setField('bento', `trust_title_${lang}`, e.target.value)} style={inp()} {...focusHandlers} /></Field>
         <Field label={`Trust Banner Subtitle (${lang.toUpperCase()})`}><input dir={lang === 'ar' ? 'rtl' : 'ltr'} value={sec[`trust_subtitle_${lang}`]} onChange={e => setField('bento', `trust_subtitle_${lang}`, e.target.value)} style={inp()} {...focusHandlers} /></Field>
-        <Field label={`"Our Strategic Partner" Label (${lang.toUpperCase()})`} hint='The TELLABS wordmark next to it is not editable here.'>
+        <Field label={`"Our Strategic Partner" Label (${lang.toUpperCase()})`}>
           <input dir={lang === 'ar' ? 'rtl' : 'ltr'} value={sec[`partner_label_${lang}`]} onChange={e => setField('bento', `partner_label_${lang}`, e.target.value)} style={inp()} {...focusHandlers} />
         </Field>
+        <div style={grid2}>
+          <Field label={`Partner Wordmark — Main Text (${lang.toUpperCase()})`} hint='e.g. "TELLABS"'>
+            <input dir={lang === 'ar' ? 'rtl' : 'ltr'} value={sec[`partner_brand_${lang}`]} onChange={e => setField('bento', `partner_brand_${lang}`, e.target.value)} style={inp()} {...focusHandlers} />
+          </Field>
+          <Field label={`Partner Wordmark — Small Text (${lang.toUpperCase()})`} hint='e.g. "Intelligent Chemicals"'>
+            <input dir={lang === 'ar' ? 'rtl' : 'ltr'} value={sec[`partner_tagline_${lang}`]} onChange={e => setField('bento', `partner_tagline_${lang}`, e.target.value)} style={inp()} {...focusHandlers} />
+          </Field>
+        </div>
       </>
     );
   };
@@ -526,8 +534,26 @@ export default function AdminHomeContent() {
           <p style={{ fontSize: '0.72rem', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 0.75rem' }}>Heading above the logos</p>
           <Field label={`Title Line 1 (${lang.toUpperCase()})`}><input dir={lang === 'ar' ? 'rtl' : 'ltr'} value={trusted[`title_l1_${lang}`]} onChange={e => setField('trusted', `title_l1_${lang}`, e.target.value)} style={inp()} {...focusHandlers} /></Field>
           <Field label={`Title Line 2 (${lang.toUpperCase()})`}><input dir={lang === 'ar' ? 'rtl' : 'ltr'} value={trusted[`title_l2_${lang}`]} onChange={e => setField('trusted', `title_l2_${lang}`, e.target.value)} style={inp()} {...focusHandlers} /></Field>
-          <Field label={`Description (${lang.toUpperCase()})`} hint='Country names (Saudi Arabia, India, Egypt, GCC / equivalents) are auto-bolded on the homepage — no markup needed here.'>
+          <Field label={`Description (${lang.toUpperCase()})`} hint='Any word listed below in "Auto-bold Words" gets highlighted automatically wherever it appears in this text — no markup needed here.'>
             <textarea dir={lang === 'ar' ? 'rtl' : 'ltr'} rows={3} value={trusted[`desc_${lang}`]} onChange={e => setField('trusted', `desc_${lang}`, e.target.value)} style={inp({ resize: 'vertical', lineHeight: 1.6 })} {...focusHandlers} />
+          </Field>
+
+          <Field label="Auto-bold Words" hint='Add any word or phrase here (e.g. a country name) and it will automatically be bolded in blue wherever it appears in the description above, in either language.'>
+            {(trusted.highlight_words ?? []).map((w, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+                <input value={w.en} onChange={e => setSubItemField('trusted', 'highlight_words', i, 'en', e.target.value)} placeholder="English"
+                  style={{ ...inp(), flex: 1, minWidth: 140 }} {...focusHandlers} />
+                <input dir="rtl" value={w.ar} onChange={e => setSubItemField('trusted', 'highlight_words', i, 'ar', e.target.value)} placeholder="Arabic"
+                  style={{ ...inp(), flex: 1, minWidth: 140 }} {...focusHandlers} />
+                <ListItemControls index={i} length={trusted.highlight_words.length}
+                  onMoveUp={() => moveSubItem('trusted', 'highlight_words', i, -1)}
+                  onMoveDown={() => moveSubItem('trusted', 'highlight_words', i, 1)}
+                  onRemove={() => removeSubItem('trusted', 'highlight_words', i)} />
+              </div>
+            ))}
+            <button type="button" style={addBtnStyle} onClick={() => addSubItem('trusted', 'highlight_words', { en: '', ar: '' })}>
+              <span className="material-icons" style={{ fontSize: '1rem' }}>add</span> Add Word to Auto-bold
+            </button>
           </Field>
         </div>
 

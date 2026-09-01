@@ -63,6 +63,12 @@ export const DEFAULTS = {
     title_l2_ar: 'حول العالم',
     desc_en: 'We collaborate with global leaders and trusted organizations across Saudi Arabia, India, Egypt, and the GCC to deliver high-quality solutions and long-term value.',
     desc_ar: 'نتعاون مع قادة عالميين ومؤسسات موثوقة عبر المملكة العربية السعودية، والهند، ومصر، ومنطقة الخليج العربي لتقديم حلول عالية الجودة وقيمة طويلة الأمد.',
+    highlight_words: [
+      { en: 'Saudi Arabia', ar: 'المملكة العربية السعودية' },
+      { en: 'India', ar: 'الهند' },
+      { en: 'Egypt', ar: 'مصر' },
+      { en: 'GCC', ar: 'الخليج العربي' },
+    ],
   },
 
   bento: {
@@ -86,6 +92,10 @@ export const DEFAULTS = {
     trust_subtitle_ar: 'منتجات عالية الجودة. نتائج ثابتة. عمليات أقوى.',
     partner_label_en: 'Our Strategic Partner',
     partner_label_ar: 'شريكنا الاستراتيجي',
+    partner_brand_en: 'TELLABS',
+    partner_brand_ar: 'TELLABS',
+    partner_tagline_en: 'Intelligent Chemicals',
+    partner_tagline_ar: 'كيميائيات ذكية',
   },
 
   verticals: {

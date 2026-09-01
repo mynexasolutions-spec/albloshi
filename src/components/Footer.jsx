@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '../lib/supabase';
-import { DEFAULTS, fetchSiteSettings } from '../lib/siteSettingsDefaults';
+import { DEFAULTS, fetchSiteSettings, BRANDING_DEFAULTS, fetchBranding } from '../lib/siteSettingsDefaults';
 
 export default function Footer() {
   const { t, language } = useLanguage();
@@ -11,9 +11,11 @@ export default function Footer() {
   const hashLink = (hash) => isHome ? hash : `/${hash}`;
 
   const [settings, setSettings] = useState(DEFAULTS);
+  const [branding, setBranding] = useState(BRANDING_DEFAULTS);
   useEffect(() => {
     let cancelled = false;
     fetchSiteSettings(supabase).then(s => { if (!cancelled) setSettings(s); });
+    fetchBranding(supabase).then(b => { if (!cancelled) setBranding(b); });
     return () => { cancelled = true; };
   }, []);
 
@@ -24,7 +26,7 @@ export default function Footer() {
           <div className="footer-grid">
             <div className="footer-col footer-brand">
               <Link to="/" className="logo-container">
-                <img src="/logo-png.png" alt="ALBLOSHI" className="footer-logo" style={{ filter: 'brightness(0) invert(1)' }} />
+                <img src={branding.logo} alt="ALBLOSHI" className="footer-logo" style={{ filter: 'brightness(0) invert(1)' }} />
               </Link>
               <p>{t('footer_desc')}</p>
               <span style={{ fontSize: '0.8rem', color: '#64748B' }}>{t('cr_number')}: {settings.cr_number}</span>

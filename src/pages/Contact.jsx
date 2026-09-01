@@ -8,9 +8,12 @@ import WhatsAppFloat from '../components/WhatsAppFloat';
 import { supabase } from '../lib/supabase';
 import { useLanguage } from '../contexts/LanguageContext';
 import { DEFAULTS as SETTINGS_DEFAULTS, fetchSiteSettings } from '../lib/siteSettingsDefaults';
+import { fetchVerticalContent } from '../lib/verticalContent';
+import { DEFAULTS, SECTIONS } from '../lib/verticalDefaults/contact';
 
 export default function Contact() {
   const { t, language } = useLanguage();
+  const L = (obj, base) => obj[`${base}_${language}`];
   const [form, setForm] = useState({ name: '', email: '', phone: '', service: 'TELLABS Chemicals', message: '' });
   const [submitting, setSubmitting] = useState(false);
 
@@ -18,6 +21,15 @@ export default function Contact() {
   useEffect(() => {
     let cancelled = false;
     fetchSiteSettings(supabase).then(s => { if (!cancelled) setSettings(s); });
+    return () => { cancelled = true; };
+  }, []);
+
+  const [content, setContent] = useState(DEFAULTS);
+  useEffect(() => {
+    let cancelled = false;
+    fetchVerticalContent(supabase, 'contact', DEFAULTS, SECTIONS).then(merged => {
+      if (!cancelled) setContent(merged);
+    });
     return () => { cancelled = true; };
   }, []);
 
@@ -62,10 +74,10 @@ export default function Contact() {
       <Header />
 
       {/* Hero */}
-      <section className="page-hero" style={{ backgroundImage: 'linear-gradient(135deg, rgba(9, 20, 45, 0.90) 0%, rgba(27, 95, 175, 0.75) 100%), url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80)' }}>
+      <section className="page-hero" style={{ backgroundImage: `linear-gradient(135deg, rgba(9, 20, 45, 0.90) 0%, rgba(27, 95, 175, 0.75) 100%), url(${content.hero.image})` }}>
         <div className="container">
-          <h1>{t('contact_hero_title')}</h1>
-          <p>{t('contact_hero_desc')}</p>
+          <h1>{L(content.hero, 'title')}</h1>
+          <p>{L(content.hero, 'desc')}</p>
         </div>
       </section>
 
@@ -75,8 +87,8 @@ export default function Contact() {
         <div className="container">
           <div className="contact-grid">
             <div className="contact-form-container">
-              <h2 className="section-title text-left" style={{ fontSize: '1.6rem', paddingBottom: '1rem', marginBottom: '1.5rem' }}>{t('contact_form_title')}</h2>
-              <p className="large-para" style={{ fontSize: '0.95rem', marginBottom: '2rem' }}>{t('contact_form_desc')}</p>
+              <h2 className="section-title text-left" style={{ fontSize: '1.6rem', paddingBottom: '1rem', marginBottom: '1.5rem' }}>{L(content.form, 'title')}</h2>
+              <p className="large-para" style={{ fontSize: '0.95rem', marginBottom: '2rem' }}>{L(content.form, 'desc')}</p>
               <form id="companyInquiryForm" onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="formName" className="form-label">{t('contact_form_name_label')}</label>
@@ -112,21 +124,21 @@ export default function Contact() {
             </div>
 
             <div className="contact-info-panel">
-              <h2 className="section-title text-left">{t('contact_info_title')}</h2>
-              <p className="large-para">{t('contact_info_desc')}</p>
+              <h2 className="section-title text-left">{L(content.info, 'title')}</h2>
+              <p className="large-para">{L(content.info, 'desc')}</p>
               <div className="contact-card-list">
                 <div className="contact-card-item">
                   <span className="contact-card-icon material-icons">phone_in_talk</span>
                   <div className="contact-card-details">
-                    <h4>{t('contact_card_bd_title')}</h4>
-                    <p>{t('contact_card_bd_name')}</p>
+                    <h4>{L(content.info, 'bd_title')}</h4>
+                    <p>{L(content.info, 'bd_name')}</p>
                     <p>{t('contact_label_mobile_whatsapp')} <a href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" style={{ fontWeight: '700' }}>{settings.phone_display}</a></p>
                   </div>
                 </div>
                 <div className="contact-card-item">
                   <span className="contact-card-icon material-icons">mail_outline</span>
                   <div className="contact-card-details">
-                    <h4>{t('contact_card_sales_title')}</h4>
+                    <h4>{L(content.info, 'sales_title')}</h4>
                     <p>{t('contact_label_email')} <a href={`mailto:${settings.email_admin}`}>{settings.email_admin}</a></p>
                     <p style={{ marginTop: '-0.25rem', marginBottom: '0.5rem' }}><a href={`mailto:${settings.email_sales}`}>{settings.email_sales}</a></p>
                     <p>{t('contact_label_website')} <a href={settings.website} target="_blank" rel="noopener noreferrer">{settings.website.replace(/^https?:\/\//, '')}</a></p>
@@ -135,7 +147,7 @@ export default function Contact() {
                 <div className="contact-card-item">
                   <span className="contact-card-icon material-icons">location_on</span>
                   <div className="contact-card-details">
-                    <h4>{t('contact_card_address_title')}</h4>
+                    <h4>{L(content.info, 'address_title')}</h4>
                     <p>{language === 'ar' ? settings.address_line1_ar : settings.address_line1_en}</p>
                     <p>{language === 'ar' ? settings.address_line2_ar : settings.address_line2_en}</p>
                   </div>
@@ -159,14 +171,14 @@ export default function Contact() {
       {/* Map / Location CTA */}
       <section className="page-cta">
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <h2 className="section-title center" style={{ color: 'white' }}>{t('contact_cta_title')}</h2>
-          <p>{t('contact_cta_desc')}</p>
+          <h2 className="section-title center" style={{ color: 'white' }}>{L(content.cta, 'title')}</h2>
+          <p>{L(content.cta, 'desc')}</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href={`tel:${settings.phone}`} className="btn btn-primary" style={{ background: 'white', color: 'var(--color-primary)', boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }}>
-              {t('contact_cta_call_btn')}
+              {L(content.cta, 'call_btn')} {settings.phone_display}
             </a>
             <a href={`mailto:${settings.email_admin}`} className="btn" style={{ background: 'transparent', color: 'white', border: '2px solid rgba(255,255,255,0.5)' }}>
-              {t('contact_cta_email_btn').replace('admin@albloshi.co', settings.email_admin)}
+              {L(content.cta, 'email_btn')} {settings.email_admin}
             </a>
           </div>
         </div>

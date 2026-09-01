@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabase';
 import { fetchVerticalContent } from '../lib/verticalContent';
 import { DEFAULTS as INDUSTRIAL_DEFAULTS } from '../lib/verticalDefaults/industrial';
 import { DEFAULTS as FOOD_DEFAULTS } from '../lib/verticalDefaults/food';
+import { BRANDING_DEFAULTS, fetchBranding } from '../lib/siteSettingsDefaults';
 
 const INDUSTRIAL_MENU_SECTIONS = ['products'];
 const FOOD_MENU_SECTIONS = ['products'];
@@ -21,6 +22,7 @@ export default function Header() {
 
   const [industrialProducts, setIndustrialProducts] = useState(INDUSTRIAL_DEFAULTS.products);
   const [foodProducts, setFoodProducts] = useState(FOOD_DEFAULTS.products);
+  const [branding, setBranding] = useState(BRANDING_DEFAULTS);
   useEffect(() => {
     let cancelled = false;
     fetchVerticalContent(supabase, 'industrial', INDUSTRIAL_DEFAULTS, INDUSTRIAL_MENU_SECTIONS).then(merged => {
@@ -29,6 +31,7 @@ export default function Header() {
     fetchVerticalContent(supabase, 'food', FOOD_DEFAULTS, FOOD_MENU_SECTIONS).then(merged => {
       if (!cancelled) setFoodProducts(merged.products);
     });
+    fetchBranding(supabase).then(b => { if (!cancelled) setBranding(b); });
     return () => { cancelled = true; };
   }, []);
 
@@ -76,7 +79,7 @@ export default function Header() {
     <header className={`main-header${scrolled ? ' scrolled' : ''}`}>
       <div className="container">
         <Link to="/" className="logo-container">
-          <img src="/logo-png.png" alt="ALBLOSHI" className="nav-logo" />
+          <img src={branding.logo} alt="ALBLOSHI" className="nav-logo" />
         </Link>
 
         <nav className="nav-menu-wrapper" ref={menuRef}>

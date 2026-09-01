@@ -28,3 +28,19 @@ export async function fetchSiteSettings(supabase) {
     return DEFAULTS;
   }
 }
+
+// Site branding (logo) — shared across Header and Footer.
+export const BRANDING_DEFAULTS = {
+  logo: '/logo-png.png',
+};
+
+export async function fetchBranding(supabase) {
+  if (!supabase) return BRANDING_DEFAULTS;
+  try {
+    const { data, error } = await supabase.from('site_settings').select('data').eq('key', 'branding').single();
+    if (error || !data?.data) return BRANDING_DEFAULTS;
+    return { ...BRANDING_DEFAULTS, ...data.data };
+  } catch {
+    return BRANDING_DEFAULTS;
+  }
+}
