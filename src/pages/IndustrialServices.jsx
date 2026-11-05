@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { safeUrl } from '../lib/safeUrl';
+import { cdn } from '../lib/img';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -39,7 +41,7 @@ export default function IndustrialServices() {
       <Header />
 
       {/* Hero */}
-      <section className="page-hero" style={{ backgroundImage: `linear-gradient(135deg, rgba(9, 20, 45, 0.88) 0%, rgba(14, 108, 196, 0.72) 100%), url(${content.hero.image})` }}>
+      <section className="page-hero" style={{ backgroundImage: `linear-gradient(135deg, rgba(9, 20, 45, 0.88) 0%, rgba(14, 108, 196, 0.72) 100%), url(${cdn(content.hero.image, 1600)})` }}>
         <div className="container">
           <h1>{L(content.hero, 'title_l1')}<br />{L(content.hero, 'title_l2')}</h1>
           <p>{L(content.hero, 'desc')}</p>
@@ -71,7 +73,7 @@ export default function IndustrialServices() {
             {content.products.map(p => (
               <div key={p.id} className="product-block" id={p.id}>
                 <div style={{ position: 'relative' }}>
-                  <img src={p.image} alt={L(p, 'title')} className="product-block-img" style={{ aspectRatio: '1/1' }} />
+                  <img src={cdn(p.image, 640)} alt={L(p, 'title')} className="product-block-img" width="640" height="640" loading="lazy" decoding="async" style={{ aspectRatio: '1/1' }} />
                 </div>
                 <div className="product-block-body" style={{ padding: '1.25rem' }}>
                   <span className="product-block-tag">{L(p, 'tag')}</span>
@@ -132,7 +134,7 @@ export default function IndustrialServices() {
               <div key={m.id} className="team-card">
                 <div className="team-img-wrapper">
                   {m.img ? (
-                    <img src={m.img} alt={m.name} className="team-img" style={{ objectFit: 'cover' }} />
+                    <img src={m.img} alt={m.name} className="team-img" width="400" height="400" loading="lazy" decoding="async" style={{ objectFit: 'cover' }} />
                   ) : (
                     <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                       <defs>
@@ -172,8 +174,8 @@ export default function IndustrialServices() {
                 <p>{L(content.cta, 'desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <Link to={content.cta.btn1_href} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
-                <Link to={content.cta.btn2_href} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
+                <Link to={safeUrl(content.cta.btn1_href)} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
+                <Link to={safeUrl(content.cta.btn2_href)} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
               </div>
             </div>
           </div>

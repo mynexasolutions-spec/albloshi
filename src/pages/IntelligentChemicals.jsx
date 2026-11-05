@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { safeUrl } from '../lib/safeUrl';
+import { cdn } from '../lib/img';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -7,6 +9,7 @@ import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '../lib/supabase';
+import { sanitizeHtml } from '../lib/sanitize';
 import { fetchVerticalContent } from '../lib/verticalContent';
 import { DEFAULTS, SECTIONS } from '../lib/verticalDefaults/chemicals';
 
@@ -60,7 +63,7 @@ export default function IntelligentChemicals() {
       <Header />
 
       {/* Hero */}
-      <section className="ic-page-hero" style={{ backgroundImage: `linear-gradient(135deg, rgba(11, 34, 70, 0.9) 0%, rgba(27, 95, 175, 0.8) 100%), url(${content.hero.image})` }}>
+      <section className="ic-page-hero" style={{ backgroundImage: `linear-gradient(135deg, rgba(11, 34, 70, 0.9) 0%, rgba(27, 95, 175, 0.8) 100%), url(${cdn(content.hero.image, 1600)})` }}>
         <div className="container">
           <h1>{L(content.hero, 'title_l1')}<br />{L(content.hero, 'title_l2')}</h1>
           <p>{L(content.hero, 'desc')}</p>
@@ -78,7 +81,7 @@ export default function IntelligentChemicals() {
           {content.solutions.map((sol, i) => (
             <div key={sol.id} id={sol.id} className={`solution-block${i % 2 !== 0 ? ' reverse' : ''}`}>
               <div className="solution-img-col">
-                <img src={sol.image} alt={L(sol, 'title')} />
+                <img src={cdn(sol.image, 800)} alt={L(sol, 'title')} width="800" height="600" loading="lazy" decoding="async" />
               </div>
               <div className="solution-content-col">
                 <h2>{L(sol, 'title')}</h2>
@@ -86,10 +89,10 @@ export default function IntelligentChemicals() {
                 <div className="solution-lists">
                   {(sol[`lists_${language}`] ?? []).map((list, li) => (
                     <div key={li} className="solution-list">
-                      <h4>{list.heading}</h4>
+                      <h3>{list.heading}</h3>
                       <ul>
                         {list.items.map((item, ii) => (
-                          <li key={ii} dangerouslySetInnerHTML={{ __html: item.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+                          <li key={ii} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')) }} />
                         ))}
                       </ul>
                     </div>
@@ -146,7 +149,7 @@ export default function IntelligentChemicals() {
               <div key={m.id} className="team-card">
                 <div className="team-img-wrapper">
                   {m.img ? (
-                    <img src={m.img} alt={m.nameKey ? t(m.nameKey) : m.name} className="team-img" style={{ objectFit: 'cover' }} />
+                    <img src={m.img} alt={m.nameKey ? t(m.nameKey) : m.name} className="team-img" width="400" height="400" loading="lazy" decoding="async" style={{ objectFit: 'cover' }} />
                   ) : (
                     <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                       <defs>
@@ -186,8 +189,8 @@ export default function IntelligentChemicals() {
                 <p>{L(content.cta, 'desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <Link to={content.cta.btn1_href} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
-                <Link to={content.cta.btn2_href} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
+                <Link to={safeUrl(content.cta.btn1_href)} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
+                <Link to={safeUrl(content.cta.btn2_href)} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
               </div>
             </div>
           </div>

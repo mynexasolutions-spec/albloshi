@@ -1,0 +1,120 @@
+/* ==========================================================================
+   AD LANDING PAGES (/lp/*) - visual polish. Loaded last, so it refines the base .lp-* rules in legal.css.
+   Uses logical properties (margin-inline, inset-inline...) so Arabic (RTL) mirrors automatically.
+   ========================================================================== */
+
+/* ---------- Hero ---------- */
+.lp-hero { padding-bottom: 5.5rem; }
+.lp-copy h1 { letter-spacing: -0.01em; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35); }
+.lp-eyebrow { backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.22); letter-spacing: 0.04em; }
+.lp-bullets { gap: 0.9rem; margin-top: 0.25rem; }
+.lp-bullets li { font-size: 1.02rem; }
+.lp-bullets .material-icons { font-size: 1.4rem; }
+
+/* ---------- Form card ---------- */
+.lp-card {
+    padding: 2rem 1.75rem 1.5rem;
+    border-radius: 20px;
+    border-top: 5px solid var(--color-primary);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+    scroll-margin-top: 90px;
+}
+.lp-card h2 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+.lp-card-sub { color: #64748b; font-size: 0.92rem; margin: 0 0 1.25rem; }
+.lp-card .form-input, .lp-card .form-textarea { border-radius: 10px; }
+.lp-card .form-input:focus, .lp-card .form-textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(27, 95, 175, 0.18); }
+.lp-card .btn.btn-primary { padding: 0.95rem 1.25rem; font-size: 1.05rem; border-radius: 12px; box-shadow: 0 10px 24px rgba(27, 95, 175, 0.35); }
+.lp-privacy-note { display: flex; align-items: center; gap: 0.35rem; justify-content: center; color: #64748b; font-size: 0.8rem; margin: 0.75rem 0 0; }
+.lp-privacy-note .material-icons { font-size: 1rem; color: #16a34a; }
+.lp-or { display: flex; align-items: center; gap: 0.75rem; color: #94a3b8; font-size: 0.8rem; margin: 1rem 0 0.75rem; }
+.lp-or::before, .lp-or::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
+.lp-alt-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.lp-alt {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; min-height: 46px;
+    border-radius: 12px; font-weight: 700; font-size: 0.92rem; text-decoration: none; border: 1.5px solid #cbd5e1; color: #0f172a; background: #fff;
+}
+.lp-alt .material-icons { font-size: 1.2rem; }
+.lp-alt-call:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.lp-alt-wa { border-color: #22c55e; color: #15803d; }
+.lp-alt-wa:hover { background: #f0fdf4; }
+
+/* ---------- Trust numbers (overlap the hero's bottom edge) ---------- */
+.lp-stats { margin-top: -3rem; position: relative; z-index: 2; }
+.lp-stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; border-radius: 18px; overflow: hidden;
+    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.14);
+}
+.lp-stat { padding: 1.5rem 1rem; text-align: center; border-inline-end: 1px solid #eef2f7; }
+.lp-stat:last-child { border-inline-end: 0; }
+.lp-stat strong { display: block; font-size: 2rem; line-height: 1.1; color: var(--color-primary); font-weight: 800; }
+.lp-stat span { display: block; margin-top: 0.35rem; color: #475569; font-size: 0.88rem; line-height: 1.35; }
+
+/* ---------- Sections ---------- */
+.lp-how { padding: 4rem 0 1rem; }
+.lp-h2 { text-align: center; font-size: clamp(1.5rem, 3vw, 2rem); padding-bottom: 0; margin-bottom: 2rem; }
+
+.lp-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; counter-reset: none; }
+.lp-steps li { position: relative; background: #fff; border: 1px solid #e8edf3; border-radius: 16px; padding: 2.25rem 1.5rem 1.5rem; text-align: center; box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05); }
+.lp-step-n {
+    position: absolute; top: -20px; inset-inline-start: 50%; transform: translateX(-50%);
+    width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--color-primary), #0b2246); color: #fff; font-weight: 800; box-shadow: 0 6px 16px rgba(27, 95, 175, 0.35);
+}
+[dir="rtl"] .lp-step-n { transform: translateX(50%); }
+.lp-steps h3 { font-size: 1.15rem; margin: 0.25rem 0 0.4rem; }
+.lp-steps p { color: #475569; margin: 0; line-height: 1.55; }
+
+/* ---------- Final call to action ---------- */
+.lp-final { margin-top: 4rem; padding: 3.5rem 0; text-align: center; color: #fff; background: linear-gradient(135deg, #0b2246 0%, var(--color-primary) 100%); }
+.lp-final h2 { color: #fff; font-size: clamp(1.5rem, 3vw, 2.1rem); padding-bottom: 0; margin-bottom: 0.5rem; }
+.lp-final p { color: rgba(255, 255, 255, 0.85); margin: 0 auto 1.5rem; max-width: 560px; }
+.lp-final-actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; }
+.lp-final-quote { background: #fff; color: #0b2246; font-weight: 800; border: none; border-radius: 12px; padding: 0.95rem 2rem; min-height: 48px; text-decoration: none; }
+.lp-final-quote:hover { background: #e8f1fb; }
+.lp-final-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #fff; font-weight: 700; text-decoration: none; min-height: 48px; }
+
+/* ---------- Phone bottom bar ---------- */
+.lp-bar { display: none; }
+@media (max-width: 768px) {
+    .lp-bar {
+        display: grid; grid-template-columns: 1fr 1fr 1.3fr; position: fixed; inset-inline: 0; bottom: 0; z-index: 950;
+        background: #fff; border-top: 1px solid #e2e8f0; box-shadow: 0 -6px 20px rgba(15, 23, 42, 0.12);
+        padding: 0.4rem 0.5rem calc(0.4rem + env(safe-area-inset-bottom)); gap: 0.4rem;
+    }
+    .lp-bar a {
+        display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 52px;
+        border-radius: 12px; font-size: 0.74rem; font-weight: 700; color: #0f172a; text-decoration: none; background: #f1f5f9;
+    }
+    .lp-bar .material-icons { font-size: 1.35rem; }
+    .lp-bar a:nth-child(2) { color: #15803d; background: #f0fdf4; }
+    .lp-bar .lp-bar-quote { background: var(--color-primary); color: #fff; }
+    /* room for the bar so it never covers the footer; cookie banner sits above it */
+    body:has(.lp) { padding-bottom: 72px; }
+    body:has(.lp) .cookie-banner { bottom: 80px; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .lp-stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .lp-stat:nth-child(2) { border-inline-end: 0; }
+    .lp-stat:nth-child(-n+2) { border-bottom: 1px solid #eef2f7; }
+    .lp-steps { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 600px) {
+    .lp-hero { padding-top: 2rem; padding-bottom: 4.5rem; }
+    .lp-card { padding: 1.5rem 1.15rem 1.15rem; }
+    .lp-stat strong { font-size: 1.6rem; }
+    .lp-stat { padding: 1.1rem 0.6rem; }
+    .lp-final { margin-top: 3rem; padding: 2.75rem 0; }
+}
+
+/* ---------- Layout polish ---------- */
+/* The site-wide .container has only 0.5rem side padding; landing pages get more breathing room. */
+.lp .container { padding-inline: 1rem; }
+@media (min-width: 901px) {
+    .lp .container { padding-inline: 2rem; }
+    .lp-grid { align-items: start; }
+    .lp-copy { padding-top: 1.5rem; }   /* headline stays near the top, in view without scrolling */
+}
+/* Phone numbers keep their left-to-right digit order inside Arabic (RTL) text */
+.lp bdi[dir="ltr"] { unicode-bidi: isolate; direction: ltr; }

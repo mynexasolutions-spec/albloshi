@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { safeUrl } from '../lib/safeUrl';
+import { Link } from 'react-router-dom';
+import { cdn } from '../lib/img';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import Header from '../components/Header';
@@ -7,6 +10,8 @@ import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { supabase } from '../lib/supabase';
 import { useLanguage } from '../contexts/LanguageContext';
+import { submitLead } from '../lib/submitLead';
+import Captcha from '../components/Captcha';
 import { DEFAULTS as SETTINGS_DEFAULTS, fetchSiteSettings } from '../lib/siteSettingsDefaults';
 import { fetchVerticalContent } from '../lib/verticalContent';
 import { DEFAULTS, SECTIONS } from '../lib/verticalDefaults/contact';
@@ -14,8 +19,13 @@ import { DEFAULTS, SECTIONS } from '../lib/verticalDefaults/contact';
 export default function Contact() {
   const { t, language } = useLanguage();
   const L = (obj, base) => obj[`${base}_${language}`];
-  const [form, setForm] = useState({ name: '', email: '', phone: '', service: 'TELLABS Chemicals', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', service: 'TELLABS Chemicals', message: '', website: '' });
   const [submitting, setSubmitting] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [token, setToken] = useState('');
+  const [captchaRequired, setCaptchaRequired] = useState(false);
+  const [resetKey, setResetKey] = useState(0);
+  const startedAt = useRef(Date.now());
 
   const [settings, setSettings] = useState(SETTINGS_DEFAULTS);
   useEffect(() => {
@@ -39,28 +49,21 @@ export default function Contact() {
       toast.error(t('contact_toast_required'));
       return;
     }
+    if (!consent) { toast.error(t('consent_required')); return; }
+    if (captchaRequired && !token) { toast.error(t('captcha_required')); return; }
     setSubmitting(true);
     try {
-      if (supabase) {
-        const { error } = await supabase.from('leads').insert([{
-          name:    form.name,
-          email:   form.email,
-          phone:   form.phone,
-          service: form.service,
-          message: form.message,
-          status:  'new',
-          read:    false,
-          source:  'contact_form',
-        }]);
-        if (error) throw error;
-      }
+      await submitLead({ ...form, source: 'contact_form', captchaToken: token, startedAt: startedAt.current });
       toast.success(t('contact_toast_success').replace('{name}', form.name));
-      setForm({ name: '', email: '', phone: '', service: 'TELLABS Chemicals', message: '' });
+      setForm({ name: '', email: '', phone: '', service: 'TELLABS Chemicals', message: '', website: '' });
+      setConsent(false);
+      startedAt.current = Date.now();
     } catch (err) {
       console.error('Contact form error:', err);
       const msg = err?.message || err?.details || t('contact_toast_error_default');
       toast.error(msg, { duration: 8000 });
     }
+    setResetKey(k => k + 1);
     setSubmitting(false);
   };
 
@@ -74,7 +77,7 @@ export default function Contact() {
       <Header />
 
       {/* Hero */}
-      <section className="page-hero" style={{ backgroundImage: `linear-gradient(135deg, rgba(9, 20, 45, 0.90) 0%, rgba(27, 95, 175, 0.75) 100%), url(${content.hero.image})` }}>
+      <section className="page-hero" style={{ backgroundImage: `linear-gradient(135deg, rgba(9, 20, 45, 0.90) 0%, rgba(27, 95, 175, 0.75) 100%), url(${cdn(content.hero.image, 1600)})` }}>
         <div className="container">
           <h1>{L(content.hero, 'title')}</h1>
           <p>{L(content.hero, 'desc')}</p>
@@ -117,6 +120,15 @@ export default function Contact() {
                   <label htmlFor="formMessage" className="form-label">{t('contact_form_message_label')}</label>
                   <textarea id="formMessage" className="form-textarea" placeholder={t('contact_form_message_placeholder')} value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))}></textarea>
                 </div>
+                <label className="consent-check">
+                  <input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} required />
+                  <span>{t('consent_prefix')}<Link to="/privacy-policy" target="_blank">{t('privacy_policy')}</Link>{t('consent_suffix')}</span>
+                </label>
+                <Captcha onToken={setToken} onRequired={setCaptchaRequired} resetKey={resetKey} />
+                {/* Honeypot: hidden from people, bots fill it */}
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true"
+                  className="hp-field"
+                  value={form.website} onChange={e => setForm(f => ({ ...f, website: e.target.value }))} />
                 <button type="submit" className="btn btn-primary" style={{ width: '100%', border: 'none' }} disabled={submitting}>
                   {submitting ? t('contact_form_submitting') : t('contact_form_submit')}
                 </button>
@@ -130,7 +142,7 @@ export default function Contact() {
                 <div className="contact-card-item">
                   <span className="contact-card-icon material-icons">phone_in_talk</span>
                   <div className="contact-card-details">
-                    <h4>{L(content.info, 'bd_title')}</h4>
+                    <h3>{L(content.info, 'bd_title')}</h3>
                     <p>{L(content.info, 'bd_name')}</p>
                     <p>{t('contact_label_mobile_whatsapp')} <a href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" style={{ fontWeight: '700' }}>{settings.phone_display}</a></p>
                   </div>
@@ -138,16 +150,16 @@ export default function Contact() {
                 <div className="contact-card-item">
                   <span className="contact-card-icon material-icons">mail_outline</span>
                   <div className="contact-card-details">
-                    <h4>{L(content.info, 'sales_title')}</h4>
+                    <h3>{L(content.info, 'sales_title')}</h3>
                     <p>{t('contact_label_email')} <a href={`mailto:${settings.email_admin}`}>{settings.email_admin}</a></p>
                     <p style={{ marginTop: '-0.25rem', marginBottom: '0.5rem' }}><a href={`mailto:${settings.email_sales}`}>{settings.email_sales}</a></p>
-                    <p>{t('contact_label_website')} <a href={settings.website} target="_blank" rel="noopener noreferrer">{settings.website.replace(/^https?:\/\//, '')}</a></p>
+                    <p>{t('contact_label_website')} <a href={safeUrl(settings.website)} target="_blank" rel="noopener noreferrer">{settings.website.replace(/^https?:\/\//, '')}</a></p>
                   </div>
                 </div>
                 <div className="contact-card-item">
                   <span className="contact-card-icon material-icons">location_on</span>
                   <div className="contact-card-details">
-                    <h4>{L(content.info, 'address_title')}</h4>
+                    <h3>{L(content.info, 'address_title')}</h3>
                     <p>{language === 'ar' ? settings.address_line1_ar : settings.address_line1_en}</p>
                     <p>{language === 'ar' ? settings.address_line2_ar : settings.address_line2_en}</p>
                   </div>

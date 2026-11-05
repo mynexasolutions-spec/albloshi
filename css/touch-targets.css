@@ -1,0 +1,73 @@
+/* ==========================================================================
+   TOUCH TARGETS - every tappable control is at least 44x44 CSS px
+   (Lighthouse / WCAG 2.5.8 recommend 48px, minimum 44px). Loaded last on purpose.
+   ========================================================================== */
+.btn,
+.lang-switch-btn,
+.nav-link,
+.dropdown-item,
+.chatbot-chip,
+.mfb-item {
+    min-height: 44px;
+}
+
+.lang-switch-btn { height: 44px; }
+
+/* Hamburger: 44x44 hit box, bars re-centred inside it */
+.mobile-nav-toggle { width: 44px; height: 44px; }
+.mobile-nav-toggle span { left: 7px; width: 30px; }
+.mobile-nav-toggle span:nth-child(1) { top: 10px; }
+.mobile-nav-toggle span:nth-child(2) { top: 20px; }
+.mobile-nav-toggle span:nth-child(3) { top: 30px; }
+.mobile-nav-toggle.open span:nth-child(1),
+.mobile-nav-toggle.open span:nth-child(3) { top: 20px; }
+
+.mobile-submenu-toggle-btn { min-width: 44px; min-height: 44px; }
+
+.chatbot-close { min-width: 44px; min-height: 44px; }
+
+/* Footer links */
+.footer-links li { margin-bottom: 0; }
+.footer-links a,
+.footer-bottom-links a,
+.footer-contact-text a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+}
+
+/* Slider dots: visual size unchanged, hit area 44px (padding is transparent via background-clip) */
+.slider-dots { gap: 0; }
+.dot {
+    box-sizing: content-box;
+    padding: 16px;
+    background-clip: content-box;
+    box-shadow: none;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+}
+
+.reviews-dots { gap: 0; }
+.reviews-dot {
+    box-sizing: content-box;
+    padding: 18px;
+    background-clip: content-box;
+}
+
+/* Product-page action buttons and blog category filters were 38px tall */
+.product-block-btn,
+.blog-filter-pill { min-height: 44px; }
+
+/* Contact page: email / website links sit on their own lines inside the info cards */
+.contact-card-details a,
+.contact-meta-grid a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+}
+
+/* "Privacy Policy" link inside the consent checkbox label: bigger hit area, layout unchanged (negative margin cancels the padding) */
+.consent-check a {
+    display: inline-block;
+    padding: 13px 0;
+    margin: -13px 0;
+}

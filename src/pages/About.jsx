@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { safeUrl } from '../lib/safeUrl';
+import { cdn } from '../lib/img';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -68,7 +70,7 @@ export default function About() {
       <Header />
 
       {/* Hero */}
-      <section className="about-page-hero" style={{ backgroundImage: `url('${content.hero.image}')` }}>
+      <section className="about-page-hero" style={{ backgroundImage: `url('${cdn(content.hero.image, 1600)}')` }}>
         <div className="about-page-hero-overlay"></div>
         <div className="container">
           <div className="about-page-hero-content">
@@ -98,7 +100,7 @@ export default function About() {
           <div className="about-story-grid">
             <div className="about-story-img-col about-reveal">
               <div className="about-story-img-wrapper">
-                <img src={content.story.image} alt="Albloshi industrial supply" />
+                <img src={cdn(content.story.image, 900)} alt="Albloshi industrial supply" width="900" height="600" loading="lazy" decoding="async" />
                 <div className="about-story-badge">
                   <span className="material-icons">verified</span>
                   <div>
@@ -131,17 +133,17 @@ export default function About() {
           <div className="about-mv-grid">
             <div className="about-mv-card about-reveal">
               <div className="about-mv-icon"><span className="material-icons">flag</span></div>
-              <h3>{L(content.mv, 'mission_title')}</h3>
+              <h2>{L(content.mv, 'mission_title')}</h2>
               <p>{L(content.mv, 'mission_desc')}</p>
             </div>
             <div className="about-mv-card about-mv-card--vision about-reveal">
               <div className="about-mv-icon"><span className="material-icons">visibility</span></div>
-              <h3>{L(content.mv, 'vision_title')}</h3>
+              <h2>{L(content.mv, 'vision_title')}</h2>
               <p>{L(content.mv, 'vision_desc')}</p>
             </div>
             <div className="about-mv-card about-reveal">
               <div className="about-mv-icon"><span className="material-icons">star</span></div>
-              <h3>{L(content.mv, 'promise_title')}</h3>
+              <h2>{L(content.mv, 'promise_title')}</h2>
               <p>{L(content.mv, 'promise_desc')}</p>
             </div>
           </div>
@@ -160,7 +162,7 @@ export default function About() {
             {content.values.items.map((v, i) => (
               <div key={i} className="about-value-card about-reveal">
                 <div className="about-value-icon"><span className="material-icons">{v.icon}</span></div>
-                <h4>{L(v, 'title')}</h4>
+                <h3>{L(v, 'title')}</h3>
                 <p>{L(v, 'desc')}</p>
               </div>
             ))}
@@ -221,7 +223,7 @@ export default function About() {
               <div key={m.id} className="team-card">
                 <div className="team-img-wrapper">
                   {m.image ? (
-                    <img src={m.image} alt={L(m, 'name')} className="team-img" style={{ objectFit: 'cover' }} />
+                    <img src={cdn(m.image, 400)} alt={L(m, 'name')} className="team-img" width="400" height="400" loading="lazy" decoding="async" style={{ objectFit: 'cover' }} />
                   ) : (
                     <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                       <defs>
@@ -257,13 +259,13 @@ export default function About() {
           <h2 className="section-title center text-white" style={{ marginBottom: '1rem' }}>{L(content.network, 'title')}</h2>
           <p className="large-para text-white-80" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>{L(content.network, 'desc')}</p>
           <div className="network-interactive-map">
-            <img src={content.network.map_image} alt="Distribution Map" className="network-map-bg" />
+            <img src={cdn(content.network.map_image, 1400)} alt="Distribution Map" className="network-map-bg" width="1400" height="700" loading="lazy" decoding="async" />
             <div className="map-overlay-dark"></div>
             {content.network.cards.map((c, i) => (
               <div key={c.position_class ?? i} className={`map-floating-card ${c.position_class}`}>
                 <div className="pulse-dot"></div>
                 <div className="card-content glass-card-dark">
-                  <h4>{L(c, 'title')}</h4>
+                  <h3>{L(c, 'title')}</h3>
                   <span>{L(c, 'sub')}</span>
                 </div>
               </div>
@@ -282,8 +284,8 @@ export default function About() {
                 <p>{L(content.cta, 'desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <Link to={content.cta.btn1_href} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
-                <Link to={content.cta.btn2_href} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
+                <Link to={safeUrl(content.cta.btn1_href)} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
+                <Link to={safeUrl(content.cta.btn2_href)} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
               </div>
             </div>
           </div>

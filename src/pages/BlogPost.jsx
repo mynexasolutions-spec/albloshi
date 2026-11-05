@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { cdn } from '../lib/img';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
@@ -7,17 +8,15 @@ import Footer from '../components/Footer';
 import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { supabase } from '../lib/supabase';
+import { sanitizeHtml } from '../lib/sanitize';
 import { useLanguage } from '../contexts/LanguageContext';
 
-const SITE_URL = 'https://albloshi.co';
+const SITE_URL = 'https://www.albloshi.co';
 
 const fmt = (iso, language) =>
   new Date(iso).toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
 
-const optimizeImgUrl = (url) => {
-  if (!url || !url.includes('/upload/')) return url;
-  return url.replace('/upload/', '/upload/f_auto,q_auto/');
-};
+const optimizeImgUrl = (url) => cdn(url, 1200);
 
 const readTime = (html) => {
   const words = (html || '').replace(/<[^>]*>/g, ' ').trim().split(/\s+/).filter(Boolean).length;
@@ -107,7 +106,7 @@ export default function BlogPost() {
       <Header />
       <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
         <span className="material-icons" style={{ fontSize: '3rem', color: '#cbd5e1' }}>article</span>
-        <h2 style={{ color: '#0f172a', fontSize: '1.4rem', fontWeight: 700 }}>{t('bp_not_found')}</h2>
+        <h1 style={{ color: '#0f172a', fontSize: '1.4rem', fontWeight: 700 }}>{t('bp_not_found')}</h1>
         <Link to="/blog" style={{ color: '#1B5FAF', fontWeight: 600 }}>{t('bp_back_to_blog_arrow')}</Link>
       </div>
       <Footer />
@@ -189,7 +188,7 @@ export default function BlogPost() {
           {/* Cover image — shown in full, never cropped */}
           {coverImage && (
             <div className="bp-card-img-wrap">
-              <img src={optimizeImgUrl(coverImage)} alt={coverAlt} />
+              <img src={optimizeImgUrl(coverImage)} alt={coverAlt} width="1200" height="675" fetchpriority="high" />
             </div>
           )}
 
@@ -220,7 +219,7 @@ export default function BlogPost() {
           {excerpt && <p className="bp-lede">{excerpt}</p>}
 
           {/* Content */}
-          <div className="blog-post-content" dangerouslySetInnerHTML={{ __html: content || '' }} />
+          <div className="blog-post-content" dangerouslySetInnerHTML={{ __html: sanitizeHtml(content) }} />
 
           {/* Back link */}
           <div className="bp-backlink">
@@ -242,9 +241,10 @@ export default function BlogPost() {
                 <article key={r.id} className="blog-card">
                   <Link to={`/blog/${r.slug}`} className="blog-card-img-wrapper">
                     <img
-                      src={L(r, 'cover_image', language) || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80'}
+                      src={cdn(L(r, 'cover_image', language), 700) || 'https://res.cloudinary.com/dut8h8mt3/image/upload/f_auto,q_auto,c_limit,w_600/v1793904610/albloshi/stock/blog-fallback.jpg'}
                       alt={L(r, 'cover_image_alt', language) || L(r, 'title', language)}
                       className="blog-card-img"
+                      width="700" height="440" loading="lazy" decoding="async"
                     />
                     {r.category && <span className="blog-card-tag">{r.category}</span>}
                   </Link>

@@ -7,7 +7,7 @@
 .ic-page-hero {
     position: relative;
     padding: 9rem 0 6rem;
-    background-image: linear-gradient(135deg, rgba(11, 34, 70, 0.9) 0%, rgba(27, 95, 175, 0.8) 100%), url('https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=1920&q=80');
+    background-image: linear-gradient(135deg, rgba(11, 34, 70, 0.9) 0%, rgba(27, 95, 175, 0.8) 100%), url('https://res.cloudinary.com/dut8h8mt3/image/upload/f_auto,q_auto,c_limit,w_1200/v1793904603/albloshi/stock/partners-bg.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -38,6 +38,7 @@
 .solution-content-col h2::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 60px; height: 4px; background: var(--color-primary); border-radius: 2px; }
 .solution-content-col > p { font-size: 1.05rem; line-height: 1.7; color: var(--color-body); margin-bottom: 2rem; margin-top: 2rem; }
 .solution-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.solution-list h3 {  font-size: 1.1rem; color: var(--color-primary); margin-bottom: 1rem; font-weight: 500; }
 .solution-list h4 { font-size: 1.1rem; color: var(--color-primary); margin-bottom: 1rem; font-weight: 500; }
 .solution-list ul { list-style: none; padding: 0; margin: 0; }
 .solution-list ul li { position: relative; padding-left: 1.5rem; margin-bottom: 0.8rem; color: var(--color-body); font-size: 0.95rem; }
@@ -107,6 +108,7 @@
 .product-block-img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
 .product-block-body { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
 .product-block-tag { display: inline-block; background: var(--color-accent-light); color: var(--color-primary); font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 50px; margin-bottom: 0.85rem; }
+.product-block-body h2 { font-size: 1.4rem; font-weight: 700; color: var(--color-dark); margin-bottom: 0.75rem; padding-bottom: 0; }
 .product-block-body h3 { font-size: 1.4rem; font-weight: 700; color: var(--color-dark); margin-bottom: 0.75rem; }
 .product-block-body p { font-size: 0.97rem; line-height: 1.7; color: var(--color-body); margin-bottom: 1.5rem; flex: 1; }
 .product-block-specs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; }
@@ -165,7 +167,7 @@
 /* Hero */
 .about-page-hero {
     position: relative;
-    background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1920&q=80');
+    background-image: url('https://res.cloudinary.com/dut8h8mt3/image/upload/f_auto,q_auto,c_limit,w_1200/v1793904605/albloshi/stock/pages-bg.jpg');
     background-size: cover;
     background-position: center;
     padding: 9rem 0 6rem;
@@ -337,7 +339,9 @@
     color: white;
     font-size: 1.6rem;
 }
-.about-mv-card h3 {
+.about-mv-card h3,
+.about-mv-card h2 {
+    padding-bottom: 0;
     color: white;
     font-size: 1.35rem;
     margin-bottom: 1rem;
@@ -382,7 +386,8 @@
     color: var(--color-primary);
     font-size: 1.5rem;
 }
-.about-value-card h4 {
+.about-value-card h4,
+.about-value-card h3 {
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--color-dark);

@@ -135,7 +135,7 @@ function CoverImageField({ value, alt, onChangeAlt, onUpload, onRemove, showToas
               <p style={{ color: '#94a3b8', fontSize: '0.72rem', margin: 0 }}>PNG, JPG, WebP — max 10 MB</p>
               {!cloudinaryConfigured && (
                 <p style={{ color: '#ef4444', fontSize: '0.7rem', marginTop: '0.5rem', fontWeight: 600 }}>
-                  ⚠ Add VITE_CLOUDINARY_UPLOAD_PRESET to .env
+                  ⚠ Supabase is not configured — uploads are disabled
                 </p>
               )}
             </>
@@ -361,7 +361,7 @@ export default function AdminBlogEditor() {
                         {form.seo_title || form.title || 'Post Title'}
                       </div>
                       <div style={{ fontSize: '0.75rem', color: '#006621', marginBottom: '2px' }}>
-                        albloshi.co/blog/{form.slug || 'post-url'}
+                        www.albloshi.co/blog/{form.slug || 'post-url'}
                       </div>
                       <div style={{ fontSize: '0.82rem', color: '#545454', lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                         {form.seo_description || form.excerpt || 'Meta description will appear here…'}

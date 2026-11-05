@@ -1,0 +1,30 @@
+# ALBLOSHI - Mohammed Abdullah Al Bloshi Co.
+
+> Multi-industry Saudi company established in 2017 and based in Dammam, Eastern Province, Saudi Arabia. It supplies intelligent chemicals (exclusive TELLABS distributor for KSA and UAE), industrial materials, food products and manpower to businesses across the Kingdom.
+
+This site is bilingual (English and Arabic). Product and service information is general guidance; prices, availability and certifications are confirmed only in a written quotation. Use the contact page to send an inquiry.
+
+## Business divisions
+
+- [Intelligent Chemicals](https://www.albloshi.co/intelligent-chemicals): Industrial water treatment, polymers, defoamers, fuel additives, activated carbon and cleaning chemicals.
+- [TELLABS Chemicals](https://www.albloshi.co/tellabs-chemicals): TELLABS specialty chemicals, distributed exclusively in KSA and UAE.
+- [Industrial Materials](https://www.albloshi.co/industrial-services): Piping systems, flow control, electrical infrastructure and safety materials.
+- [Food Distribution](https://www.albloshi.co/food-services): Wholesale food supply for retailers, hotels, restaurants and caterers.
+- [Rice Products](https://www.albloshi.co/rice-products): Basmati rice supply.
+- [Oil Products](https://www.albloshi.co/oil-products): Refined palm cooking oil.
+- [Manpower Supply](https://www.albloshi.co/manpower-supply): Skilled and general industrial workforce.
+
+## Company
+
+- [About us](https://www.albloshi.co/about): Company background, mission, vision and team.
+- [Blog](https://www.albloshi.co/blog): Articles on sourcing, chemicals, food distribution and manpower in Saudi Arabia.
+- [Contact](https://www.albloshi.co/contact): Inquiry form, phone, email and office address.
+
+## Legal
+
+- [Privacy Policy](https://www.albloshi.co/privacy-policy): How personal data submitted through the site is used.
+- [Terms of Service](https://www.albloshi.co/terms): Terms for using the website.
+
+## Optional
+
+- [Sitemap](https://www.albloshi.co/sitemap.xml): All public pages and blog posts.

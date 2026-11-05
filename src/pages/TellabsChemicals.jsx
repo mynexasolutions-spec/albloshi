@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { safeUrl } from '../lib/safeUrl';
+import { cdn } from '../lib/img';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -34,7 +36,7 @@ export default function TellabsChemicals() {
 
       {/* Hero */}
       <section className="page-hero tellabs-hero" style={{
-        backgroundImage: `linear-gradient(135deg, rgba(5,25,55,0.9) 0%, rgba(14,108,196,0.75) 100%), url('${content.hero.image}')`
+        backgroundImage: `linear-gradient(135deg, rgba(5,25,55,0.9) 0%, rgba(14,108,196,0.75) 100%), url('${cdn(content.hero.image, 1600)}')`
       }}>
         <div className="container">
           <h1>{L(content.hero, 'title')}</h1>
@@ -122,7 +124,7 @@ export default function TellabsChemicals() {
           <div className="tc-collab-grid">
             {content.collaborators.items.map((collab, i) => (
               <div key={i} style={{ background: 'var(--color-light)', padding: '2rem', borderRadius: '16px', border: '1px solid var(--color-border)' }}>
-                <h4 style={{ color: 'var(--color-dark)', fontWeight: 700, fontSize: 'clamp(1.1rem, 2vw, 1.22rem)', marginBottom: '0.5rem' }}>{collab.name}</h4>
+                <h3 style={{ color: 'var(--color-dark)', fontWeight: 700, fontSize: 'clamp(1.1rem, 2vw, 1.22rem)', marginBottom: '0.5rem' }}>{collab.name}</h3>
                 <p className="large-para" style={{ margin: 0 }}>{L(collab, 'specialty')}</p>
               </div>
             ))}
@@ -179,8 +181,8 @@ export default function TellabsChemicals() {
                 <p>{L(content.cta, 'desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <Link to={content.cta.btn1_href} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
-                <Link to={content.cta.btn2_href} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
+                <Link to={safeUrl(content.cta.btn1_href)} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
+                <Link to={safeUrl(content.cta.btn2_href)} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
               </div>
             </div>
           </div>

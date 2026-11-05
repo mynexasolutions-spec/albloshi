@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { cdn } from '../lib/img';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -100,9 +101,10 @@ export default function Blog() {
                   <article key={post.id} className="blog-card">
                     <Link to={`/blog/${post.slug}`} className="blog-card-img-wrapper">
                       <img
-                        src={L(post, 'cover_image') || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80'}
+                        src={cdn(L(post, 'cover_image'), 700) || 'https://res.cloudinary.com/dut8h8mt3/image/upload/f_auto,q_auto,c_limit,w_600/v1793904610/albloshi/stock/blog-fallback.jpg'}
                         alt={L(post, 'cover_image_alt') || L(post, 'title')}
                         className="blog-card-img"
+                        width="700" height="440" loading="lazy" decoding="async"
                       />
                       {post.category && <span className="blog-card-tag">{post.category}</span>}
                     </Link>

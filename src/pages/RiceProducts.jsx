@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { cdn } from '../lib/img';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -38,7 +39,7 @@ export default function RiceProducts() {
       <Header />
 
       {/* Hero */}
-      <section className="page-hero" style={{ backgroundImage: 'linear-gradient(135deg, rgba(9, 20, 45, 0.85) 0%, rgba(5, 80, 50, 0.70) 100%), url(https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1920&q=80)' }}>
+      <section className="page-hero" style={{ backgroundImage: 'linear-gradient(135deg, rgba(9, 20, 45, 0.85) 0%, rgba(5, 80, 50, 0.70) 100%), url(https://res.cloudinary.com/dut8h8mt3/image/upload/f_auto,q_auto,c_limit,w_1920/v1793904608/albloshi/stock/rice-hero.jpg)' }}>
         <div className="container">
           <h1>{L(riceProducts, 'title')}</h1>
           <p>{L(riceProducts, 'desc')}</p>
@@ -59,7 +60,7 @@ export default function RiceProducts() {
             {riceProducts.items.map(p => (
               <div key={p.id} className="product-block" id={p.id}>
                 <div style={{ position: 'relative' }}>
-                  <img src={p.image} alt={L(p, 'title')} className="product-block-img" style={{ aspectRatio: '1/1' }} />
+                  <img src={cdn(p.image, 640)} alt={L(p, 'title')} className="product-block-img" width="640" height="640" loading="lazy" decoding="async" style={{ aspectRatio: '1/1' }} />
                 </div>
                 <div className="product-block-body" style={{ padding: '1.25rem' }}>
                   <span className="product-block-tag">{L(p, 'tag')}</span>

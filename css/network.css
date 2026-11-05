@@ -80,7 +80,8 @@
     white-space: nowrap;
 }
 
-.glass-card-dark h4 {
+.glass-card-dark h4,
+.glass-card-dark h3 {
     color: white;
     font-size: 1rem;
     font-weight: 700;

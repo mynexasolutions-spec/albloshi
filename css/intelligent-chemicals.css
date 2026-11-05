@@ -7,7 +7,6 @@
     padding-top: 5rem;
     padding-bottom: 6rem;
     background-color: var(--color-light);
-    background-image: linear-gradient(rgba(248, 250, 252, 0.3), rgba(248, 250, 252, 0.6)), url('/checmical_bg.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -119,7 +118,8 @@
     font-size: 1.2rem;
 }
 
-.bento-feature-card h4 {
+.bento-feature-card h4,
+.bento-feature-card h3 {
     font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: 0.4rem;
@@ -181,7 +181,8 @@
         height: 45px;
         margin-bottom: 1.2rem;
     }
-    .bento-feature-card h4 {
+    .bento-feature-card h4,
+    .bento-feature-card h3 {
         font-size: 1.4rem; /* Further increased size for prominent title presentation */
         margin-bottom: 0.5rem;
     }
@@ -223,7 +224,8 @@
     border: 1px solid rgba(255,255,255,0.2);
 }
 
-.trust-text h5 {
+.trust-text h5,
+.trust-text h4 {
     color: white;
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
@@ -346,4 +348,9 @@
         width: 100%;
         align-items: center;
     }
+}
+
+/* Decorative photo: applied after the app has started (html.bg-ready is set in src/main.jsx). */
+html.bg-ready .intel-process-section {
+    background-image: linear-gradient(rgba(248, 250, 252, 0.3), rgba(248, 250, 252, 0.6)), url('/checmical_bg.webp');
 }

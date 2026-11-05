@@ -1,43 +1,58 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { HelmetProvider } from 'react-helmet-async';
 
 import Home from './pages/Home';
-import Blog from './pages/Blog';
-import BlogPost from './pages/BlogPost';
-import About from './pages/About';
-import IndustrialServices from './pages/IndustrialServices';
-import FoodServices from './pages/FoodServices';
-import IntelligentChemicals from './pages/IntelligentChemicals';
-import TellabsChemicals from './pages/TellabsChemicals';
-import Contact from './pages/Contact';
-import ManpowerSupply from './pages/ManpowerSupply';
-import RiceProducts from './pages/RiceProducts';
-import OilProducts from './pages/OilProducts';
-import Chatbot from './components/Chatbot';
+import Seo from './components/Seo';
+import CookieConsent from './components/CookieConsent';
+import { initAnalytics, trackPageView } from './lib/analytics';
+import { loaders } from './lib/lazyPages';
+import LandingPage from './pages/LandingPage';
 
 import { AuthProvider } from './contexts/AuthContext';
-import AdminGuard from './components/admin/AdminGuard';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminHomeContent from './pages/admin/AdminHomeContent';
-import AdminTeam from './pages/admin/AdminTeam';
-import AdminIndustrialContent from './pages/admin/AdminIndustrialContent';
-import AdminFoodContent from './pages/admin/AdminFoodContent';
-import AdminChemicalsContent from './pages/admin/AdminChemicalsContent';
-import AdminManpowerContent from './pages/admin/AdminManpowerContent';
-import AdminContactSettings from './pages/admin/AdminContactSettings';
-import AdminTellabsContent from './pages/admin/AdminTellabsContent';
-import AdminAboutContent from './pages/admin/AdminAboutContent';
-import AdminLeads from './pages/admin/AdminLeads';
-import AdminBlogs from './pages/admin/AdminBlogs';
-import AdminBlogEditor from './pages/admin/AdminBlogEditor';
+
+// Admin is code-split: nothing from src/pages/admin ships in the public bundle.
+const AdminRoutes = lazy(loaders.AdminRoutes);
+
+// Everything except Home / landing pages is its own chunk (see src/lib/lazyPages.js).
+const Blog = lazy(loaders.Blog);
+const BlogPost = lazy(loaders.BlogPost);
+const About = lazy(loaders.About);
+const IndustrialServices = lazy(loaders.IndustrialServices);
+const FoodServices = lazy(loaders.FoodServices);
+const IntelligentChemicals = lazy(loaders.IntelligentChemicals);
+const TellabsChemicals = lazy(loaders.TellabsChemicals);
+const Contact = lazy(loaders.Contact);
+const ManpowerSupply = lazy(loaders.ManpowerSupply);
+const RiceProducts = lazy(loaders.RiceProducts);
+const OilProducts = lazy(loaders.OilProducts);
+const PrivacyPolicy = lazy(loaders.PrivacyPolicy);
+const Terms = lazy(loaders.Terms);
+const Chatbot = lazy(loaders.Chatbot);
 
 function ChatbotGate() {
   const { pathname } = useLocation();
-  if (pathname.startsWith('/admin')) return null;
-  return <Chatbot />;
+  const [ready, setReady] = useState(false);
+  // The chatbot is not needed for first paint: load it after the page has settled.
+  useEffect(() => {
+    const start = () => setReady(true);
+    const t = setTimeout(() => ('requestIdleCallback' in window ? window.requestIdleCallback(start, { timeout: 3000 }) : start()), 2500);
+    return () => clearTimeout(t);
+  }, []);
+  if (!ready || pathname.startsWith('/admin') || pathname.startsWith('/lp/')) return null;
+  return <Suspense fallback={null}><Chatbot /></Suspense>;
+}
+
+// Reports SPA navigations to GTM (the first load is reported by GTM itself). Admin pages are never tracked.
+function PageViewTracker() {
+  const { pathname } = useLocation();
+  const first = useRef(true);
+  useEffect(() => {
+    if (first.current) { first.current = false; return; }
+    if (!pathname.startsWith('/admin')) trackPageView(pathname);
+  }, [pathname]);
+  return null;
 }
 
 function ScrollToHash() {
@@ -45,6 +60,8 @@ function ScrollToHash() {
 
   useEffect(() => {
     if (hash) {
+      // content-visibility (perf) estimates the height of skipped sections; switch it off so the anchor lands exactly
+      document.documentElement.classList.add('no-cv');
       setTimeout(() => {
         const el = document.querySelector(hash);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -60,12 +77,15 @@ function ScrollToHash() {
 import { LanguageProvider } from './contexts/LanguageContext';
 
 export default function App() {
+  useEffect(() => { initAnalytics(); }, []);
   return (
     <HelmetProvider>
       <LanguageProvider>
         <BrowserRouter>
           <AuthProvider>
             <ScrollToHash />
+            <PageViewTracker />
+            <Seo />
             <Toaster
               position="top-right"
               toastOptions={{
@@ -73,6 +93,7 @@ export default function App() {
                 style: { fontFamily: 'Inter, sans-serif', fontSize: '0.95rem' },
               }}
             />
+            <Suspense fallback={null}>
             <Routes>
               {/* Public site */}
               <Route path="/" element={<Home />} />
@@ -87,25 +108,16 @@ export default function App() {
               <Route path="/manpower-supply" element={<ManpowerSupply />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/lp/:slug" element={<LandingPage />} />
 
-              {/* Admin */}
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin" element={<AdminGuard><AdminDashboard /></AdminGuard>} />
-              <Route path="/admin/home" element={<AdminGuard><AdminHomeContent /></AdminGuard>} />
-              <Route path="/admin/team" element={<AdminGuard><AdminTeam /></AdminGuard>} />
-              <Route path="/admin/verticals/industrial" element={<AdminGuard><AdminIndustrialContent /></AdminGuard>} />
-              <Route path="/admin/verticals/food" element={<AdminGuard><AdminFoodContent /></AdminGuard>} />
-              <Route path="/admin/verticals/chemicals" element={<AdminGuard><AdminChemicalsContent /></AdminGuard>} />
-              <Route path="/admin/verticals/manpower" element={<AdminGuard><AdminManpowerContent /></AdminGuard>} />
-              <Route path="/admin/settings" element={<AdminGuard><AdminContactSettings /></AdminGuard>} />
-              <Route path="/admin/verticals/tellabs" element={<AdminGuard><AdminTellabsContent /></AdminGuard>} />
-              <Route path="/admin/verticals/about" element={<AdminGuard><AdminAboutContent /></AdminGuard>} />
-              <Route path="/admin/leads" element={<AdminGuard><AdminLeads /></AdminGuard>} />
-              <Route path="/admin/blogs" element={<AdminGuard><AdminBlogs /></AdminGuard>} />
-              <Route path="/admin/blogs/new" element={<AdminGuard><AdminBlogEditor /></AdminGuard>} />
-              <Route path="/admin/blogs/:id" element={<AdminGuard><AdminBlogEditor /></AdminGuard>} />
+              {/* Admin (lazy-loaded chunk) */}
+              <Route path="/admin/*" element={<Suspense fallback={null}><AdminRoutes /></Suspense>} />
             </Routes>
+            </Suspense>
             <ChatbotGate />
+            <CookieConsent />
           </AuthProvider>
         </BrowserRouter>
       </LanguageProvider>

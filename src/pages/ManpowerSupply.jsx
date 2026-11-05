@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { safeUrl } from '../lib/safeUrl';
+import { cdn } from '../lib/img';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
@@ -98,9 +100,9 @@ export default function ManpowerSupply() {
 
             <div className="mp-hero-img-card">
               <img
-                src={content.hero.image}
+                src={cdn(content.hero.image, 1000)}
                 alt="Manpower Solutions"
-                loading="eager"
+                width="1000" height="750" fetchpriority="high" decoding="async"
               />
             </div>
           </div>
@@ -141,9 +143,10 @@ export default function ManpowerSupply() {
               <div key={item.id} id={item.id} className="product-block">
                 <div style={{ position: 'relative' }}>
                   <img
-                    src={item.image}
+                    src={cdn(item.image, 640)}
                     alt={L(item, 'title')}
                     className="product-block-img"
+                    width="640" height="640" decoding="async"
                     loading="lazy"
                   />
                 </div>
@@ -151,7 +154,7 @@ export default function ManpowerSupply() {
                   <span className="product-block-tag">
                     {item.category === 'skilled' ? L(content.hero, 'skilled_label') : L(content.hero, 'unskilled_label')}
                   </span>
-                  <h3>{L(item, 'title')}</h3>
+                  <h2>{L(item, 'title')}</h2>
                   <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto', paddingTop: '1rem', flexDirection: 'row' }}>
                     <button
                       onClick={() => setSelectedProduct({
@@ -227,7 +230,7 @@ export default function ManpowerSupply() {
                   <div key={m.id} className="team-card">
                     <div className="team-img-wrapper">
                       {m.img ? (
-                        <img src={m.img} alt={m.name} className="team-img" style={{ objectFit: 'cover' }} />
+                        <img src={m.img} alt={m.name} className="team-img" width="400" height="400" loading="lazy" decoding="async" style={{ objectFit: 'cover' }} />
                       ) : (
                         <svg className="team-img default-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                           <defs>
@@ -265,11 +268,11 @@ export default function ManpowerSupply() {
                 <p>{L(content.cta, 'desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <a href={content.cta.btn1_href} className="btn btn-primary">
+                <a href={safeUrl(content.cta.btn1_href)} className="btn btn-primary">
                   <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px' }}>phone</span>
                   {t('global_cta_call')}
                 </a>
-                <a href={content.cta.btn2_href} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                <a href={safeUrl(content.cta.btn2_href)} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
                   <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px' }}>chat</span>
                   {t('global_cta_whatsapp')}
                 </a>

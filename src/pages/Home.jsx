@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
+import { safeUrl } from '../lib/safeUrl';
 import { Helmet } from 'react-helmet-async';
+import { cdn } from '../lib/img';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,6 +9,7 @@ import MobileFooterBar from '../components/MobileFooterBar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '../lib/supabase';
+import { sanitizeHtml } from '../lib/sanitize';
 import { DEFAULTS, fetchHomeContent } from '../lib/homeContentDefaults';
 
 export default function Home() {
@@ -32,6 +35,16 @@ export default function Home() {
   const reviews = content.testimonials.reviews;
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  // Only fetch hero images for the active slide, the next one, and slides already shown (saves MBs on first load).
+  const [seenSlides, setSeenSlides] = useState([0]);
+  useEffect(() => { setSeenSlides(prev => (prev.includes(currentSlide) ? prev : [...prev, currentSlide])); }, [currentSlide]);
+  // Fetch the NEXT slide's image only ~2s before it is shown (slides rotate every 5.5s), not at page load.
+  const [nextReady, setNextReady] = useState(false);
+  useEffect(() => {
+    setNextReady(false);
+    const t = setTimeout(() => setNextReady(true), 3500);
+    return () => clearTimeout(t);
+  }, [currentSlide]);
   const [touchStart, setTouchStart] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
   const [currentReview, setCurrentReview] = useState(0);
@@ -191,6 +204,10 @@ export default function Home() {
       <Helmet>
         <title>{t('home_meta_title')}</title>
         <meta name="description" content={t('home_meta_desc')} />
+        {/* LCP: tell the browser about the hero image up-front (it is otherwise only discovered from inline CSS) */}
+        {/* Media-scoped so a phone preloads only the small variant (matches the CSS in hero.css) */}
+        {slides[0]?.image && <link rel="preload" as="image" href={cdn(slides[0].image, 900)} media="(max-width: 600px)" fetchpriority="high" />}
+        {slides[0]?.image && <link rel="preload" as="image" href={cdn(slides[0].image, 1600)} media="(min-width: 601px)" fetchpriority="high" />}
       </Helmet>
 
       <Header />
@@ -206,14 +223,17 @@ export default function Home() {
       >
         {slides.map((slide, i) => (
           <div key={slide.id ?? i} className={`slide${currentSlide === i ? ' active' : ''}`}>
-            <div className="slide-bg" style={{ backgroundImage: `url('${slide.image}')` }}></div>
+            <div className="slide-bg" style={(seenSlides.includes(i) || (nextReady && i === (currentSlide + 1) % slides.length)) ? { '--bg-lg': `url('${cdn(slide.image, 1600)}')`, '--bg-sm': `url('${cdn(slide.image, 900)}')` } : undefined}></div>
             <div className="slide-overlay"></div>
             <div className="container">
               <div className="slide-content">
-                <h3>{L(slide, 'subtitle')}</h3>
-                <h1>{L(slide, 'title')}</h1>
+                <div className="slide-subtitle">{L(slide, 'subtitle')}</div>
+                {/* Only the visible slide's title is the page <h1>; the others are styled identically but are not headings */}
+                {currentSlide === i
+                  ? <h1>{L(slide, 'title')}</h1>
+                  : <div className="slide-title">{L(slide, 'title')}</div>}
                 <div className="slide-actions">
-                  <Link to={slide.href} className="btn btn-primary">{L(slide, 'cta')}</Link>
+                  <Link to={safeUrl(slide.href)} className="btn btn-primary">{L(slide, 'cta')}</Link>
                 </div>
               </div>
             </div>
@@ -241,7 +261,7 @@ export default function Home() {
               <div key={i} className="who-f-item">
                 <div className="who-f-icon"><span className="material-icons">{f.icon}</span></div>
                 <div className="who-f-text">
-                  <h4 className="f-label">{L(f, 'label')}</h4>
+                  <h3 className="f-label">{L(f, 'label')}</h3>
                   <p className="f-desc">{L(f, 'desc')}</p>
                 </div>
               </div>
@@ -265,18 +285,18 @@ export default function Home() {
                   .sort((a, b) => b.length - a.length)
                   .map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
                 const desc = L(content.trusted, 'desc');
-                if (!words.length) return desc;
-                return desc.replace(new RegExp(`(${words.join('|')})`, 'g'), '<strong style="color: var(--color-primary); font-weight: 700;">$1</strong>');
+                if (!words.length) return sanitizeHtml(desc);
+                return sanitizeHtml(desc.replace(new RegExp(`(${words.join('|')})`, 'g'), '<strong style="color: var(--color-primary); font-weight: 700;">$1</strong>'));
               })()
             }}
           />
         </div>
         <div className="marquee-outer">
           <div className="marquee-track" ref={marqueeRef}>
-            {[...Array(4)].flatMap((_, rep) =>
+            {[...Array(2)].flatMap((_, rep) =>
               clients.map(c => (
                 <div key={`${rep}-${c.id}`} className="marquee-card">
-                  <img src={c.image} alt={c.name} />
+                  <img src={cdn(c.image, 300)} alt={c.name} width="200" height="120" loading="lazy" decoding="async" />
                 </div>
               ))
             )}
@@ -299,9 +319,9 @@ export default function Home() {
               <Link to="/intelligent-chemicals" className="btn" style={{ padding: '1rem 3rem', fontSize: '1.05rem', borderRadius: '50px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-primary)', color: 'white', border: 'none', boxShadow: '0 10px 25px rgba(27,95,175,0.4)', fontWeight: '700', textDecoration: 'none', transition: 'transform 0.3s ease' }}>{t('know_more')}</Link>
             </div>
             {content.bento.cards.map((card, i) => (
-              <div key={i} className="bento-card bento-feature-card img-bento" style={{ backgroundImage: `url('${card.image}')` }}>
+              <div key={i} className="bento-card bento-feature-card img-bento" style={{ backgroundImage: `url('${cdn(card.image, 800)}')` }}>
                 <div className="bento-icon-small"><span className="material-icons">{card.icon}</span></div>
-                <h4>{L(card, 'title')}</h4>
+                <h3>{L(card, 'title')}</h3>
                 <p>{L(card, 'desc')}</p>
               </div>
             ))}
@@ -310,7 +330,7 @@ export default function Home() {
             <div className="intel-trust-left">
               <span className="material-icons trust-shield">security</span>
               <div className="trust-text">
-                <h5>{L(content.bento, 'trust_title')}</h5>
+                <h4>{L(content.bento, 'trust_title')}</h4>
                 <p>{L(content.bento, 'trust_subtitle')}</p>
               </div>
             </div>
@@ -332,11 +352,11 @@ export default function Home() {
           </div>
           <div className="verticals-bento-grid">
             {content.verticals.cards.map((card, i) => (
-              <div key={i} className={`v-card img-bento${i === 0 ? ' dark-overlay' : ''}`} style={{ backgroundImage: `url('${card.image}')` }}>
+              <div key={i} className={`v-card img-bento${i === 0 ? ' dark-overlay' : ''}`} style={{ backgroundImage: `url('${cdn(card.image, 900)}')` }}>
                 <div className="v-content">
                   <h3>{L(card, 'title')}</h3>
                   <p>{L(card, 'desc')}</p>
-                  <Link to={card.href} className="v-link">{L(card, 'link')}</Link>
+                  <Link to={safeUrl(card.href)} className="v-link">{L(card, 'link')}<span className="sr-only"> - {L(card, 'title')}</span></Link>
                 </div>
               </div>
             ))}
@@ -354,7 +374,7 @@ export default function Home() {
           <div className="reasons-bento-grid">
             {content.why_choose_us.reasons.map((r, i) => (
               <div key={i} className={`r-card${r.large ? ' r-large' : ''}`}>
-                <div className="r-img-wrapper"><img src={r.image} alt={L(r, 'title')} /></div>
+                <div className="r-img-wrapper"><img src={cdn(r.image, 700)} alt={L(r, 'title')} width="700" height="500" loading="lazy" decoding="async" /></div>
                 <div className="r-content-wrapper">
                   <div className="r-content">
                     <h3>{L(r, 'title')}</h3>
@@ -373,13 +393,13 @@ export default function Home() {
           <h2 className="section-title center text-white" style={{ marginBottom: '1rem' }}>{L(content.network, 'title')}</h2>
           <p className="large-para text-white-80" style={{ maxWidth: '800px', margin: '0 auto 3.5rem' }}>{L(content.network, 'desc')}</p>
           <div className="network-interactive-map">
-            <img src={content.network.map_image} alt="Distribution Map" className="network-map-bg" />
+            <img src={cdn(content.network.map_image, 1400)} alt="Distribution Map" className="network-map-bg" width="1400" height="700" loading="lazy" decoding="async" />
             <div className="map-overlay-dark"></div>
             {content.network.cards.map((c, i) => (
               <div key={c.position_class ?? i} className={`map-floating-card ${c.position_class}`}>
                 <div className="pulse-dot"></div>
                 <div className="card-content glass-card-dark">
-                  <h4>{L(c, 'title')}</h4>
+                  <h3>{L(c, 'title')}</h3>
                   <span>{L(c, 'sub')}</span>
                 </div>
               </div>
@@ -403,7 +423,7 @@ export default function Home() {
                   <div key={r.id ?? i} className="review-card">
                     <blockquote className="review-text">{L(r, 'quote')}</blockquote>
                     <div className="review-author">
-                      <img src={r.image} alt={r.name} className="review-author-img" />
+                      <img src={cdn(r.image, 120)} alt={r.name} className="review-author-img" width="50" height="50" loading="lazy" decoding="async" />
                       <div>
                         <div className="review-author-name">{r.name}</div>
                         <div className="review-author-title">{L(r, 'title')}</div>
@@ -469,8 +489,8 @@ export default function Home() {
                 <p>{L(content.cta, 'desc')}</p>
               </div>
               <div className="blog-cta-actions">
-                <Link to={content.cta.btn1_href} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
-                <Link to={content.cta.btn2_href} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
+                <Link to={safeUrl(content.cta.btn1_href)} className="btn btn-primary">{L(content.cta, 'btn1')}</Link>
+                <Link to={safeUrl(content.cta.btn2_href)} className="btn btn-outline">{L(content.cta, 'btn2')}</Link>
               </div>
             </div>
           </div>

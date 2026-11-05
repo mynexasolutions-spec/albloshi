@@ -31,7 +31,7 @@ export async function fetchSiteSettings(supabase) {
 
 // Site branding (logo) — shared across Header and Footer.
 export const BRANDING_DEFAULTS = {
-  logo: '/logo-png.png',
+  logo: '/logo-300.webp',
 };
 
 export async function fetchBranding(supabase) {

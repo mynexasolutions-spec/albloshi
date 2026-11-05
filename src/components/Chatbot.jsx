@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { sanitizeHtml } from '../lib/sanitize';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '../lib/supabase';
@@ -642,7 +643,7 @@ export default function Chatbot() {
               }
               if (msg.type === 'bot') {
                 return msg.isHtml
-                  ? <div key={msg.id} className="chatbot-bubble bot" dangerouslySetInnerHTML={{ __html: msg.text }} />
+                  ? <div key={msg.id} className="chatbot-bubble bot" dangerouslySetInnerHTML={{ __html: sanitizeHtml(msg.text) }} />
                   : <div key={msg.id} className="chatbot-bubble bot">{msg.text}</div>;
               }
               if (msg.type === 'whatsapp') {

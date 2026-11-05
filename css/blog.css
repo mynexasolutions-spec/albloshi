@@ -4,7 +4,7 @@
 .blog-banner {
     position: relative;
     padding: 9rem 0 6rem;
-    background-image: url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1920&q=80');
+    background-image: url('https://res.cloudinary.com/dut8h8mt3/image/upload/f_auto,q_auto,c_limit,w_1200/v1793904602/albloshi/stock/blog-bg.jpg');
     background-size: cover;
     background-position: center;
     display: flex;

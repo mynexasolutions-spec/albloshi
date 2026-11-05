@@ -34,7 +34,8 @@ footer.bg-dark-section::before {
     color: rgba(255, 255, 255, 0.8);
 }
 
-.footer-col h4 {
+.footer-col h4,
+.footer-col h3 {
     font-family: var(--font-sans);
     font-size: 1rem;
     font-weight: 700;
@@ -88,7 +89,7 @@ footer.bg-dark-section::before {
 .footer-bottom {
     padding: 2rem 0;
     font-size: 0.85rem;
-    color: #000000;
+    color: rgba(255, 255, 255, 0.75);
 }
 
 .footer-bottom .container {
@@ -103,7 +104,7 @@ footer.bg-dark-section::before {
 }
 
 .footer-bottom-links a {
-    color: #000000;
+    color: rgba(255, 255, 255, 0.75);
 }
 
 .footer-bottom-links a:hover {

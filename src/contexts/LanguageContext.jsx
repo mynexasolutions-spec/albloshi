@@ -12,6 +12,14 @@ export function LanguageProvider({ children }) {
     localStorage.setItem('site_lang', language);
     document.documentElement.lang = language;
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+    if (language === 'ar' && !document.getElementById('font-cairo')) {
+      // Arabic font is only downloaded for Arabic visitors
+      const link = document.createElement('link');
+      link.id = 'font-cairo';
+      link.rel = 'stylesheet';
+      link.href = 'https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap';
+      document.head.appendChild(link);
+    }
     if (language === 'ar') {
       document.body.classList.add('rtl');
     } else {

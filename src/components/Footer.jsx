@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { cdn } from '../lib/img';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '../lib/supabase';
 import { DEFAULTS, fetchSiteSettings, BRANDING_DEFAULTS, fetchBranding } from '../lib/siteSettingsDefaults';
 
 export default function Footer() {
   const { t, language } = useLanguage();
-  const location = useLocation();
-  const isHome = location.pathname === '/';
-  const hashLink = (hash) => isHome ? hash : `/${hash}`;
 
   const [settings, setSettings] = useState(DEFAULTS);
   const [branding, setBranding] = useState(BRANDING_DEFAULTS);
@@ -26,14 +24,14 @@ export default function Footer() {
           <div className="footer-grid">
             <div className="footer-col footer-brand">
               <Link to="/" className="logo-container">
-                <img src={branding.logo} alt="ALBLOSHI" className="footer-logo" style={{ filter: 'brightness(0) invert(1)' }} />
+                <img src={cdn(branding.logo, 300)} alt="ALBLOSHI" className="footer-logo" width="818" height="447" loading="lazy" style={{ filter: 'brightness(0) invert(1)' }} />
               </Link>
               <p>{t('footer_desc')}</p>
               <span style={{ fontSize: '0.8rem', color: '#64748B' }}>{t('cr_number')}: {settings.cr_number}</span>
             </div>
 
             <div className="footer-col">
-              <h4>{t('business_segments')}</h4>
+              <h3>{t('business_segments')}</h3>
               <ul className="footer-links">
                 <li><Link to="/industrial-services">{t('industrial_materials')}</Link></li>
                 <li><Link to="/intelligent-chemicals">{t('tellabs_chemicals')}</Link></li>
@@ -43,7 +41,7 @@ export default function Footer() {
             </div>
 
             <div className="footer-col">
-              <h4>{t('products_catalog')}</h4>
+              <h3>{t('products_catalog')}</h3>
               <ul className="footer-links">
                 <li><Link to="/industrial-services#products">{t('seamless_pipes')}</Link></li>
                 <li><Link to="/industrial-services#products">{t('valves_flanges_short')}</Link></li>
@@ -54,7 +52,7 @@ export default function Footer() {
             </div>
 
             <div className="footer-col">
-              <h4>{t('corporate_offices')}</h4>
+              <h3>{t('corporate_offices')}</h3>
               <div className="footer-contact-item">
                 <span className="material-icons footer-contact-icon">phone_in_talk</span>
                 <p className="footer-contact-text">
@@ -86,9 +84,9 @@ export default function Footer() {
           <p>&copy; {new Date().getFullYear()} {t('all_rights_reserved')}</p>
           <div className="footer-bottom-links">
             <Link to="/blog">{t('company_blog')}</Link>
-            <a href={hashLink('#faq')}>{t('terms_sourcing')}</a>
-            <a href={hashLink('#contact')}>{t('compliance_certs')}</a>
-            <a href={hashLink('#faq')}>{t('privacy_policy')}</a>
+            <Link to="/terms">{t('terms_of_service')}</Link>
+            <Link to="/privacy-policy">{t('privacy_policy')}</Link>
+            <button type="button" className="footer-link-btn" onClick={() => window.dispatchEvent(new Event('open-cookie-settings'))}>{t('cookie_settings')}</button>
           </div>
         </div>
       </div>

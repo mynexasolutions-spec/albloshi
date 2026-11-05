@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { cdn } from '../lib/img';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '../lib/supabase';
@@ -79,7 +80,7 @@ export default function Header() {
     <header className={`main-header${scrolled ? ' scrolled' : ''}`}>
       <div className="container">
         <Link to="/" className="logo-container">
-          <img src={branding.logo} alt="ALBLOSHI" className="nav-logo" />
+          <img src={cdn(branding.logo, 300)} alt="ALBLOSHI" className="nav-logo" width="818" height="447" />
         </Link>
 
         <nav className="nav-menu-wrapper" ref={menuRef}>

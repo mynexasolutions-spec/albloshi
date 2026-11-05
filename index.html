@@ -24,14 +24,32 @@
   <meta property="twitter:description" content="Mohammed Abdullah Al Bloshi Co. is a premium multi-industry Saudi enterprise operating across 4 key verticals: Intelligent Chemicals, Industrial Materials, Food Distribution, and Manpower Supply." />
   <meta property="twitter:image" content="https://www.albloshi.co/logo-png.png" />
 
-  <!-- Google Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-
-  <!-- Google Fonts (Poppins + Inter) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Fonts: connect early. icons and text fonts both load without blocking first paint (icon names are hidden until the icon font CSS is in, see css/legal.css) (swapped in by /async-css.js, CSP-safe). -->
+  <!-- Hero images come from Cloudinary: open that connection immediately -->
+  <link rel="preconnect" href="https://res.cloudinary.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link data-async-css data-icons rel="stylesheet" media="print" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" /><style>.material-icons{color:inherit!important}</style></noscript>
+  <link data-async-css rel="stylesheet" media="print" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" /></noscript>
+  <script src="/async-css.js" defer></script>
 </head>
 <body>
   <div id="root"></div>
+  <noscript>
+    <p><strong>ALBLOSHI &ndash; Mohammed Abdullah Al Bloshi Co.</strong></p>
+    <p>A multi-industry Saudi enterprise operating across Intelligent Chemicals, Industrial Materials, Food Distribution and Manpower Supply, based in Dammam, Eastern Province.</p>
+    <nav>
+      <a href="/intelligent-chemicals">Intelligent Chemicals</a> |
+      <a href="/industrial-services">Industrial Materials</a> |
+      <a href="/food-services">Food Distribution</a> |
+      <a href="/manpower-supply">Manpower Supply</a> |
+      <a href="/about">About</a> |
+      <a href="/blog">Blog</a> |
+      <a href="/contact">Contact</a>
+    </nav>
+  </noscript>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

@@ -53,13 +53,16 @@ export default function AdminLeads() {
     setDeleting(null);
   };
 
+  // Leads are public input: a cell starting with = + - @ would run as a formula when opened in Excel/Sheets.
+  const csvSafe = (c) => { const v = String(c ?? ''); return /^[=+\-@\t\r]/.test(v) ? `'${v}` : v; };
+
   const exportCSV = () => {
     const headers = ['Name', 'Email', 'Phone', 'Division', 'Message', 'Status', 'Date'];
     const rows = filtered.map(l => [
       l.name, l.email, l.phone ?? '', l.service ?? '', (l.message ?? '').replace(/\n/g, ' '), l.status ?? 'new',
       new Date(l.created_at).toLocaleDateString('en-GB'),
     ]);
-    const csv = [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+    const csv = [headers, ...rows].map(r => r.map(c => `"${csvSafe(c).replace(/"/g, '""')}"`).join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const url  = URL.createObjectURL(blob);
     const a    = document.createElement('a');
