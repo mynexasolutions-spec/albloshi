@@ -270,7 +270,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trusted Section */}
+      {/* Trusted Section (can be hidden from the admin panel) */}
+      {content.trusted.visible !== false && (
       <section className="trusted-section section-padding" style={{ background: 'radial-gradient(circle at center, #f4f8ff 0%, #eaf1fa 100%)' }}>
         <div className="container text-center">
           <h2 className="section-title center" style={{ marginBottom: '1rem', color: '#0b2246' }}>{L(content.trusted, 'title_l1')}<br />{L(content.trusted, 'title_l2')}</h2>
@@ -303,6 +304,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Intelligent Chemicals Bento */}
       <section className="intel-process-section section-padding" style={{ backgroundColor: 'var(--color-light)' }}>

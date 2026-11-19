@@ -57,6 +57,8 @@ export const DEFAULTS = {
   },
 
   trusted: {
+    // false = the whole "Trusted by" section (heading + logo marquee) is hidden on the Home page.
+    visible: true,
     title_l1_en: 'Trusted by leading companies',
     title_l1_ar: 'موثوق به من قبل الشركات الرائدة',
     title_l2_en: 'around the world',

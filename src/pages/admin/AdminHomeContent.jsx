@@ -528,8 +528,23 @@ export default function AdminHomeContent() {
   const renderClients = () => {
     const lang = langs.clients;
     const trusted = sections.trusted;
+    const isVisible = trusted.visible !== false;
     return (
       <>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap', marginBottom: '1.25rem', padding: '0.85rem 1rem', borderRadius: 10, border: `1px solid ${isVisible ? '#bbf7d0' : '#fecaca'}`, background: isVisible ? '#f0fdf4' : '#fef2f2' }}>
+          <div>
+            <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#0f172a' }}>Show this section on the Home page</div>
+            <div style={{ fontSize: '0.72rem', color: '#64748b', marginTop: 2 }}>
+              {isVisible ? 'Visible — the heading and logo marquee are shown to visitors.' : 'Hidden — visitors will not see this section. Your content below is kept.'} Click "Save Section" to apply.
+            </div>
+          </div>
+          <button type="button" role="switch" aria-checked={isVisible} aria-label="Show Trusted By section on Home page"
+            onClick={() => setField('trusted', 'visible', !isVisible)}
+            style={{ width: 48, height: 26, borderRadius: 13, border: 'none', cursor: 'pointer', position: 'relative', background: isVisible ? '#16a34a' : '#cbd5e1', transition: 'background 0.2s', flexShrink: 0 }}>
+            <span style={{ position: 'absolute', top: 3, left: isVisible ? 25 : 3, width: 20, height: 20, borderRadius: '50%', background: 'white', transition: 'left 0.2s', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }} />
+          </button>
+        </div>
+
         <div style={{ marginBottom: '1.5rem', paddingBottom: '1.25rem', borderBottom: '1px solid #f1f5f9' }}>
           <p style={{ fontSize: '0.72rem', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 0.75rem' }}>Heading above the logos</p>
           <Field label={`Title Line 1 (${lang.toUpperCase()})`}><input dir={lang === 'ar' ? 'rtl' : 'ltr'} value={trusted[`title_l1_${lang}`]} onChange={e => setField('trusted', `title_l1_${lang}`, e.target.value)} style={inp()} {...focusHandlers} /></Field>
